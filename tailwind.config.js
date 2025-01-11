@@ -10,7 +10,7 @@ export default {
         }
       },
       animation: {
-        'spin-slow': 'vibrate 1s linear infinite',
+        'bounce-slow': 'vibrate 1s linear infinite',
       }
     },
     screens: {

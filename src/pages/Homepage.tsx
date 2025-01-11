@@ -14,6 +14,7 @@ import ThemeSwitcher from "../components/ThemeSwitcher";
 import { TbMessageChatbot } from "react-icons/tb";
 import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import BlogCard from "../components/BlogCard";
 
 const Homepage = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -321,9 +322,14 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                <div className="text-3xl font-bold tracking-wide text-center mb-3">Recent Blogs</div>
+                    <div className="text-3xl font-bold tracking-wide text-center mb-3">Recent Blogs</div>
                     <div className="text-center text-base-content opacity-80 mb-8 text-lg">
                         Visit our most popular categories which is mind-blowing
+                    </div>
+                    <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
+                        {[...Array(5)].map((_, i) => (
+                            <BlogCard key={i} />
+                        ))}
                     </div>
                 </div>
             </div>
