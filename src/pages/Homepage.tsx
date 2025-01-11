@@ -24,7 +24,7 @@ const Homepage = () => {
 
     return (
         <div>
-            <div className="navbar bg-base-100 border-b border-base-300 sticky top-0 z-[1]">
+            <div className="navbar bg-base-100 border-b border-base-300 sticky top-0 z-[2]">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <button className="btn btn-ghost btn-circle" onClick={toggleDrawer}>
@@ -166,7 +166,7 @@ const Homepage = () => {
                                         alt=""
                                         className="absolute top-0 left-0 h-64 w-full object-cover opacity-0 group-hover:opacity-100 sm:h-72 transform scale-x-[-1]"
                                     />
-                                    <button className="absolute end-4 top-4 z-10 rounded-full btn btn-square btn-sm btn-secondary translate-x-16 group-hover:translate-x-0 transition duration-300">
+                                    <button className="absolute end-4 top-4 z-[1] rounded-full btn btn-square btn-sm btn-secondary translate-x-16 group-hover:translate-x-0 transition duration-300">
                                         <span className="sr-only">Wishlist</span>
                                         <FiHeart className="size-4" />
                                     </button>
