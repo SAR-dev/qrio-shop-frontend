@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RiMenu2Fill, RiSearchLine, RiNotificationLine, RiExchangeFundsFill } from "react-icons/ri";
+import { RiMenu2Fill, RiSearchLine, RiExchangeFundsFill } from "react-icons/ri";
 import { GrBlog } from "react-icons/gr";
 import { LuBadgeHelp } from "react-icons/lu";
 import { PiContactlessPaymentLight } from "react-icons/pi";
