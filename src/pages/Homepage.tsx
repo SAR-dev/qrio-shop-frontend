@@ -312,13 +312,18 @@ const Homepage = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[...Array(2)].map((_, i) => (
                             <PromotionProductCard key={i} />
                         ))}
+                    </div>
+                </div>
+                <div>
+                <div className="text-3xl font-bold tracking-wide text-center mb-3">Recent Blogs</div>
+                    <div className="text-center text-base-content opacity-80 mb-8 text-lg">
+                        Visit our most popular categories which is mind-blowing
                     </div>
                 </div>
             </div>
