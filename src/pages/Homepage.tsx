@@ -121,7 +121,7 @@ const Homepage = () => {
                         <div className="font-semibold">Free Shipping</div>
                         <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
                     </div>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 items-end xl:items-start">
                         <RiExchangeFundsFill className="size-16" />
                         <div className="font-semibold">Exchanges</div>
                         <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
@@ -131,7 +131,7 @@ const Homepage = () => {
                         <div className="font-semibold">Customer Support</div>
                         <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
                     </div>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 items-end xl:items-start">
                         <TbCardboards className="size-16" />
                         <div className="font-semibold">Gift Cards</div>
                         <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
