@@ -54,32 +54,32 @@ const Homepage = () => {
                 className=''
             >
                 <div className="h-full bg-base-200">
-                <div className="flex flex-col">
-                    <label className="input input-bordered rounded-none flex items-center gap-2 px-5">
-                        <input type="text" className="grow" placeholder="Search" />
-                        <RiSearchLine className="h-4 w-4 opacity-70" />
-                    </label>
-                    <button className="btn gap-3 rounded-none justify-start">
-                        <FiShoppingBag className="h-4 w-4" />
-                        Shop
-                    </button>
-                    <button className="btn gap-3 rounded-none justify-start">
-                        <GrBlog className="h-4 w-4" />
-                        Blogs
-                    </button>
-                    <button className="btn gap-3 rounded-none justify-start">
-                        <FiShoppingCart className="h-4 w-4" />
-                        Cart
-                    </button>
-                    <button className="btn gap-3 rounded-none justify-start">
-                        <LuBadgeHelp className="h-4 w-4" />
-                        About Us
-                    </button>
-                    <button className="btn gap-3 rounded-none justify-start">
-                        <PiContactlessPaymentLight className="h-4 w-4" />
-                        Contact Us
-                    </button>
-                </div>
+                    <div className="flex flex-col">
+                        <label className="input input-bordered rounded-none flex items-center gap-2 px-5">
+                            <input type="text" className="grow" placeholder="Search" />
+                            <RiSearchLine className="h-4 w-4 opacity-70" />
+                        </label>
+                        <button className="btn gap-3 rounded-none justify-start">
+                            <FiShoppingBag className="h-4 w-4" />
+                            Shop
+                        </button>
+                        <button className="btn gap-3 rounded-none justify-start">
+                            <GrBlog className="h-4 w-4" />
+                            Blogs
+                        </button>
+                        <button className="btn gap-3 rounded-none justify-start">
+                            <FiShoppingCart className="h-4 w-4" />
+                            Cart
+                        </button>
+                        <button className="btn gap-3 rounded-none justify-start">
+                            <LuBadgeHelp className="h-4 w-4" />
+                            About Us
+                        </button>
+                        <button className="btn gap-3 rounded-none justify-start">
+                            <PiContactlessPaymentLight className="h-4 w-4" />
+                            Contact Us
+                        </button>
+                    </div>
                 </div>
             </Drawer>
             <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-12">
@@ -138,10 +138,10 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[...Array(2)].map((_, i) => (
                             <PromotionProductCard key={i} />
-                        )) }
+                        ))}
                     </div>
                 </div>
                 <div>
@@ -190,10 +190,10 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[...Array(2)].map((_, i) => (
                             <PromotionProductCard key={i} />
-                        )) }
+                        ))}
                     </div>
                 </div>
                 <div>
@@ -310,10 +310,10 @@ const Homepage = () => {
 
                 </div>
                 <div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[...Array(2)].map((_, i) => (
                             <PromotionProductCard key={i} />
-                        )) }
+                        ))}
                     </div>
                 </div>
             </div>
