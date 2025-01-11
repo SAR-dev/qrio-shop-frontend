@@ -2,7 +2,6 @@ import { useState } from "react";
 import { RiMenu2Fill, RiSearchLine, RiExchangeFundsFill } from "react-icons/ri";
 import { GrBlog } from "react-icons/gr";
 import { LuBadgeHelp } from "react-icons/lu";
-import { PiContactlessPaymentLight } from "react-icons/pi";
 import { FiShoppingBag, FiShoppingCart, FiHeart } from "react-icons/fi";
 import { BsCartPlus } from "react-icons/bs";
 import { TbTagMinus } from "react-icons/tb";
@@ -10,9 +9,9 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { TbCardboards } from "react-icons/tb";
 import Drawer from 'react-modern-drawer';
-import 'react-modern-drawer/dist/index.css';
 import PromotionProductCard from "../components/PromotionProductCard";
 import ThemeSwitcher from "../components/ThemeSwitcher";
+import { TbMessageChatbot } from "react-icons/tb";
 
 const Homepage = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -75,7 +74,7 @@ const Homepage = () => {
                             About Us
                         </button>
                         <button className="btn gap-3 justify-start">
-                            <PiContactlessPaymentLight className="size-5" />
+                            <TbMessageChatbot className="size-5" />
                             Contact Us
                         </button>
                     </div>
