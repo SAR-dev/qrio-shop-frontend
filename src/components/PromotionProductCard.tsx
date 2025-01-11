@@ -1,6 +1,6 @@
 const PromotionProductCard = () => {
     return (
-        <div className="card flex-col lg:flex-row gap-5 justify-between bg-warning py-5 px-10 group">
+        <div className="card flex-col lg:flex-row gap-5 justify-between bg-warning/25 py-5 px-10 group">
             <img
                 className="h-48 lg:h-64 object-contain group-hover:animate-bounce-slow"
                 src="https://www.minitopia.com.au/cdn/shop/files/FUN80395--My-Hero-Academia-Nana-Shimura-Pop_-01_600x.png?v=1729820482"
