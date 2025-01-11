@@ -201,7 +201,7 @@ const Homepage = () => {
                     <div className="text-center text-base-content opacity-80 mb-8 text-lg">
                         Visit our most popular categories which is mind-blowing
                     </div>
-                    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 text-black text-xl font-semibold">
                         <div className="grid gap-4">
                             <div className="relative">
                                 <img
