@@ -4,7 +4,6 @@ import { GrBlog } from "react-icons/gr";
 import { LuBadgeHelp } from "react-icons/lu";
 import { FiShoppingBag, FiShoppingCart, FiHeart } from "react-icons/fi";
 import { BsCartPlus } from "react-icons/bs";
-import { TbTagMinus } from "react-icons/tb";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlineExplore, MdOutlineSupportAgent } from "react-icons/md";
 import { TbCardboards } from "react-icons/tb";
@@ -46,9 +45,6 @@ const Homepage = () => {
                     <ThemeSwitcher />
                 </div>
             </div>
-            <div className="drawer">
-                <div className="drawer-side"></div>
-            </div>
             <Drawer
                 open={showDrawer}
                 onClose={toggleDrawer}
@@ -83,7 +79,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </Drawer>
-            <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-12">
+            <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-20">
                 <div>
                     <div className="grid lg:grid-cols-2 place-items-center">
                         <div className="md:py-6 lg:order-1 md:block">
@@ -118,7 +114,7 @@ const Homepage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 pb-20">
+                <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 xl:pb-20">
                     <div className="flex flex-col gap-3">
                         <TbTruckDelivery className="size-16" />
                         <div className="font-semibold">Free Shipping</div>
@@ -174,16 +170,10 @@ const Homepage = () => {
                                 </div>
                                 <div className="py-3 flex flex-col gap-3">
                                     <div className="flex justify-between">
-                                        <div className="flex gap-3 items-center">
-                                            <div className="card flex-row gap-2 bg-warning text-sm text-warning-content font-semibold tracking-wider leading-6 flex items-center h-6 w-fit px-3">
-                                                BDT 400
-                                            </div>
-                                            <div className="text-xs line-through">BDT 500</div>
+                                        <div className="card flex-row bg-warning text-sm text-warning-content font-semibold tracking-wider leading-6 items-center h-6 w-fit px-3">
+                                            BDT 400
                                         </div>
-                                        <div className="text-sm font-semibold text-error flex items-center gap-1">
-                                            <TbTagMinus className="h-4 w-4" />
-                                            -25%
-                                        </div>
+                                        <div className="text-sm line-through">BDT 500</div>
                                     </div>
                                     <button className="btn btn-neutral group-hover:btn-warning w-full text-xs shadow-none space-x-2 hover:ring-2 hover:ring-warning hover:ring-offset-2 hover:ring-offset-base-100 transition duration-300">
                                         <BsCartPlus className="h-4 w-4" />
