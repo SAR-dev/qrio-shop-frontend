@@ -22,7 +22,7 @@ const Homepage = () => {
 
     return (
         <div>
-            <div className="navbar bg-base-100 border-b border-base-300">
+            <div className="navbar bg-base-100 border-b border-base-300 sticky top-0 z-[1]">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <button className="btn btn-ghost btn-circle" onClick={toggleDrawer}>
@@ -53,30 +53,29 @@ const Homepage = () => {
                 direction='left'
                 className=''
             >
-                <div className="h-full bg-base-200">
-                    <div className="flex flex-col">
-                        <label className="input input-bordered rounded-none flex items-center gap-2 px-5">
+                <div className="h-full bg-base-200 p-3">
+                    <div className="flex flex-col gap-1">
+                        <label className="input input-bordered flex items-center gap-2 px-5">
                             <input type="text" className="grow" placeholder="Search" />
-                            <RiSearchLine className="h-4 w-4 opacity-70" />
                         </label>
-                        <button className="btn gap-3 rounded-none justify-start">
-                            <FiShoppingBag className="h-4 w-4" />
+                        <button className="btn gap-3 justify-start">
+                            <FiShoppingBag className="size-5" />
                             Shop
                         </button>
-                        <button className="btn gap-3 rounded-none justify-start">
-                            <GrBlog className="h-4 w-4" />
+                        <button className="btn gap-3 justify-start">
+                            <GrBlog className="size-5" />
                             Blogs
                         </button>
-                        <button className="btn gap-3 rounded-none justify-start">
-                            <FiShoppingCart className="h-4 w-4" />
+                        <button className="btn gap-3 justify-start">
+                            <FiShoppingCart className="size-5" />
                             Cart
                         </button>
-                        <button className="btn gap-3 rounded-none justify-start">
-                            <LuBadgeHelp className="h-4 w-4" />
+                        <button className="btn gap-3 justify-start">
+                            <LuBadgeHelp className="size-5" />
                             About Us
                         </button>
-                        <button className="btn gap-3 rounded-none justify-start">
-                            <PiContactlessPaymentLight className="h-4 w-4" />
+                        <button className="btn gap-3 justify-start">
+                            <PiContactlessPaymentLight className="size-5" />
                             Contact Us
                         </button>
                     </div>
@@ -163,7 +162,7 @@ const Homepage = () => {
                                         alt=""
                                         className="absolute top-0 left-0 h-64 w-full object-cover opacity-0 group-hover:opacity-100 sm:h-72 transform scale-x-[-1]"
                                     />
-                                    <button className="absolute end-4 top-4 z-10 rounded-full btn btn-square btn-sm translate-x-16 group-hover:translate-x-0 transition duration-300">
+                                    <button className="absolute end-4 top-4 z-10 rounded-full btn btn-square btn-sm btn-secondary translate-x-16 group-hover:translate-x-0 transition duration-300">
                                         <span className="sr-only">Wishlist</span>
                                         <FiHeart className="size-4" />
                                     </button>
