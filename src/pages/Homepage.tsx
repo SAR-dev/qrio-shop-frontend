@@ -185,7 +185,7 @@ const Homepage = () => {
                                             -25%
                                         </div>
                                     </div>
-                                    <button className="btn btn-neutral group-hover:btn-warning w-full text-xs shadow-none space-x-2 group-hover:ring-2 group-hover:ring-warning group-hover:ring-offset-2 group-hover:ring-offset-base-100 transition duration-300">
+                                    <button className="btn btn-neutral group-hover:btn-warning w-full text-xs shadow-none space-x-2 hover:ring-2 hover:ring-warning hover:ring-offset-2 hover:ring-offset-base-100 transition duration-300">
                                         <BsCartPlus className="h-4 w-4" />
                                         ADD TO CART
                                     </button>

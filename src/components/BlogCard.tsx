@@ -1,6 +1,6 @@
 const BlogCard = () => {
     return (
-        <div className="flex flex-col lg:flex-row gap-5 group bg-base-200">
+        <div className="flex flex-col lg:flex-row gap-5 group">
             <img
                 className="h-64 w-full lg:w-96 object-cover"
                 src="https://cdn.animenewsnetwork.com/thumbnails/crop900x350gH0/cms/review/219692/kamierabis2.jpg"
