@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { RiMenu2Fill, RiSearchLine, RiNotificationLine } from "react-icons/ri";
+import { RiMenu2Fill, RiSearchLine, RiNotificationLine, RiExchangeFundsFill } from "react-icons/ri";
 import { GrBlog } from "react-icons/gr";
 import { LuBadgeHelp } from "react-icons/lu";
 import { PiContactlessPaymentLight } from "react-icons/pi";
-import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
+import { FiShoppingBag, FiShoppingCart, FiHeart } from "react-icons/fi";
+import { BsCartPlus } from "react-icons/bs";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { TbTruckDelivery } from "react-icons/tb";
+import { MdOutlineSupportAgent } from "react-icons/md";
+import { TbCardboards } from "react-icons/tb";
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 
@@ -78,9 +83,9 @@ const Homepage = () => {
                     </button>
                 </div>
             </Drawer>
-            <div className="pb-12">
-                <div className="max-w-screen-xl mx-auto px-5">
-                    <main className="grid lg:grid-cols-2 place-items-center py-12">
+            <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-12">
+                <div>
+                    <div className="grid lg:grid-cols-2 place-items-center">
                         <div className="md:py-6 lg:order-1 md:block">
                             <picture>
                                 <img
@@ -101,7 +106,7 @@ const Homepage = () => {
                                 website with this starter.
                             </p>
                             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                                <button className="btn btn-neutral btn-lg sm:w-1/2 lg:w-auto">
+                                <button className="btn btn-neutral btn-lg sm:w-1/2 lg:w-auto shadow-none">
                                     Shop Now
                                 </button>
                                 <button className="btn btn-neutral btn-outline btn-lg sm:w-1/2 lg:w-auto">
@@ -109,23 +114,187 @@ const Homepage = () => {
                                 </button>
                             </div>
                         </div>
-                    </main>
+                    </div>
                 </div>
-                <div className="max-w-screen-xl mx-auto px-5">
-                    <div className="grid grid-rows-2 grid-cols-4 gap-5">
-                        <div className="card row-span-2 col-span-2 border border-base-300 aspect-square relative group overflow-hidden">
-                            <img className="absolute h-full w-full object-center group-hover:scale-110 transition ease-in-out" src="https://qrioshop.com/wp-content/uploads/2024/10/5-300x300.jpg" alt="" />
-                            <div className="uppercase absolute bottom-0 left-0 p-5 text-2xl font-semibold group-hover:-translate-y-5 transition ease-in-out">Avengers</div>
-                            <div className="absolute bottom-0 left-0 px-5 translate-y-5 group-hover:-translate-y-3 transition ease-in-out">6 Products</div>
-                        </div>
-                        {[...Array(4)].map((_, i) => (
-                            <div className="card border border-base-300 aspect-square relative group overflow-hidden" key={i}>
-                                <img className="absolute h-full w-full object-center group-hover:scale-110 transition ease-in-out" src="https://qrioshop.com/wp-content/uploads/2024/10/5-300x300.jpg" alt="" />
-                                <div className="uppercase absolute bottom-0 left-0 p-5 text-2xl font-semibold group-hover:-translate-y-5 transition ease-in-out">Avengers</div>
-                            <div className="absolute bottom-0 left-0 px-5 translate-y-5 group-hover:-translate-y-3 transition ease-in-out">6 Products</div>
+                <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 pb-20">
+                    <div className="flex flex-col gap-3">
+                        <TbTruckDelivery className="size-16" />
+                        <div className="font-semibold">Free Shipping</div>
+                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <RiExchangeFundsFill className="size-16" />
+                        <div className="font-semibold">Exchanges</div>
+                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <MdOutlineSupportAgent className="size-16" />
+                        <div className="font-semibold">Customer Support</div>
+                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <TbCardboards className="size-16" />
+                        <div className="font-semibold">Gift Cards</div>
+                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                    </div>
+                </div>
+                <div>
+                    <div className="text-3xl font-bold tracking-wide text-center mb-3">FEATURED PRODUCTS</div>
+                    <div className="text-center text-base-content opacity-80 mb-8 text-lg">
+                        Visit our most popular categories which is mind-blowing
+                    </div>
+                    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+                        {[...Array(8)].map((_, i) => (
+                            <div className="group relative block overflow-hidden" key={i}>
+                                <button className="absolute end-4 top-4 z-10 rounded-full btn btn-square btn-sm translate-x-16 group-hover:translate-x-0 transition duration-300">
+                                    <span className="sr-only">Wishlist</span>
+                                    <FiHeart className="size-4" />
+                                </button>
+                                <div className="h-64 sm:h-72 w-full relative">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a"
+                                        alt=""
+                                        className="absolute top-0 left-0 h-64 w-full object-cover opacity-100 group-hover:opacity-0 sm:h-72"
+                                    />
+                                    <img
+                                        src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a"
+                                        alt=""
+                                        className="absolute top-0 left-0 h-64 w-full object-cover opacity-0 group-hover:opacity-100 sm:h-72 transform scale-x-[-1]"
+                                    />
+                                    <div className="absolute bottom-0 left-0 m-2 card bg-white px-2 -translate-x-96 group-hover:translate-x-0 transition duration-300">You can't stop me 🤭</div>
+                                </div>
+                                <div className="py-3 flex flex-col gap-3">
+                                    <div className="flex justify-between">
+                                        {/* <div className="card flex-row gap-2 bg-success text-sm text-success-content font-semibold tracking-wider leading-6 flex items-center h-6 w-fit px-3">
+                                            -20%
+                                        </div> */}
+                                        <div className="card flex-row gap-2 bg-warning text-sm text-warning-content font-semibold tracking-wider leading-6 flex items-center h-6 w-fit px-3">
+                                            BDT 400
+                                        </div>
+                                        <div className="text-sm font-semibold text-error">-25%</div>
+                                    </div>
+                                    <button className="btn btn-neutral w-full text-xs shadow-none">
+                                        <BsCartPlus className="h-4 w-4" />
+                                        ADD TO CART
+                                    </button>
+                                </div>
                             </div>
+
                         ))}
                     </div>
+                </div>
+                <div>
+                    <div className="text-3xl font-bold tracking-wide text-center mb-3">FEATURED CATEGORIES</div>
+                    <div className="text-center text-base-content opacity-80 mb-8 text-lg">
+                        Visit our most popular categories which is mind-blowing
+                    </div>
+                    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="grid gap-4">
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                        </div>
+                        <div className="grid gap-4">
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                        </div>
+                        <div className="grid gap-4">
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                        </div>
+                        <div className="grid gap-4">
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                            <div className="relative">
+                                <img
+                                    className="h-auto max-w-full card"
+                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
+                                    alt=""
+                                />
+                                <div className="absolute bottom-0 m-3">Canva</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
