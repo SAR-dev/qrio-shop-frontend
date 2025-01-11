@@ -5,12 +5,13 @@ import { LuBadgeHelp } from "react-icons/lu";
 import { PiContactlessPaymentLight } from "react-icons/pi";
 import { FiShoppingBag, FiShoppingCart, FiHeart } from "react-icons/fi";
 import { BsCartPlus } from "react-icons/bs";
-import { CiDeliveryTruck } from "react-icons/ci";
+import { TbTagMinus } from "react-icons/tb";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import { TbCardboards } from "react-icons/tb";
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
+import PromotionProductCard from "../components/PromotionProductCard";
 
 const Homepage = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -116,26 +117,33 @@ const Homepage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 pb-20">
+                <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 pb-20">
                     <div className="flex flex-col gap-3">
                         <TbTruckDelivery className="size-16" />
                         <div className="font-semibold">Free Shipping</div>
-                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
                     </div>
                     <div className="flex flex-col gap-3">
                         <RiExchangeFundsFill className="size-16" />
                         <div className="font-semibold">Exchanges</div>
-                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
                     </div>
                     <div className="flex flex-col gap-3">
                         <MdOutlineSupportAgent className="size-16" />
                         <div className="font-semibold">Customer Support</div>
-                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
                     </div>
                     <div className="flex flex-col gap-3">
                         <TbCardboards className="size-16" />
                         <div className="font-semibold">Gift Cards</div>
-                        <div>It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                    </div>
+                </div>
+                <div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        {[...Array(2)].map((_, i) => (
+                            <PromotionProductCard key={i} />
+                        )) }
                     </div>
                 </div>
                 <div>
@@ -145,12 +153,8 @@ const Homepage = () => {
                     </div>
                     <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
                         {[...Array(8)].map((_, i) => (
-                            <div className="group relative block overflow-hidden" key={i}>
-                                <button className="absolute end-4 top-4 z-10 rounded-full btn btn-square btn-sm translate-x-16 group-hover:translate-x-0 transition duration-300">
-                                    <span className="sr-only">Wishlist</span>
-                                    <FiHeart className="size-4" />
-                                </button>
-                                <div className="h-64 sm:h-72 w-full relative">
+                            <div className="group" key={i}>
+                                <div className="card h-64 sm:h-72 w-full relative overflow-hidden">
                                     <img
                                         src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a"
                                         alt=""
@@ -161,19 +165,23 @@ const Homepage = () => {
                                         alt=""
                                         className="absolute top-0 left-0 h-64 w-full object-cover opacity-0 group-hover:opacity-100 sm:h-72 transform scale-x-[-1]"
                                     />
+                                    <button className="absolute end-4 top-4 z-10 rounded-full btn btn-square btn-sm translate-x-16 group-hover:translate-x-0 transition duration-300">
+                                        <span className="sr-only">Wishlist</span>
+                                        <FiHeart className="size-4" />
+                                    </button>
                                     <div className="absolute bottom-0 left-0 m-2 card bg-white px-2 -translate-x-96 group-hover:translate-x-0 transition duration-300">You can't stop me 🤭</div>
                                 </div>
                                 <div className="py-3 flex flex-col gap-3">
                                     <div className="flex justify-between">
-                                        {/* <div className="card flex-row gap-2 bg-success text-sm text-success-content font-semibold tracking-wider leading-6 flex items-center h-6 w-fit px-3">
-                                            -20%
-                                        </div> */}
                                         <div className="card flex-row gap-2 bg-warning text-sm text-warning-content font-semibold tracking-wider leading-6 flex items-center h-6 w-fit px-3">
                                             BDT 400
                                         </div>
-                                        <div className="text-sm font-semibold text-error">-25%</div>
+                                        <div className="text-sm font-semibold text-error flex items-center gap-1">
+                                            <TbTagMinus className="h-4 w-4" />
+                                            -25%
+                                        </div>
                                     </div>
-                                    <button className="btn btn-neutral w-full text-xs shadow-none">
+                                    <button className="btn btn-neutral group-hover:btn-warning w-full text-xs shadow-none space-x-2 group-hover:ring-2 group-hover:ring-warning group-hover:ring-offset-2 transition duration-300">
                                         <BsCartPlus className="h-4 w-4" />
                                         ADD TO CART
                                     </button>
@@ -181,6 +189,13 @@ const Homepage = () => {
                             </div>
 
                         ))}
+                    </div>
+                </div>
+                <div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        {[...Array(2)].map((_, i) => (
+                            <PromotionProductCard key={i} />
+                        )) }
                     </div>
                 </div>
                 <div>
@@ -295,6 +310,13 @@ const Homepage = () => {
                         </div>
                     </div>
 
+                </div>
+                <div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        {[...Array(2)].map((_, i) => (
+                            <PromotionProductCard key={i} />
+                        )) }
+                    </div>
                 </div>
             </div>
         </div>
