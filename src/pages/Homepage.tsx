@@ -12,6 +12,7 @@ import { TbCardboards } from "react-icons/tb";
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import PromotionProductCard from "../components/PromotionProductCard";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 
 const Homepage = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -32,7 +33,7 @@ const Homepage = () => {
                 <div className="navbar-center">
                     <a className="btn btn-ghost text-xl">QRIO</a>
                 </div>
-                <div className="navbar-end">
+                <div className="navbar-end gap-3">
                     <label className="input input-bordered flex items-center gap-2 mr-3 hidden lg:flex">
                         <input type="text" className="grow" placeholder="Search products" />
                         <RiSearchLine className="h-4 w-4 opacity-70" />
@@ -40,12 +41,7 @@ const Homepage = () => {
                     <button className="btn btn-ghost btn-circle">
                         <GrBlog className="h-5 w-5" />
                     </button>
-                    <button className="btn btn-ghost btn-circle">
-                        <div className="indicator">
-                            <RiNotificationLine className="h-5 w-5" />
-                            <span className="badge badge-xs badge-primary indicator-item"></span>
-                        </div>
-                    </button>
+                    <ThemeSwitcher />
                 </div>
             </div>
             <div className="drawer">
@@ -57,6 +53,7 @@ const Homepage = () => {
                 direction='left'
                 className=''
             >
+                <div className="h-full bg-base-200">
                 <div className="flex flex-col">
                     <label className="input input-bordered rounded-none flex items-center gap-2 px-5">
                         <input type="text" className="grow" placeholder="Search" />
@@ -83,6 +80,7 @@ const Homepage = () => {
                         Contact Us
                     </button>
                 </div>
+                </div>
             </Drawer>
             <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-12">
                 <div>
@@ -100,7 +98,7 @@ const Homepage = () => {
                             <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
                                 Deep rooted passion for Science
                             </h1>
-                            <p className="text-lg mt-4 text-slate-600 max-w-xl">
+                            <p className="text-lg mt-4 text-base-content/75 max-w-xl">
                                 Astroship is a starter template for startups, marketing websites &amp;
                                 landing pages.
                                 <wbr /> Built with Astro.build and TailwindCSS. You can quickly create any
@@ -169,7 +167,7 @@ const Homepage = () => {
                                         <span className="sr-only">Wishlist</span>
                                         <FiHeart className="size-4" />
                                     </button>
-                                    <div className="absolute bottom-0 left-0 m-2 card bg-white px-2 -translate-x-96 group-hover:translate-x-0 transition duration-300">You can't stop me 🤭</div>
+                                    <div className="absolute bottom-0 left-0 m-2 card bg-white shadow-lg text-black px-2 -translate-x-96 group-hover:translate-x-0 transition duration-300">You can't stop me 🤭</div>
                                 </div>
                                 <div className="py-3 flex flex-col gap-3">
                                     <div className="flex justify-between">

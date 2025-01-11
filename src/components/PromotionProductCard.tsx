@@ -9,7 +9,7 @@ const PromotionProductCard = () => {
                 <div className="flex flex-col gap-5 text-right justify-center">
                     <div className="text-yellow-700 leading-4 uppercase">Naruto</div>
                     <div className="text-xl text-black font-extrabold leading-4 uppercase title">Action Figure</div>
-                    <div className="w-48">
+                    <div className="w-48 text-black">
                         Unlish the power of Uchia clan with this Kakashi figure
                     </div>
                 </div>
