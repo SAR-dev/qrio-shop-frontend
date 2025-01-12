@@ -23,9 +23,13 @@ const ProductCard = () => {
             </div>
             <div className="py-3 flex flex-col gap-3">
                 <div className="text-xl font-semibold leading-4">Transformer Lego</div>
-                <div className="flex gap-2">
-                    <div className="text-yellow-500 font-semibold tracking-wider leading-6">BDT 400</div>
-                    <div className="line-through">BDT 500</div>
+                <div className="flex justify-between">
+                    <div className="flex gap-1">
+                        <div className="text-red-500 leading-6">-20%</div>
+                        <div className="font-semibold leading-6">400 TK</div>
+
+                    </div>
+                    <div className="bg-teal-600 text-white py-1 px-2 text-xs">Save 100 TK</div>
                 </div>
                 <button className="btn btn-warning text-base-content w-full text-sm shadow-none space-x-2 hover:ring-2 hover:ring-warning hover:ring-offset-2 hover:ring-offset-base-100 transition duration-300">
                     <BsCartPlus className="h-4 w-4" />
