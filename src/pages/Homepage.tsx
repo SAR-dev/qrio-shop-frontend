@@ -148,7 +148,7 @@ const Homepage = () => {
                     <div className="text-center text-base-content opacity-80 mb-8 text-lg">
                         Visit our most popular categories which is mind-blowing
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+                    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                         {[...Array(8)].map((_, i) => (
                             <ProductCard key={i} />
                         ))}

@@ -3,8 +3,8 @@ import { BsCartPlus } from "react-icons/bs";
 
 const ProductCard = () => {
     return (
-        <div className="group">
-            <div className="card h-64 sm:h-72 w-full group relative overflow-hidden">
+        <div className="group text-sm">
+            <div className="card h-64 sm:h-72 w-full relative overflow-hidden">
                 <img
                     src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a"
                     alt=""
@@ -21,19 +21,19 @@ const ProductCard = () => {
                 </button>
                 <div className="absolute bottom-0 left-0 m-2 card bg-white shadow-lg text-black px-2 -translate-x-96 group-hover:translate-x-0 transition duration-300">You can't stop me 🤭</div>
             </div>
-            <div className="py-3 flex flex-col gap-3">
-                <div className="text-xl font-semibold leading-4">Transformer Lego</div>
-                <div className="flex justify-between">
-                    <div className="flex gap-1">
-                        <div className="text-red-500 leading-6">-20%</div>
-                        <div className="font-semibold leading-6">400 TK</div>
+            <div className="py-2 flex flex-col gap-2">
+                <div>Transformer Lego</div>
+                <div className="flex justify-between items-center">
+                    <div className="flex gap-1 text-lg">
+                        <div className="text-red-500 font-light">-20%</div>
+                        <div className="font-semibold">400 TK</div>
 
                     </div>
                     <div className="bg-teal-600 text-white py-1 px-2 text-xs">Save 100 TK</div>
                 </div>
-                <button className="btn btn-warning text-base-content w-full text-sm shadow-none space-x-2 hover:ring-2 hover:ring-warning hover:ring-offset-2 hover:ring-offset-base-100 transition duration-300">
-                    <BsCartPlus className="h-4 w-4" />
-                    ADD TO CART
+                <button className="btn btn-sm w-full btn-warning gap-2 h-10">
+                    <BsCartPlus className="size-5" />
+                    Add to Cart
                 </button>
             </div>
         </div>
