@@ -1,84 +1,17 @@
-import { useState } from "react";
-import { RiMenu2Fill, RiSearchLine, RiExchangeFundsFill } from "react-icons/ri";
-import { GrBlog } from "react-icons/gr";
-import { LuBadgeHelp } from "react-icons/lu";
-import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
+import { RiExchangeFundsFill } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlineExplore, MdOutlineSupportAgent } from "react-icons/md";
 import { TbCardboards } from "react-icons/tb";
-import Drawer from 'react-modern-drawer';
 import PromotionProductCard from "../components/PromotionProductCard";
-import ThemeSwitcher from "../components/ThemeSwitcher";
-import { TbMessageChatbot } from "react-icons/tb";
 import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
+import NavLayout from "../layouts/NavLayout";
 
 const Homepage = () => {
-    const [showDrawer, setShowDrawer] = useState<boolean>(false)
-    const toggleDrawer = () => {
-        setShowDrawer((prevState) => !prevState)
-    }
-
     return (
-        <div>
-            <div className="navbar bg-base-100 border-b border-base-300 sticky top-0 z-[2]">
-                <div className="navbar-start">
-                    <div className="dropdown">
-                        <button className="btn btn-ghost btn-circle" onClick={toggleDrawer}>
-                            <RiMenu2Fill className="h-5 w-5" />
-                        </button>
-                    </div>
-                </div>
-                <div className="navbar-center">
-                    <a className="btn btn-ghost text-xl">QRIO</a>
-                </div>
-                <div className="navbar-end gap-3">
-                    <label className="input input-bordered flex items-center gap-2 mr-3 hidden lg:flex">
-                        <input type="text" className="grow" placeholder="Search products" />
-                        <RiSearchLine className="h-4 w-4 opacity-70" />
-                    </label>
-                    <button className="btn btn-ghost btn-circle">
-                        <GrBlog className="h-5 w-5" />
-                    </button>
-                    <ThemeSwitcher />
-                </div>
-            </div>
-            <Drawer
-                open={showDrawer}
-                onClose={toggleDrawer}
-                direction='left'
-                className=''
-            >
-                <div className="h-full bg-base-200 p-3">
-                    <div className="flex flex-col gap-1">
-                        <label className="input input-bordered flex items-center gap-2 px-5">
-                            <input type="text" className="grow" placeholder="Search" />
-                        </label>
-                        <button className="btn gap-3 justify-start">
-                            <FiShoppingBag className="size-5" />
-                            Shop
-                        </button>
-                        <button className="btn gap-3 justify-start">
-                            <GrBlog className="size-5" />
-                            Blogs
-                        </button>
-                        <button className="btn gap-3 justify-start">
-                            <FiShoppingCart className="size-5" />
-                            Cart
-                        </button>
-                        <button className="btn gap-3 justify-start">
-                            <LuBadgeHelp className="size-5" />
-                            About Us
-                        </button>
-                        <button className="btn gap-3 justify-start">
-                            <TbMessageChatbot className="size-5" />
-                            Contact Us
-                        </button>
-                    </div>
-                </div>
-            </Drawer>
+        <NavLayout>
             <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-20">
                 <div>
                     <div className="grid lg:grid-cols-2 place-items-center">
@@ -368,7 +301,7 @@ const Homepage = () => {
                     </a>
                 </nav>
             </footer>
-        </div>
+        </NavLayout>
     )
 }
 

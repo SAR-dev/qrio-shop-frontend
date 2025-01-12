@@ -23,7 +23,7 @@ const PromotionProductCard = () => {
                 </div>
                 <div className="-mt-3 lg:ml-auto w-fit bg-teal-600 text-white py-1 px-2 text-xs">Save 100 BDT</div>
                 <div className="join lg:ml-auto">
-                    <div className="join-item flex justify-center items-center border border-warning bg-warning/20 text-warning-content w-24 font-semibold">500 TK</div>
+                    <div className="join-item flex justify-center items-center border border-warning bg-warning/20 w-24 font-semibold">500 TK</div>
                     <button className="join-item btn btn-warning no-animation">
                         <BsCartPlus className="h-4 w-4" />
                         <span className="uppercase lg:hidden">Add To Cart</span>

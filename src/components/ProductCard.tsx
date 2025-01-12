@@ -27,7 +27,6 @@ const ProductCard = () => {
                     <div className="flex gap-1 text-lg">
                         <div className="text-red-500 font-light">-20%</div>
                         <div className="font-semibold">400 TK</div>
-
                     </div>
                     <div className="bg-teal-600 text-white py-1 px-2 text-xs">Save 100 TK</div>
                 </div>

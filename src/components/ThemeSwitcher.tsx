@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { ThemeName, useThemeStore } from '../stores/themeStore';
 import { FaMoon } from "react-icons/fa";
 import { FaSun } from "react-icons/fa";
-import { FaCoffee } from "react-icons/fa";
+import { BiCoffeeTogo } from "react-icons/bi";
 
 const ThemeSwitcher = () => {
     const { theme, setTheme } = useThemeStore();
@@ -18,10 +18,10 @@ const ThemeSwitcher = () => {
     }
 
     return (
-        <button className="btn btn-ghost btn-circle" onClick={handleThemeChange}>
-            {theme == ThemeName.Dark && <FaMoon className='size-4' />}
-            {theme == ThemeName.Light && <FaSun className='size-4' />}
-            {theme == ThemeName.Coffee && <FaCoffee className='size-4' />}
+        <button onClick={handleThemeChange}>
+            {theme == ThemeName.Dark && <FaMoon className='h-5 w-5' />}
+            {theme == ThemeName.Light && <FaSun className='h-5 w-5' />}
+            {theme == ThemeName.Coffee && <BiCoffeeTogo className='h-5 w-5' />}
         </button>
     )
 }
