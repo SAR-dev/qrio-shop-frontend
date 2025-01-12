@@ -2,8 +2,7 @@ import { useState } from "react";
 import { RiMenu2Fill, RiSearchLine, RiExchangeFundsFill } from "react-icons/ri";
 import { GrBlog } from "react-icons/gr";
 import { LuBadgeHelp } from "react-icons/lu";
-import { FiShoppingBag, FiShoppingCart, FiHeart } from "react-icons/fi";
-import { BsCartPlus } from "react-icons/bs";
+import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlineExplore, MdOutlineSupportAgent } from "react-icons/md";
 import { TbCardboards } from "react-icons/tb";
@@ -14,6 +13,7 @@ import { TbMessageChatbot } from "react-icons/tb";
 import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import BlogCard from "../components/BlogCard";
+import ProductCard from "../components/ProductCard";
 
 const Homepage = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -92,7 +92,7 @@ const Homepage = () => {
                             </picture>
                         </div>
                         <div>
-                            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
+                            <h1 className="title text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold md:font-bold lg:tracking-tight xl:tracking-tighter">
                                 Deep rooted passion for Science
                             </h1>
                             <p className="text-lg mt-4 text-base-content/75 lg:max-w-xl">
@@ -148,40 +148,9 @@ const Homepage = () => {
                     <div className="text-center text-base-content opacity-80 mb-8 text-lg">
                         Visit our most popular categories which is mind-blowing
                     </div>
-                    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
                         {[...Array(8)].map((_, i) => (
-                            <div className="group" key={i}>
-                                <div className="card h-64 sm:h-72 w-full relative overflow-hidden">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a"
-                                        alt=""
-                                        className="absolute top-0 left-0 h-64 w-full object-cover opacity-100 group-hover:opacity-0 sm:h-72"
-                                    />
-                                    <img
-                                        src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a"
-                                        alt=""
-                                        className="absolute top-0 left-0 h-64 w-full object-cover opacity-0 group-hover:opacity-100 sm:h-72 transform scale-x-[-1]"
-                                    />
-                                    <button className="absolute end-4 top-4 z-[1] rounded-full btn btn-square btn-sm btn-secondary translate-x-16 group-hover:translate-x-0 transition duration-300">
-                                        <span className="sr-only">Wishlist</span>
-                                        <FiHeart className="size-4" />
-                                    </button>
-                                    <div className="absolute bottom-0 left-0 m-2 card bg-white shadow-lg text-black px-2 -translate-x-96 group-hover:translate-x-0 transition duration-300">You can't stop me 🤭</div>
-                                </div>
-                                <div className="py-3 flex flex-col gap-3">
-                                    <div className="flex justify-between">
-                                        <div className="card flex-row bg-warning text-sm text-warning-content font-semibold tracking-wider leading-6 items-center h-6 w-fit px-3">
-                                            BDT 400
-                                        </div>
-                                        <div className="text-sm line-through">BDT 500</div>
-                                    </div>
-                                    <button className="btn btn-neutral group-hover:btn-warning w-full text-xs shadow-none space-x-2 hover:ring-2 hover:ring-warning hover:ring-offset-2 hover:ring-offset-base-100 transition duration-300">
-                                        <BsCartPlus className="h-4 w-4" />
-                                        ADD TO CART
-                                    </button>
-                                </div>
-                            </div>
-
+                            <ProductCard key={i} />
                         ))}
                     </div>
                 </div>
