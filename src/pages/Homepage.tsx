@@ -44,7 +44,7 @@ const Homepage = () => {
                 <div>
                     <SectionHeader />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {[...Array(2)].map((_, i) => (
+                        {[...Array(4)].map((_, i) => (
                             <PromotionProductCard key={i} />
                         ))}
                     </div>
