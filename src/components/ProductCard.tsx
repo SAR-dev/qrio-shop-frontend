@@ -15,7 +15,7 @@ const ProductCard = () => {
                     className="absolute top-0 left-0 h-64 w-full object-cover opacity-0 group-hover:opacity-100 sm:h-72 transform scale-x-[-1]"
                 />
             </div>
-            <div className="py-4 flex flex-col gap-2">
+            <div className="pt-4 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                     <div className="title text-2xl font-extrabold">Transformer Lego</div>
                     <button className="btn btn-ghost btn-sm btn-circle">
