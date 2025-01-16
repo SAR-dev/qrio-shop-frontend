@@ -6,6 +6,8 @@ import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import Drawer from 'react-modern-drawer';
 import { TbMessageChatbot } from "react-icons/tb";
 import { LuChevronRight } from "react-icons/lu";
+import { FcStumbleupon } from "react-icons/fc";
+import { RxExit } from "react-icons/rx";
 
 const Navbar = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -64,11 +66,12 @@ const Navbar = () => {
                 direction='left'
                 className=''
             >
-                <div className="h-full bg-base-200 p-3">
-                    <div className="flex flex-col gap-1">
-                        <label className="input input-bordered flex items-center gap-2 px-5">
-                            <input type="text" className="grow" placeholder="Search" />
-                        </label>
+                <div className="h-full w-72 bg-base-200 flex flex-col justify-between">
+                    <div className="flex flex-col gap-2 p-3">
+                        <div className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
+                            <FcStumbleupon className="size-8" />
+                            QRIO
+                        </div>
                         <button className="btn gap-3 justify-start">
                             <FiShoppingBag className="size-5" />
                             Shop
@@ -88,6 +91,12 @@ const Navbar = () => {
                         <button className="btn gap-3 justify-start">
                             <TbMessageChatbot className="size-5" />
                             Contact Us
+                        </button>
+                    </div>
+                    <div className="w-full border-t border-base-content/25 p-3">
+                        <button className="w-full btn gap-3 justify-start">
+                            <RxExit className="size-5" />
+                            Sign Out
                         </button>
                     </div>
                 </div>
