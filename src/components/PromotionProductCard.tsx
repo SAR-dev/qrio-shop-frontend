@@ -18,7 +18,7 @@ const PromotionProductCard = () => {
             <div className="flex flex-1 flex-col gap-5 p-5 text-left lg:text-right bg-gradient-to-tr from-primary/25 to-base-100/50">
                 <div className="text-secondary leading-4 uppercase title font-bold">Naruto</div>
                 <div className="text-xl font-extrabold leading-4 uppercase title">Action Figure</div>
-                <div className="mx-auto lg:mx-0 w-full lg:w-48 font-light">
+                <div className="mx-auto lg:ml-auto lg:mr-0 w-full lg:w-48 font-light">
                     Unleash the power of the Uchiha clan with the Itachi small action figure!
                 </div>
                 <div className="-mt-3 lg:ml-auto w-fit bg-secondary text-secondary-content py-1 px-2 text-xs">Save 100 BDT</div>
