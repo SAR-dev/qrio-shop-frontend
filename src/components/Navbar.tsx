@@ -48,7 +48,7 @@ const Navbar = () => {
                 </div>
                 <div className="bg-base-100 shadow">
                     <div className="bg-primary/20 text-center py-2 lg:px-4 z-[2]">
-                        <div className="py-2 px-5 text-center bg-primary items-center text-primary-content leading-none lg:rounded-full flex lg:inline-flex">
+                        <div className="py-2 lg:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none lg:rounded-full flex lg:inline-flex">
                             <span className="flex rounded-full bg-accent uppercase px-2 py-1 text-xs font-bold mr-3 text-info-content">
                                 Reminder
                             </span>
