@@ -51,7 +51,7 @@ const Navbar = () => {
                                 Reminder
                             </span>
                             <span className="font-semibold mr-2 text-left flex-auto text-sm md:text-base">
-                                Sign in with social accounts to get exclusive offers
+                                Sign in to get exclusive offers
                             </span>
                             <LuChevronRight className="opacity-75 h-4 w-4" />
                         </div>
