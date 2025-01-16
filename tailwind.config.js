@@ -2,17 +2,6 @@
 export default {
   content: ['./index.html', './src/**/*.{js,jsx,tx,tsx}'],
   theme: {
-    extend: {
-      keyframes: {
-        vibrate: {
-          '50%': { transform: 'translateY(-5%)', animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)' },
-          '0%, 100%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)' },
-        }
-      },
-      animation: {
-        'bounce-slow': 'vibrate 1s linear infinite',
-      }
-    },
     screens: {
       'xs': '420px',
       'sm': '640px',
@@ -24,6 +13,20 @@ export default {
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ['light', 'dark', 'coffee'],
+    themes: [
+      {
+        primary: {
+          "primary": "#E1803E",
+          "secondary": "#F4A261",
+          "accent": "#00A5CF",
+          "neutral": "#3A3A3A",
+          "base-100": "#1E1E1E",
+          "info": "#3B82F6",
+          "success": "#2BA84A",
+          "warning": "#F59E0B",
+          "error": "#DC2626",
+        },
+      }
+    ],
   },
 };

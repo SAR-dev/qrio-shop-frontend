@@ -1,75 +1,48 @@
-import { RiExchangeFundsFill } from "react-icons/ri";
-import { TbTruckDelivery } from "react-icons/tb";
-import { MdOutlineExplore, MdOutlineSupportAgent } from "react-icons/md";
-import { TbCardboards } from "react-icons/tb";
 import PromotionProductCard from "../components/PromotionProductCard";
 import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { FcInTransit } from "react-icons/fc";
+import { HiArrowLongRight } from "react-icons/hi2";
+import { GiTravelDress } from "react-icons/gi";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import NavLayout from "../layouts/NavLayout";
+import SectionHeader from "../components/SectionHeader";
 
 const Homepage = () => {
     return (
         <NavLayout>
-            <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-20">
-                <div>
-                    <div className="grid lg:grid-cols-2 place-items-center">
-                        <div className="md:py-6 lg:order-1 md:block">
-                            <picture>
-                                <img
-                                    src="https://astroship.web3templates.com/_astro/hero.DlKDY3ml_Z1VhsC8.webp"
-                                    alt="Astronaut in the air"
-                                    className="h-64 lg:h-auto"
-                                />
-                            </picture>
+            <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-32">
+                <div className="card bg-base-100 from-base-200 not-prose outline-base-content/5 relative overflow-hidden bg-gradient-to-b font-sans shadow-lg outline -outline-offset-1 md:flex-row-reverse">
+                    <figure className="max-md:bg-primary/10 isolate shrink-0 md:w-2/3">
+                        <img
+                            className="pointer-events-none h-64 md:h-96 lg:h-[30rem]"
+                            src="https://images.fineartamerica.com/images/artworkimages/medium/3/awesome-steins-gate-rintaro-okabe-cool-gifts-inny-shop-transparent.png"
+                        />
+                    </figure>
+                    <div className="bg-primary-content -left-1/5 pointer-events-none absolute bottom-[-50%] aspect-square w-3/4 -translate-x-1/2 rounded-full opacity-20 blur-3xl" />
+                    <div className="bg-primary pointer-events-none absolute bottom-[-120%] left-1/2 aspect-square w-full -translate-x-1/2 rounded-full opacity-20 blur-3xl" />
+                    <div className="bg-base-100 pointer-events-none absolute -top-3/4 right-1/4 z-[1] aspect-square w-1/2 rounded-full opacity-60 blur-3xl" />
+                    <div className="card-body relative isolate z-[1]">
+                        <h2 className="card-title title text-base-content text-xl contrast-200 [text-wrap:balance] sm:w-[250%] sm:text-2xl md:text-4xl lg:text-3xl xl:text-4xl">
+                            <span>
+                                <span className="font-black">New Year Offer</span> <br />
+                                <span className="font-black">20% OFF</span>
+                            </span>
+                        </h2>
+                        <div className="grow">
+                            <h2 className="card-title text-sm font-light sm:w-[250%] sm:text-lg md:text-lg lg:text-lg xl:text-xl">
+                                <FcInTransit className="inline size-6" />
+                                Available on QRIO store
+                            </h2>
                         </div>
-                        <div>
-                            <h1 className="title text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold md:font-bold lg:tracking-tight xl:tracking-tighter">
-                                Deep rooted passion for Science
-                            </h1>
-                            <p className="text-lg mt-4 text-base-content/75 lg:max-w-xl">
-                                Astroship is a starter template for startups, marketing websites &amp;
-                                landing pages.
-                                <wbr /> Built with Astro.build and TailwindCSS. You can quickly create any
-                                website with this starter.
-                            </p>
-                            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                                <button className="btn btn-neutral btn-lg sm:w-1/2 lg:w-auto shadow-none gap-3">
-                                    <MdOutlineShoppingCart className="size-8" />
-                                    Shop Now
-                                </button>
-                                <button className="btn btn-neutral btn-outline btn-lg sm:w-1/2 lg:w-auto gap-3">
-                                    <MdOutlineExplore className="size-8" />
-                                    Explore Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 xl:pb-20">
-                    <div className="flex flex-col gap-3">
-                        <TbTruckDelivery className="size-16" />
-                        <div className="font-semibold">Free Shipping</div>
-                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
-                    </div>
-                    <div className="flex flex-col gap-3 items-end xl:items-start">
-                        <RiExchangeFundsFill className="size-16" />
-                        <div className="font-semibold">Exchanges</div>
-                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        <MdOutlineSupportAgent className="size-16" />
-                        <div className="font-semibold">Customer Support</div>
-                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
-                    </div>
-                    <div className="flex flex-col gap-3 items-end xl:items-start">
-                        <TbCardboards className="size-16" />
-                        <div className="font-semibold">Gift Cards</div>
-                        <div className="hidden md:block">It's not actually free we just price it into the products. Someone's paying for it, and it's not us.</div>
+                        <a className="btn btn-block btn-primary group" href="/store">
+                            More details
+                            <HiArrowLongRight className="hidden h-6 w-6 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 md:inline-block" />
+                        </a>
                     </div>
                 </div>
                 <div>
+                    <SectionHeader />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[...Array(2)].map((_, i) => (
                             <PromotionProductCard key={i} />
@@ -77,10 +50,7 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="text-3xl font-bold tracking-wide text-center mb-3">FEATURED PRODUCTS</div>
-                    <div className="text-center text-base-content opacity-80 mb-8 text-lg">
-                        Visit our most popular categories which is mind-blowing
-                    </div>
+                    <SectionHeader />
                     <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                         {[...Array(8)].map((_, i) => (
                             <ProductCard key={i} />
@@ -88,127 +58,35 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
+                    <SectionHeader />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {[...Array(2)].map((_, i) => (
+                        {[...Array(4)].map((_, i) => (
                             <PromotionProductCard key={i} />
                         ))}
                     </div>
                 </div>
                 <div>
-                    <div className="text-3xl font-bold tracking-wide text-center mb-3">FEATURED CATEGORIES</div>
-                    <div className="text-center text-base-content opacity-80 mb-8 text-lg">
-                        Visit our most popular categories which is mind-blowing
-                    </div>
-                    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 text-black text-xl font-semibold">
-                        <div className="grid gap-4">
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                        </div>
-                        <div className="grid gap-4">
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                        </div>
-                        <div className="grid gap-4">
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                        </div>
-                        <div className="grid gap-4">
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                            <div className="relative">
-                                <img
-                                    className="h-auto max-w-full card"
-                                    src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-                                    alt=""
-                                />
-                                <div className="absolute bottom-0 m-3">Canva</div>
-                            </div>
-                        </div>
+                    <SectionHeader />
+                    <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-8 text-xl font-semibold">
+                        {[...Array(20)].map((_, i) => (
+                            <button className="btn btn-circle btn-lg btn-outline" key={i}>
+                                <GiTravelDress className="size-10" />
+                            </button>
+                        ))}
                     </div>
                 </div>
                 <div>
+                    <SectionHeader />
+                    <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                        {[...Array(8)].map((_, i) => (
+                            <ProductCard key={i} />
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <SectionHeader />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {[...Array(2)].map((_, i) => (
+                        {[...Array(4)].map((_, i) => (
                             <PromotionProductCard key={i} />
                         ))}
                     </div>
@@ -250,7 +128,7 @@ const Homepage = () => {
                     <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
                 </aside>
             </footer>
-            <footer className="footer bg-neutral text-neutral-content items-center p-4">
+            <footer className="footer bg-neutral text-neutral-content items-center justify-center p-4">
                 <aside className="grid-flow-col items-center">
                     <svg
                         width="36"
@@ -263,43 +141,8 @@ const Homepage = () => {
                         <path
                             d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path>
                     </svg>
-                    <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
+                    <p>Created By WebDev-Craft Team</p>
                 </aside>
-                <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-                    <a>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            className="fill-current">
-                            <path
-                                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-                        </svg>
-                    </a>
-                    <a>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            className="fill-current">
-                            <path
-                                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-                        </svg>
-                    </a>
-                    <a>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            className="fill-current">
-                            <path
-                                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-                        </svg>
-                    </a>
-                </nav>
             </footer>
         </NavLayout>
     )
