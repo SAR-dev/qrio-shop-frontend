@@ -15,7 +15,7 @@ const PromotionProductCard = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-5 p-5 text-left lg:text-right bg-gradient-to-tr from-primary/25 to-base-100/50">
+            <div className="flex flex-1 flex-col gap-5 p-5 text-left lg:text-right bg-gradient-to-tr from-primary/25 to-base-100/50">
                 <div className="text-secondary leading-4 uppercase title font-bold">Naruto</div>
                 <div className="text-xl font-extrabold leading-4 uppercase title">Action Figure</div>
                 <div className="mx-auto lg:mx-0 w-full lg:w-48 font-light">

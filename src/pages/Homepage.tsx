@@ -69,9 +69,12 @@ const Homepage = () => {
                     <SectionHeader />
                     <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-8 text-xl font-semibold">
                         {[...Array(20)].map((_, i) => (
-                            <button className="btn btn-circle btn-lg btn-outline" key={i}>
-                                <GiTravelDress className="size-10" />
-                            </button>
+                            <div className="flex flex-col gap-3">
+                                <button className="btn btn-circle btn-lg btn-outline" key={i}>
+                                    <GiTravelDress className="size-10" />
+                                </button>
+                                <div className="title font-semibold text-sm text-center">Figurine</div>
+                            </div>
                         ))}
                     </div>
                 </div>
