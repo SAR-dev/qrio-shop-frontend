@@ -8,6 +8,7 @@ import { TbMessageChatbot } from "react-icons/tb";
 import { LuChevronRight } from "react-icons/lu";
 import { FcStumbleupon } from "react-icons/fc";
 import { RxExit } from "react-icons/rx";
+import { Link } from "react-router";
 
 const Navbar = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -41,14 +42,14 @@ const Navbar = () => {
                             </div>
                             Sayed Rafi
                         </button>
-                        <button className="btn btn-outline border-base-content/25">
+                        <Link to="/shopping-cart" className="btn btn-outline border-base-content/25">
                             <FiShoppingCart className="h-5 w-5" />
-                        </button>
+                        </Link>
                     </div>
                 </div>
                 <div className="bg-base-100 shadow">
                     <div className="bg-primary/20 text-center py-2 lg:px-4 z-[2]">
-                        <div className="py-2 lg:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none lg:rounded-full flex lg:inline-flex">
+                        <Link to="/" className="py-2 lg:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none lg:rounded-full flex lg:inline-flex group">
                             <span className="flex rounded-full bg-accent uppercase px-2 py-1 text-xs font-bold mr-3 text-info-content">
                                 Reminder
                             </span>
@@ -56,7 +57,7 @@ const Navbar = () => {
                                 Sign in to get exclusive offers
                             </span>
                             <LuChevronRight className="opacity-75 h-4 w-4" />
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>

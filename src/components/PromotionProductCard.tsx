@@ -21,9 +21,9 @@ const PromotionProductCard = () => {
                 <div className="mx-auto lg:ml-auto lg:mr-0 w-full lg:w-48 font-light">
                     Unleash the power of the Uchiha clan with the Itachi small action figure!
                 </div>
-                <div className="-mt-3 lg:ml-auto w-fit bg-secondary text-secondary-content py-1 px-2 text-xs">Save 100 BDT</div>
+                <div className="-mt-3 lg:ml-auto w-fit bg-secondary text-secondary-content py-1 px-2 text-xs">Save TK 100</div>
                 <div className="join lg:ml-auto ring-2 ring-success w-fit">
-                    <div className="join-item flex justify-center items-center border border-success w-24 font-semibold">500 TK</div>
+                    <div className="join-item flex justify-center items-center border border-success w-24 font-semibold">TK 500</div>
                     <button className="join-item btn btn-success no-animation">
                         <FaPlus className="h-4 w-4" />
                         <span className="uppercase lg:hidden">Add To Cart</span>
