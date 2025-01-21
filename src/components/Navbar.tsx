@@ -86,10 +86,10 @@ const Navbar = () => {
                             <FiShoppingCart className="size-5" />
                             Cart
                         </button>
-                        <button className="btn gap-3 justify-start">
+                        <Link to="/order-history" className="btn gap-3 justify-start">
                             <TbHistoryToggle className="size-5" />
-                            Orders
-                        </button>
+                            Order History
+                        </Link>
                         <button className="btn gap-3 justify-start">
                             <LuBadgeHelp className="size-5" />
                             About Us
