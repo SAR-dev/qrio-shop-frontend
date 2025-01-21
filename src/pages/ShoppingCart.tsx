@@ -9,10 +9,8 @@ const ShoppingCart = () => {
     return (
         <NavLayout>
             <div className="max-w-screen-xl mx-auto px-5 py-12">
-                <h2 className="text-xl font-semibold sm:text-2xl">
-                    Shopping Cart
-                </h2>
-                <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+                <SectionHeader left />
+                <div className="md:gap-6 lg:flex lg:items-start xl:gap-8">
                     <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
                         <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
                             {[...Array(8)].map((_, i) => (
