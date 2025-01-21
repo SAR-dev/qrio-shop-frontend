@@ -76,7 +76,7 @@ const ShoppingCart = () => {
                         </div>
                         <div className="hidden xl:mt-8 xl:block">
                             <SectionHeader left />
-                            <div className="mt-6 grid grid-cols-3 gap-10 sm:mt-8">
+                            <div className="grid grid-cols-3 gap-10">
                                 {[...Array(6)].map((_, i) => (
                                     <ProductCard key={i} />
                                 ))}
