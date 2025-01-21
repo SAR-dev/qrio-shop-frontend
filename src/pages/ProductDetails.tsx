@@ -10,7 +10,7 @@ const ProductDetails = () => {
             <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-16">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                     <div className="shrink-0 w-full mx-auto">
-                        <div className="carousel carousel-vertical rounded-box h-96 w-full">
+                        <div className="carousel carousel-vertical rounded-box h-[28rem] w-full">
                             <div className="carousel-item h-full w-full">
                                 <img className='w-full object-cover' src="https://www.wallpaperflare.com/static/550/72/960/princess-guardian-boy-and-girl-anime-wallpaper.jpg" />
                             </div>
@@ -71,12 +71,11 @@ const ProductDetails = () => {
                             </button>
                         </div>
                         <hr className="my-6 md:my-8 border-base-content/25" />
-                        <div className="grid grid-cols-1 gap-6">
-                            <p>
-                                Studio quality three mic array for crystal clear calls and voice
-                                recordings. Six-speaker sound system for a remarkably robust and
-                                high-quality audio experience. Up to 256GB of ultrafast SSD storage.
-                            </p>
+                        <div className="grid grid-cols-1 gap-4">
+                            <div className='flex flex-col gap-2'>
+                                <div><b>Category: </b> Figurine</div>
+                                <div><b>Series: </b> Bleach</div>
+                            </div>
                             <p>
                                 Two Thunderbolt USB 4 ports and up to two USB 3 ports. Ultrafast Wi-Fi
                                 6 and Bluetooth 5.0 wireless. Color matched Magic Mouse with Magic
