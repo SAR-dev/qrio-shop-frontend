@@ -8,8 +8,8 @@ const OrderProducts = () => {
     const [showProducts, setShowProducts] = useState<boolean>(false)
     return (
         <div className='card grid grid-cols-1 divide-y divide-base-content/25 border border-base-content/25'>
-            <div className="w-full flex justify-between items-center p-5">
-                <div className="flex gap-10">
+            <div className="w-full flex flex-col lg:flex-row gap-5 justify-between items-center p-5">
+                <div className="flex gap-10 w-full lg:w-fit">
                     <div className="flex flex-col gap-1">
                         <div className="font-semibold opacity-75">Order number</div>
                         <div>WU88191111</div>
@@ -23,7 +23,7 @@ const OrderProducts = () => {
                         <div className='font-semibold'>TK 26,000</div>
                     </div>
                 </div>
-                <div className="flex gap-5">
+                <div className="flex gap-5 w-full lg:w-fit">
                     <button className="btn btn-outline border border-base-content/25">
                         <RiDownloadLine className='size-5' />
                         Download Invoice
@@ -37,14 +37,14 @@ const OrderProducts = () => {
             {showProducts && [...Array(8)].map((_, i) => (
                 <div className="p-5" key={i}>
                     <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                        <Link to="#" className="shrink-0 md:order-1">
+                        <Link to="#" className="shrink-0 md:order-1 mr-5">
                             <img
                                 className="h-20 w-20"
                                 src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
                                 alt="imac image"
                             />
                         </Link>
-                        <div className="flex items-center justify-between md:order-3 md:justify-end">
+                        <div className="flex items-center justify-between md:order-3 md:justify-end  flex-1">
                             <div className="flex items-center">
                                 3 * TK 1000
                             </div>
