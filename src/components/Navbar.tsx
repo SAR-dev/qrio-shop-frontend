@@ -9,6 +9,7 @@ import { LuChevronRight } from "react-icons/lu";
 import { FcStumbleupon } from "react-icons/fc";
 import { RxExit } from "react-icons/rx";
 import { Link } from "react-router";
+import { TbHistoryToggle } from "react-icons/tb";
 
 const Navbar = () => {
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
@@ -84,6 +85,10 @@ const Navbar = () => {
                         <button className="btn gap-3 justify-start">
                             <FiShoppingCart className="size-5" />
                             Cart
+                        </button>
+                        <button className="btn gap-3 justify-start">
+                            <TbHistoryToggle className="size-5" />
+                            Orders
                         </button>
                         <button className="btn gap-3 justify-start">
                             <LuBadgeHelp className="size-5" />
