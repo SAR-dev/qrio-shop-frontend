@@ -90,41 +90,41 @@ const Navbar = () => {
             >
                 <div className="h-full w-72 bg-base-200 flex flex-col justify-between">
                     <div>
-                        <div className="w-full border-b border-base-content/25 p-3">
+                        <div className="w-full p-3 bg-base-100">
                             <Link to="/" className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
                                 <img src={LogoSvg} className="size-8" alt="" />
                                 QRIO
                             </Link>
                         </div>
                         <div className="flex flex-col p-3">
-                            <button className="btn gap-3 justify-start">
+                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <FiShoppingBag className="size-5" />
                                 Shop
                             </button>
-                            <button className="btn gap-3 justify-start">
+                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <GrBlog className="size-5" />
                                 Blogs
                             </button>
-                            <button className="btn gap-3 justify-start">
+                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <FiShoppingCart className="size-5" />
                                 Cart
                             </button>
-                            <Link to="/order-history" className="btn gap-3 justify-start">
+                            <Link to="/order-history" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <MdOutlineShoppingCartCheckout className="size-5" />
                                 Order History
                             </Link>
-                            <button className="btn gap-3 justify-start">
+                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <RiStarSmileLine className="size-5" />
                                 About Us
                             </button>
-                            <button className="btn gap-3 justify-start">
+                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <RiChatSmileAiLine className="size-5" />
                                 Contact Us
                             </button>
                         </div>
                     </div>
-                    <div className="w-full border-t border-base-content/25 p-3">
-                        <button className="w-full btn gap-3 justify-start" onClick={handleSignOut}>
+                    <div className="w-full p-3 bg-base-100">
+                        <button className="no-animation w-full btn gap-3 justify-start btn-error bg-transparent text-base-content border-transparent hover:text-error-content" onClick={handleSignOut}>
                             <RxExit className="size-5" />
                             Sign Out
                         </button>

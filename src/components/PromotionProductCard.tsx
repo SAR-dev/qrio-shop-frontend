@@ -2,10 +2,10 @@ import { FaPlus } from "react-icons/fa"
 
 const PromotionProductCard = () => {
     return (
-        <div className="card flex-col lg:flex-row justify-between border border-base-content/25 overflow-hidden">
-            <div className="w-full lg:w-1/2 relative">
+        <div className="card flex-col lg:flex-row justify-between group border border-base-content/25 overflow-hidden">
+            <div className="w-full lg:w-1/2 relative overflow-hidden">
                 <img
-                    className="h-48 lg:h-72 w-full object-cover"
+                    className="h-48 lg:h-72 w-full object-cover transition duration-150 ease-in-out group-hover:scale-110 group-hover:rotate-6"
                     src="https://images.unsplash.com/photo-1599481238640-4c1288750d7a"
                     alt=""
                 />

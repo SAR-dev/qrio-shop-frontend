@@ -7,6 +7,7 @@ import ProductCard from "../components/ProductCard";
 import NavLayout from "../layouts/NavLayout";
 import SectionHeader from "../components/SectionHeader";
 import CategoryBox from "../components/CategoryBox";
+import SeriesBox from "../components/SeriesBox";
 
 const Homepage = () => {
     return (
@@ -47,25 +48,7 @@ const Homepage = () => {
                     <CategoryBox />
                 </div>
                 <div>
-                    <SectionHeader />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                        {[...Array(8)].map((_, i) => (
-                            <ProductCard key={i} />
-                        ))}
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <CategoryBox />
-                    <CategoryBox />
-                    <CategoryBox />
-                </div>
-                <div>
-                    <SectionHeader />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                        {[...Array(4)].map((_, i) => (
-                            <PromotionProductCard key={i} />
-                        ))}
-                    </div>
+                    <SeriesBox />
                 </div>
                 <div>
                     <SectionHeader />
@@ -87,6 +70,22 @@ const Homepage = () => {
                             <PromotionProductCard key={i} />
                         ))}
                     </div>
+                </div>
+                <div>
+                    <SeriesBox />
+                </div>
+                <div>
+                    <SectionHeader />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                        {[...Array(8)].map((_, i) => (
+                            <ProductCard key={i} />
+                        ))}
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <CategoryBox />
+                    <CategoryBox />
+                    <CategoryBox />
                 </div>
                 <div>
                     <SectionHeader />
