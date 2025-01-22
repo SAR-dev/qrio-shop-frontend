@@ -37,7 +37,7 @@ const ProductDetails = () => {
         <NavLayout>
             <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-16">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-                    <div className="shrink-0 w-full mx-auto h-fit sticky top-0">
+                    <div className="shrink-0 w-full mx-auto h-fit lg:sticky top-0">
                         <div className="carousel carousel-vertical rounded-box h-[28rem] w-full">
                             <div className="carousel-item h-full w-full">
                                 <img className='w-full object-cover' src="https://www.wallpaperflare.com/static/550/72/960/princess-guardian-boy-and-girl-anime-wallpaper.jpg" />
