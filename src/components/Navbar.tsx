@@ -12,7 +12,7 @@ import { TbHistoryToggle } from "react-icons/tb";
 import { usePocket } from "../contexts/PocketContext";
 import { getImageUrl } from "../helpers";
 import LogoSvg from "../assets/logo.svg";
-import { PiSignIn } from "react-icons/pi";
+import { FcGoogle } from "react-icons/fc";
 
 const Navbar = () => {
     const { oAuthLogin, user, logout } = usePocket()
@@ -55,8 +55,8 @@ const Navbar = () => {
                             </button>
                         ) : (
                             <button className="btn btn-outline border-base-content/25 gap-2" onClick={oAuthLogin}>
-                                <PiSignIn className="size-5" />
-                                Sign In
+                                <FcGoogle className="size-5" />
+                                Continue with Google
                             </button>
                         )}
                         <Link to="/shopping-cart" className="btn btn-outline border-base-content/25">
