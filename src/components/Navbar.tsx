@@ -1,18 +1,17 @@
 import { useState } from "react";
-import { RiMenu2Fill, RiSearchLine } from "react-icons/ri";
+import { RiMenu2Fill, RiSearchLine, RiStarSmileLine } from "react-icons/ri";
 import { GrBlog } from "react-icons/gr";
-import { LuBadgeHelp } from "react-icons/lu";
 import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import Drawer from 'react-modern-drawer';
-import { TbMessageChatbot } from "react-icons/tb";
 import { LuChevronRight } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
 import { Link } from "react-router";
-import { TbHistoryToggle } from "react-icons/tb";
 import { usePocket } from "../contexts/PocketContext";
 import { getImageUrl } from "../helpers";
 import LogoSvg from "../assets/logo.svg";
 import { FcGoogle } from "react-icons/fc";
+import { RiChatSmileAiLine } from "react-icons/ri";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 
 const Navbar = () => {
     const { oAuthLogin, user, logout } = usePocket()
@@ -85,37 +84,42 @@ const Navbar = () => {
                 onClose={toggleDrawer}
                 direction='left'
                 className=''
+                duration={100}
             >
                 <div className="h-full w-72 bg-base-200 flex flex-col justify-between">
-                    <div className="flex flex-col gap-2 p-3">
-                        <div className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
-                            <img src={LogoSvg} className="size-8" alt="" />
-                            QRIO
+                    <div>
+                        <div className="w-full border-b border-base-content/25 p-3">
+                            <div className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
+                                <img src={LogoSvg} className="size-8" alt="" />
+                                QRIO
+                            </div>
                         </div>
-                        <button className="btn gap-3 justify-start">
-                            <FiShoppingBag className="size-5" />
-                            Shop
-                        </button>
-                        <button className="btn gap-3 justify-start">
-                            <GrBlog className="size-5" />
-                            Blogs
-                        </button>
-                        <button className="btn gap-3 justify-start">
-                            <FiShoppingCart className="size-5" />
-                            Cart
-                        </button>
-                        <Link to="/order-history" className="btn gap-3 justify-start">
-                            <TbHistoryToggle className="size-5" />
-                            Order History
-                        </Link>
-                        <button className="btn gap-3 justify-start">
-                            <LuBadgeHelp className="size-5" />
-                            About Us
-                        </button>
-                        <button className="btn gap-3 justify-start">
-                            <TbMessageChatbot className="size-5" />
-                            Contact Us
-                        </button>
+                        <div className="flex flex-col p-3">
+                            <button className="btn gap-3 justify-start">
+                                <FiShoppingBag className="size-5" />
+                                Shop
+                            </button>
+                            <button className="btn gap-3 justify-start">
+                                <GrBlog className="size-5" />
+                                Blogs
+                            </button>
+                            <button className="btn gap-3 justify-start">
+                                <FiShoppingCart className="size-5" />
+                                Cart
+                            </button>
+                            <Link to="/order-history" className="btn gap-3 justify-start">
+                                <MdOutlineShoppingCartCheckout className="size-5" />
+                                Order History
+                            </Link>
+                            <button className="btn gap-3 justify-start">
+                                <RiStarSmileLine className="size-5" />
+                                About Us
+                            </button>
+                            <button className="btn gap-3 justify-start">
+                                <RiChatSmileAiLine className="size-5" />
+                                Contact Us
+                            </button>
+                        </div>
                     </div>
                     <div className="w-full border-t border-base-content/25 p-3">
                         <button className="w-full btn gap-3 justify-start" onClick={handleSignOut}>
