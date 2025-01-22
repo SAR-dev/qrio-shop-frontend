@@ -6,15 +6,24 @@ import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import Drawer from 'react-modern-drawer';
 import { TbMessageChatbot } from "react-icons/tb";
 import { LuChevronRight } from "react-icons/lu";
-import { FcStumbleupon } from "react-icons/fc";
 import { RxExit } from "react-icons/rx";
 import { Link } from "react-router";
 import { TbHistoryToggle } from "react-icons/tb";
+import { usePocket } from "../contexts/PocketContext";
+import { getImageUrl } from "../helpers";
+import LogoSvg from "../assets/logo.svg";
+import { PiSignIn } from "react-icons/pi";
 
 const Navbar = () => {
+    const { oAuthLogin, user, logout } = usePocket()
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
     const toggleDrawer = () => {
         setShowDrawer((prevState) => !prevState)
+    }
+
+    const handleSignOut = () => {
+        logout()
+        window.location.reload();
     }
 
     return (
@@ -37,30 +46,39 @@ const Navbar = () => {
                         <button className="btn btn-outline border-base-content/25 lg:hidden">
                             <RiSearchLine className="h-5 w-5" />
                         </button>
-                        <button className="btn btn-outline border-base-content/25 gap-2">
-                            <div className="w-5">
-                                <img className="h-5 w-5 rounded-full object-cover" src="https://www.shareicon.net/data/512x512/2015/09/18/103160_man_512x512.png" alt="" />
-                            </div>
-                            Sayed Rafi
-                        </button>
+                        {user ? (
+                            <button className="btn btn-outline border-base-content/25 gap-2" onClick={toggleDrawer}>
+                                <div className="w-5">
+                                    <img className="h-5 w-5 rounded-full object-cover" src={getImageUrl({ collectionId: user.collectionId, id: user.id, filename: user.avatar })} alt="" />
+                                </div>
+                                {user.name}
+                            </button>
+                        ) : (
+                            <button className="btn btn-outline border-base-content/25 gap-2" onClick={oAuthLogin}>
+                                <PiSignIn className="size-5" />
+                                Sign In
+                            </button>
+                        )}
                         <Link to="/shopping-cart" className="btn btn-outline border-base-content/25">
                             <FiShoppingCart className="h-5 w-5" />
                         </Link>
                     </div>
                 </div>
-                <div className="bg-base-100 shadow">
-                    <div className="bg-primary/20 text-center py-2 lg:px-4 z-[2]">
-                        <Link to="/" className="py-2 lg:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none lg:rounded-full flex lg:inline-flex group min-w-96">
-                            <span className="flex rounded-full bg-accent uppercase px-2 py-1 text-xs font-bold mr-3 text-info-content">
-                                Reminder
-                            </span>
-                            <span className="font-semibold mr-2 text-left flex-auto text-sm md:text-base">
-                                Sign in to get exclusive offers
-                            </span>
-                            <LuChevronRight className="opacity-75 h-4 w-4" />
-                        </Link>
+                {!user && (
+                    <div className="bg-base-100 shadow">
+                        <div className="bg-primary/20 text-center py-2 lg:px-4 z-[2]">
+                            <button onClick={oAuthLogin} className="py-2 lg:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none lg:rounded-full flex lg:inline-flex group min-w-96">
+                                <span className="flex rounded-full bg-accent uppercase px-2 py-1 text-xs font-bold mr-3 text-info-content">
+                                    Reminder
+                                </span>
+                                <span className="font-semibold mr-2 text-left flex-auto text-sm md:text-base">
+                                    Sign in to get exclusive offers
+                                </span>
+                                <LuChevronRight className="opacity-75 h-4 w-4" />
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             <Drawer
                 open={showDrawer}
@@ -71,7 +89,7 @@ const Navbar = () => {
                 <div className="h-full w-72 bg-base-200 flex flex-col justify-between">
                     <div className="flex flex-col gap-2 p-3">
                         <div className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
-                            <FcStumbleupon className="size-8" />
+                            <img src={LogoSvg} className="size-8" alt="" />
                             QRIO
                         </div>
                         <button className="btn gap-3 justify-start">
@@ -100,7 +118,7 @@ const Navbar = () => {
                         </button>
                     </div>
                     <div className="w-full border-t border-base-content/25 p-3">
-                        <button className="w-full btn gap-3 justify-start">
+                        <button className="w-full btn gap-3 justify-start" onClick={handleSignOut}>
                             <RxExit className="size-5" />
                             Sign Out
                         </button>
