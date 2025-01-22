@@ -51,7 +51,7 @@ const Homepage = () => {
                     <SeriesBox />
                 </div>
                 <div>
-                    <SectionHeader />
+                    <SectionHeader left  />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                         {[...Array(8)].map((_, i) => (
                             <ProductCard key={i} />
@@ -64,7 +64,7 @@ const Homepage = () => {
                     <CategoryBox />
                 </div>
                 <div>
-                    <SectionHeader />
+                    <SectionHeader left  />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                         {[...Array(4)].map((_, i) => (
                             <PromotionProductCard key={i} />
@@ -75,7 +75,7 @@ const Homepage = () => {
                     <SeriesBox />
                 </div>
                 <div>
-                    <SectionHeader />
+                    <SectionHeader left  />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                         {[...Array(8)].map((_, i) => (
                             <ProductCard key={i} />
@@ -88,7 +88,7 @@ const Homepage = () => {
                     <CategoryBox />
                 </div>
                 <div>
-                    <SectionHeader />
+                    <SectionHeader left  />
                     <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
                         {[...Array(5)].map((_, i) => (
                             <BlogCard key={i} />
@@ -96,7 +96,7 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <SectionHeader />
+                    <SectionHeader left  />
                     <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-8 text-xl font-semibold">
                         {[...Array(20)].map((_, i) => (
                             <div className="flex flex-col items-center gap-3">
