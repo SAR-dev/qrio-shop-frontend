@@ -3,13 +3,41 @@ import { FaPlus, FaStar } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import SectionHeader from '../components/SectionHeader'
 import ProductCard from '../components/ProductCard'
+import parse from 'html-react-parser';
 
 const ProductDetails = () => {
+    const description = `    
+    <div>
+    <div>
+    <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
+    <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
+    </div>
+    </div>
+    <div>
+    <h4>Fabric &amp; Care</h4>
+    <div>
+    <ul>
+    <li>
+    Only the best materials
+    </li>
+    <li>Ethically and locally made
+    </li>
+    <li>
+    Pre-washed and pre-shrunk
+    </li>
+    <li>
+    Machine wash cold with similar colors
+    </li>
+    </ul>
+    </div>
+    </div>
+    `;
+
     return (
         <NavLayout>
             <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-16">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-                    <div className="shrink-0 w-full mx-auto">
+                    <div className="shrink-0 w-full mx-auto h-fit sticky top-0">
                         <div className="carousel carousel-vertical rounded-box h-[28rem] w-full">
                             <div className="carousel-item h-full w-full">
                                 <img className='w-full object-cover' src="https://www.wallpaperflare.com/static/550/72/960/princess-guardian-boy-and-girl-anime-wallpaper.jpg" />
@@ -76,47 +104,15 @@ const ProductDetails = () => {
                                 <div><b>Category: </b> Figurine</div>
                                 <div><b>Series: </b> Bleach</div>
                             </div>
-                            <p>
+                            <p className='leading-7'>
                                 Two Thunderbolt USB 4 ports and up to two USB 3 ports. Ultrafast Wi-Fi
                                 6 and Bluetooth 5.0 wireless. Color matched Magic Mouse with Magic
                                 Keyboard or Magic Keyboard with Touch ID.
                             </p>
+                            <article className="prose text-base-content">
+                                {parse(description)}
+                            </article>
                         </div>
-                    </div>
-                </div>
-                <div className="join join-vertical w-full">
-                    {[...Array(4)].map((_, i) => (
-                        <div className="collapse collapse-arrow join-item border-base-content/25 border" key={i}>
-                            <input type="radio" name="accordion" defaultChecked={i == 0} />
-                            <div className="collapse-title text-lg font-medium">Overview</div>
-                            <div className="collapse-content">
-                                <div className="flex flex-col gap-2">
-                                    <p>Studio quality three mic array for crystal clear calls and voice recordings. Six-speaker sound system for a remarkably robust and high-quality audio experience. Up to 256GB of ultrafast SSD storage.</p>
-                                    <p>Two Thunderbolt USB 4 ports and up to two USB 3 ports. Ultrafast Wi-Fi 6 and Bluetooth 5.0 wireless. Color matched Magic Mouse with Magic Keyboard or Magic Keyboard with Touch ID.</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <div className="card flex flex-col lg:flex-row gap-5 items-center border border-base-content/25 p-5">
-                    <div className="flex flex-col gap-3 mr-auto">
-                        <div className='text-xl'>
-                            Apple iMac 24" All-In-One Computer, Apple M1, 8GB RAM, 256GB SSD, Mac
-                            OS, Pink
-                        </div>
-                        <div className="text-xl font-bold">
-                            TK 1,249.99
-                        </div>
-                    </div>
-                    <div className="flex gap-5 ml-auto w-full lg:w-fit">
-                        <button className="btn btn-outline btn-primary">
-                            <FiHeart className='size-5' />
-                            Add to favorites
-                        </button>
-                        <button className="btn btn-primary">
-                            <FaPlus className='size-5' />
-                            Add to cart
-                        </button>
                     </div>
                 </div>
                 <div>

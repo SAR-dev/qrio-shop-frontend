@@ -33,7 +33,9 @@ const Navbar = () => {
                         <button onClick={toggleDrawer}>
                             <RiMenu2Fill className="h-5 w-5" />
                         </button>
-                        QRIO
+                        <Link to="/">
+                            QRIO
+                        </Link>
                     </div>
                     <div className="navbar-center">
                         <label className="input input-bordered input hidden lg:flex items-center gap-2 w-96">
@@ -89,10 +91,10 @@ const Navbar = () => {
                 <div className="h-full w-72 bg-base-200 flex flex-col justify-between">
                     <div>
                         <div className="w-full border-b border-base-content/25 p-3">
-                            <div className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
+                            <Link to="/" className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
                                 <img src={LogoSvg} className="size-8" alt="" />
                                 QRIO
-                            </div>
+                            </Link>
                         </div>
                         <div className="flex flex-col p-3">
                             <button className="btn gap-3 justify-start">
