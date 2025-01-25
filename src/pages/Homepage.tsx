@@ -1,6 +1,4 @@
 import PromotionProductCard from "../components/PromotionProductCard";
-import { FcInTransit } from "react-icons/fc";
-import { HiArrowLongRight } from "react-icons/hi2";
 import { GiTravelDress } from "react-icons/gi";
 import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
@@ -8,39 +6,34 @@ import NavLayout from "../layouts/NavLayout";
 import SectionHeader from "../components/SectionHeader";
 import CategoryBox from "../components/CategoryBox";
 import SeriesBox from "../components/SeriesBox";
+import { useLocalStorage } from "usehooks-ts";
+import { HomepageResType } from "../types/response-types";
+import { constants } from "../constants";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import HomepageCarouselItem from "../components/HomepageCarouselItem";
 
 const Homepage = () => {
+    const [fetched, setFetched] = useState(false)
+    const [homepageData, setHomepageData] = useLocalStorage<HomepageResType | null>(constants.HOMEPAGE_DATA_STORE_KEY, null)
+
+    useEffect(() => {
+        if (fetched) return;
+        axios
+            .get(`${import.meta.env.VITE_API_URL}/api/homepage`)
+            .then(res => {
+                setHomepageData(res.data)
+                setFetched(true)
+            })
+            .catch(err => console.log(err))
+    }, [fetched])
+
+
     return (
         <NavLayout>
             <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-16">
-                <div className="card bg-base-100 from-base-200 not-prose outline-base-content/5 relative overflow-hidden bg-gradient-to-b font-sans shadow-lg outline -outline-offset-1 md:flex-row-reverse">
-                    <figure className="max-md:bg-primary/10 isolate shrink-0 md:w-2/3">
-                        <img
-                            className="pointer-events-none h-64 md:h-96 lg:h-[30rem]"
-                            src="https://images.fineartamerica.com/images/artworkimages/medium/3/awesome-steins-gate-rintaro-okabe-cool-gifts-inny-shop-transparent.png"
-                        />
-                    </figure>
-                    <div className="bg-primary-content -left-1/5 pointer-events-none absolute bottom-[-50%] aspect-square w-3/4 -translate-x-1/2 rounded-full opacity-20 blur-3xl" />
-                    <div className="bg-primary pointer-events-none absolute bottom-[-120%] left-1/2 aspect-square w-full -translate-x-1/2 rounded-full opacity-20 blur-3xl" />
-                    <div className="bg-base-100 pointer-events-none absolute -top-3/4 right-1/4 z-[1] aspect-square w-1/2 rounded-full opacity-60 blur-3xl" />
-                    <div className="card-body relative isolate z-[1]">
-                        <h2 className="card-title title text-base-content text-xl contrast-200 [text-wrap:balance] sm:w-[250%] sm:text-2xl md:text-4xl lg:text-3xl xl:text-4xl">
-                            <span>
-                                <span className="font-black">New Year Offer</span> <br />
-                                <span className="font-black">20% OFF</span>
-                            </span>
-                        </h2>
-                        <div className="grow">
-                            <h2 className="card-title text-sm font-light sm:w-[250%] sm:text-lg md:text-lg lg:text-lg xl:text-xl">
-                                <FcInTransit className="inline size-6" />
-                                Available on QRIO store
-                            </h2>
-                        </div>
-                        <a className="btn btn-block btn-primary group" href="/store">
-                            More details
-                            <HiArrowLongRight className="hidden h-6 w-6 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1 md:inline-block" />
-                        </a>
-                    </div>
+                <div className="carousel w-full">
+                    {homepageData?.homepageCarousel.map((data, i) => <HomepageCarouselItem data={data} key={i} />)}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     <CategoryBox />

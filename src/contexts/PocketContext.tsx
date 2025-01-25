@@ -38,7 +38,6 @@ export const PocketProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState(pb.authStore.record as unknown as UsersResponse);
 
     useEffect(() => {
-        console.log(user)
         if (!pb.authStore.isValid) logout()
     }, [])
 
