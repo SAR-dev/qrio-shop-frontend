@@ -7,7 +7,6 @@ import { LuChevronRight } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
 import { Link } from "react-router";
 import { usePocket } from "../contexts/PocketContext";
-import { getImageUrl } from "../helpers";
 import LogoSvg from "../assets/logo.svg";
 import { FcGoogle } from "react-icons/fc";
 import { RiChatSmileAiLine } from "react-icons/ri";
@@ -50,7 +49,10 @@ const Navbar = () => {
                         {user ? (
                             <button className="btn btn-outline border-base-content/25 gap-2" onClick={toggleDrawer}>
                                 <div className="w-5">
-                                    <img className="h-5 w-5 rounded-full object-cover" src={getImageUrl({ collectionId: user.collectionId, id: user.id, filename: user.avatar })} alt="" />
+                                    <img 
+                                        className="h-5 w-5 rounded-full object-cover" 
+                                        src={`${import.meta.env.VITE_API_URL}/api/files/${user.collectionName}/${user.id}/${user.avatar}`}
+                                    />
                                 </div>
                                 {user.name}
                             </button>
