@@ -5,6 +5,7 @@ export interface HomepageResType {
 }
 
 export interface FeaturedCategory {
+    tagLine:             string;
     categoryId:          string;
     categoryImageId:     string;
     categoryImageSource: string;
@@ -14,6 +15,7 @@ export interface FeaturedCategory {
 }
 
 export interface FeaturedSeries {
+    tagLine:           string;
     seriesId:          string;
     seriesImageId:     string;
     seriesImageSource: string;

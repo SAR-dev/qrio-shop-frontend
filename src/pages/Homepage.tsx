@@ -12,6 +12,7 @@ import { constants } from "../constants";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import HomepageCarouselItem from "../components/HomepageCarouselItem";
+import { maxDivisibleByThree } from "../helpers";
 
 const Homepage = () => {
     const [fetched, setFetched] = useState(false)
@@ -36,13 +37,9 @@ const Homepage = () => {
                     {homepageData?.homepageCarousel.map((data, i) => <HomepageCarouselItem data={data} key={i} />)}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <CategoryBox />
-                    <CategoryBox />
-                    <CategoryBox />
+                    {homepageData?.featuredCategories.slice(0, maxDivisibleByThree(homepageData?.featuredCategories.length)).map((data, i) => <CategoryBox data={data} key={i} />)}
                 </div>
-                <div>
-                    <SeriesBox />
-                </div>
+                {homepageData?.featuredSeries.map((data, i) => <SeriesBox data={data} key={i} />)}
                 <div>
                     <SectionHeader left disableSubTitle />
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
