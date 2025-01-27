@@ -10,25 +10,36 @@ import { useLocalStorage } from "usehooks-ts";
 import { HomepageResType } from "../types/response-types";
 import { constants } from "../constants";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import HomepageCarouselItem from "../components/HomepageCarouselItem";
-import { maxDivisibleByThree } from "../helpers";
+import { api, getImageUrl, maxDivisibleByThree } from "../helpers";
+import SectionLeftHeader from "../components/SectionLeftHeader";
+import { pb } from "../contexts/PocketContext";
+import { Collections, ImagesResponse, SeriesResponse } from "../types/pocketbase-types";
+
+
+export type TexpandSeriesResponse = SeriesResponse & {
+    expand: {
+      thumbnail?: ImagesResponse
+    };
+  };
 
 const Homepage = () => {
-    const [fetched, setFetched] = useState(false)
     const [homepageData, setHomepageData] = useLocalStorage<HomepageResType | null>(constants.HOMEPAGE_DATA_STORE_KEY, null)
+    const [seriesList, setSeriesList] = useState<TexpandSeriesResponse[]>([])
 
     useEffect(() => {
-        if (fetched) return;
-        axios
-            .get(`${import.meta.env.VITE_API_URL}/api/homepage`)
-            .then(res => {
-                setHomepageData(res.data)
-                setFetched(true)
-            })
+        api
+            .get("/api/homepage")
+            .then(res => setHomepageData(res.data))
             .catch(err => console.log(err))
-    }, [fetched])
+    }, [])
 
+    useEffect(() => {
+        pb.collection(Collections.Series).getList(1, 12, {
+            expand: "thumbnail", 
+            sort: "-priority"
+        }).then(res => setSeriesList(res.items as unknown as TexpandSeriesResponse[]))
+    }, [])
 
     return (
         <NavLayout>
@@ -41,17 +52,22 @@ const Homepage = () => {
                 </div>
                 {homepageData?.featuredSeries.map((data, i) => <SeriesBox data={data} key={i} />)}
                 <div>
-                    <SectionHeader left disableSubTitle />
+                    <SectionLeftHeader title="TRENDING SERIES" subtitle="Most popular series currently" />
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
-                        {[...Array(12)].map((_, i) => (
-                            <div className="h-40 w-full tooltip tooltip-bottom tooltip-primary" data-tip="Demon Slayer" key={i}>
-                                <img className="card w-full h-40 object-cover" src="https://www.1999.co.jp/itbig78/10785820a.jpg" alt="" />
+                        {seriesList.map((series, i) => (
+                            <div className="h-40 w-full relative overflow-hidden group" key={i}>
+                                {series.expand.thumbnail ? (
+                                    <img className="card w-full h-40 object-cover" src={getImageUrl({ id: series.expand.thumbnail.id, filename: series.expand.thumbnail.source })} />
+                                ) : (
+                                    <div className="card w-full h-40 bg-base-content/50 animate-pulse"></div>
+                                )}
+                                <div className="absolute bottom-0 left-0 m-2 bg-accent text-accent-content text-xs px-2 py-1 -translate-x-40 group-hover:translate-x-0 transition duration-150 ease-in-out">{series.title}</div>
                             </div>
                         ))}
                     </div>
                 </div>
                 <div>
-                    <SectionHeader left />
+                    <SectionLeftHeader title="POPULAR PRODUCTS" subtitle="Visit our most popular categories which is mind-blowing" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                         {[...Array(8)].map((_, i) => (
                             <ProductCard key={i} />
@@ -59,7 +75,7 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <SectionHeader left />
+                    <SectionLeftHeader title="PROMOTED PRODUCTS" subtitle="Visit our most popular categories which is mind-blowing" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                         {[...Array(4)].map((_, i) => (
                             <PromotionProductCard key={i} />
@@ -67,7 +83,7 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <SectionHeader left />
+                    <SectionLeftHeader title="DISCOUNTED PRODUCTS" subtitle="Visit our most popular categories which is mind-blowing" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                         {[...Array(8)].map((_, i) => (
                             <ProductCard key={i} />
@@ -83,7 +99,7 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <SectionHeader left />
+                    <SectionLeftHeader title="FOLLOW US" subtitle="Visit our most popular categories which is mind-blowing" />
                     <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-8 text-xl font-semibold">
                         {[...Array(20)].map((_, i) => (
                             <div className="flex flex-col items-center gap-3">

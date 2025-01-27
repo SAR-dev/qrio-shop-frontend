@@ -1,99 +1,104 @@
-import {
-    createContext,
-    useContext,
-    useCallback,
-    useState,
-    useEffect,
-    useMemo,
-    ReactNode,
-} from "react";
+import { createContext, useContext, useCallback, useState, useEffect, ReactNode } from "react";
 import PocketBase from "pocketbase";
-import { useInterval } from "usehooks-ts";
+import { useInterval, useLocalStorage } from "usehooks-ts";
 import { jwtDecode } from "jwt-decode";
 import { Collections, TypedPocketBase, UsersResponse } from "../types/pocketbase-types";
+import { constants } from "../constants";
 
 interface DecodedToken {
-    exp: number;
+    exp: number; // Expiration timestamp in seconds
 }
 
-const oneMinInMs = 60000;
+const ONE_MINUTE_IN_MS = 60000;
 
 interface PocketContextType {
-    pb: TypedPocketBase;
-    refresh: number;
-    incRefresh: () => void;
-    login: ({ email, password, asAdmin }: { email: string; password: string, asAdmin?: boolean }) => Promise<void>;
     oAuthLogin: () => Promise<void>;
     logout: () => void;
     user: UsersResponse | null;
     token: string | null;
 }
 
+// Initialize PocketBase with type safety
+export const pb = new PocketBase(import.meta.env.VITE_API_URL) as TypedPocketBase;
+
+// Create React context for PocketBase
 const PocketContext = createContext<PocketContextType | undefined>(undefined);
 
+// PocketBase Provider component
 export const PocketProvider = ({ children }: { children: ReactNode }) => {
-    const pb = useMemo(() => new PocketBase(import.meta.env.VITE_API_URL) as TypedPocketBase, []);
-    const [refresh, setRefresh] = useState(1)
-    const [token, setToken] = useState<string | null>(pb.authStore.token);
-    const [user, setUser] = useState(pb.authStore.record as unknown as UsersResponse);
+    const [token, setToken] = useLocalStorage<string | null>(
+        constants.AUTH_TOKEN_API,
+        pb.authStore.token
+    );
+    const [user, setUser] = useState<UsersResponse | null>(
+        pb.authStore.record as unknown as UsersResponse
+    );
 
-    useEffect(() => {
-        if (!pb.authStore.isValid) logout()
-    }, [])
+    // Clear local storage and PocketBase store on logout
+    const logout = useCallback(() => {
+        localStorage.clear();
+        pb.authStore.clear();
+        setUser(null);
+    }, []);
 
+    // Handle OAuth login with error handling
+    const oAuthLogin = useCallback(async () => {
+        try {
+            await pb.collection(Collections.Users).authWithOAuth2({ provider: "google" });
+        } catch (error) {
+            console.error("OAuth login failed:", error);
+        }
+    }, []);
+
+    // Refresh the session token periodically
+    const refreshSession = useCallback(async () => {
+        if (!token || !pb.authStore.isValid) return;
+
+        try {
+            const decoded = jwtDecode<DecodedToken>(token);
+            const tokenExpiration = decoded.exp ?? 0;
+            const currentTimeInSeconds = Date.now() / 1000;
+
+            // Refresh the token if it's close to expiration
+            if (currentTimeInSeconds >= tokenExpiration - 5 * 60) {
+                await pb.collection(Collections.Users).authRefresh();
+            }
+        } catch (error) {
+            console.error("Failed to refresh session:", error);
+            logout();
+        }
+    }, [token, logout]);
+
+    // Sync auth store changes to local state
     useEffect(() => {
-        pb.authStore.onChange((newToken, model) => {
+        const unsubscribe = pb.authStore.onChange((newToken, model) => {
             setToken(newToken);
             setUser(model as unknown as UsersResponse);
         });
-    }, [pb]);
 
-    const incRefresh = () => setRefresh(refresh + 1)
+        return () => unsubscribe(); // Cleanup listener on unmount
+    }, [setToken]);
 
-    const login = useCallback(async ({ email, password }: { email: string; password: string }) => {
-        await pb.collection(Collections.Users).authWithPassword(email, password);
-    }, [pb]);
+    // Clear session if token becomes invalid
+    useEffect(() => {
+        if (!pb.authStore.isValid) logout();
+    }, [logout]);
 
-    const oAuthLogin = useCallback(async () => {
-        await pb.collection(Collections.Users).authWithOAuth2({ provider: 'google' });
-    }, [pb]);
-
-    const logout = useCallback(() => {
-        localStorage.clear()
-        pb.authStore.clear();
-    }, [pb]);
-
-    const refreshSession = useCallback(async () => {
-        if (!pb.authStore.isValid) return;
-        const decoded = jwtDecode<DecodedToken>(token!);
-        const tokenExpiration = decoded.exp ?? 0;
-        const expirationWithBuffer = (tokenExpiration + 5 * oneMinInMs) / 1000;
-        if (Date.now() / 1000 < expirationWithBuffer) {
-            await pb.collection(Collections.Users).authRefresh();
-        }
-    }, [pb, token]);
-
-    useInterval(refreshSession, token ? 2 * oneMinInMs : null);
+    // Periodically refresh the session
+    useInterval(refreshSession, token ? 2 * ONE_MINUTE_IN_MS : null);
 
     return (
-        <PocketContext.Provider value={{
-            pb,
-            refresh,
-            incRefresh,
-            login,
-            oAuthLogin,
-            logout,
-            user,
-            token
-        }}>
+        <PocketContext.Provider value={{ oAuthLogin, logout, user, token }}>
             {children}
         </PocketContext.Provider>
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+// Custom hook to access PocketContext
 export const usePocket = () => {
     const context = useContext(PocketContext);
-    if (!context) throw new Error();
+    if (!context) {
+        throw new Error("usePocket must be used within a PocketProvider.");
+    }
     return context;
 };
