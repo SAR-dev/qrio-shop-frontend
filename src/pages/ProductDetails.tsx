@@ -2,7 +2,7 @@ import NavLayout from '../layouts/NavLayout'
 import { FaPlus, FaStar } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import SectionHeader from '../components/SectionHeader'
-import ProductCard from '../components/ProductCard'
+// import ProductCard from '../components/ProductCard'
 import parse from 'html-react-parser';
 
 const ProductDetails = () => {
@@ -118,9 +118,9 @@ const ProductDetails = () => {
                 <div>
                     <SectionHeader left />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                        {[...Array(4)].map((_, i) => (
+                        {/* {[...Array(4)].map((_, i) => (
                             <ProductCard key={i} />
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </div>

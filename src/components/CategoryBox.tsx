@@ -17,12 +17,16 @@ const CategoryBox = ({ data }: { data: FeaturedCategory }) => {
             {data.products.map((product, i) => (
                 <div key={i}>
                     <div className="h-32">
-                        <img
-                            className="h-32 w-full object-cover"
+                        {product.productImageId.length > 0 ? (
+                            <img
+                            className="h-32 w-full object-cover rounded"
                             src={getImageUrl({id: product.productImageId, filename: product.productImageSource})}
                         />
+                        ) : (
+                            <div className="h-32 w-full bg-base-content/50 animate-pulse" />
+                        )}
                     </div>
-                    <Link to="/products/1" className="mt-1 text-sm hover:text-success line-clamp-1">{product.productTitle}</Link>
+                    <Link to="/products/1" className="mt-1 text-xs hover:text-success line-clamp-1">{product.productTitle}</Link>
                 </div>
             ))}
         </div>

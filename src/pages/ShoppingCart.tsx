@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
 import NavLayout from '../layouts/NavLayout'
 import { FiHeart, FiMinus, FiPlus, FiTrash } from 'react-icons/fi'
-import ProductCard from '../components/ProductCard'
+// import ProductCard from '../components/ProductCard'
 import SectionHeader from '../components/SectionHeader'
 import { MdArrowRightAlt } from 'react-icons/md';
 
@@ -70,9 +70,9 @@ const ShoppingCart = () => {
                         <div className="hidden xl:mt-8 xl:block">
                             <SectionHeader left />
                             <div className="grid grid-cols-3 gap-10">
-                                {[...Array(6)].map((_, i) => (
+                                {/* {[...Array(6)].map((_, i) => (
                                     <ProductCard key={i} />
-                                ))}
+                                ))} */}
                             </div>
                         </div>
                     </div>
