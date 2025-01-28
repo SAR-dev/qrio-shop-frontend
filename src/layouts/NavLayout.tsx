@@ -4,10 +4,10 @@ import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const NavLayout = ({children}:{children: ReactNode}) => {
   return (
-    <div>
+    <div className='min-h-screen flex flex-col'>
         <Navbar />
         {children}
-        <footer className="footer footer-center bg-base-200 text-base-content rounded p-10">
+        <footer className="footer footer-center bg-base-200 text-base-content rounded p-10 mt-auto">
                 <nav className="grid grid-flow-col gap-4">
                     <a className="link link-hover">About us</a>
                     <a className="link link-hover">Contact</a>

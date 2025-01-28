@@ -1,3 +1,15 @@
+// product details
+
+import { CategoriesResponse, ImagesResponse, ProductsResponse, SeriesResponse } from "./pocketbase-types";
+
+export type TexpandProductDetailsResType = ProductsResponse & {
+    expand: {
+      categories: CategoriesResponse;
+      series: SeriesResponse;
+      images: ImagesResponse[];
+    };
+  };
+
 // homepage lists
 export interface HomepageListResType {
     seriesList: SeriesData[];
