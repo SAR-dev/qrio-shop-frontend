@@ -68,7 +68,7 @@ const Navbar = () => {
                             <Link to="/shopping-cart" className="btn btn-outline border-base-content/25">
                                 <FiShoppingCart className="h-5 w-5" />
                             </Link>
-                            <span className="indicator-item indicator-bottom indicator-start badge badge-secondary">+{products.length}</span>
+                            <span className="indicator-item indicator-bottom indicator-start badge badge-secondary h-8 w-8">{products.length}</span>
                         </div>
                     </div>
                 </div>

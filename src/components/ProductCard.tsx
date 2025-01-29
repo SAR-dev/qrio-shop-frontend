@@ -1,10 +1,43 @@
-import { FaPlus } from "react-icons/fa";
+import { FaCheck, FaPlus } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router";
 import { ProductData } from "../types/response";
 import { getImageUrl } from "../helpers";
+import { useCartStore } from "../stores/cartStore";
+import { useNotification } from "../contexts/NotificationContext";
+import { useMemo, useState } from "react";
+import { NotificationType } from "../types/notification";
+import classNames from "classnames";
 
 const ProductCard = ({ data }: { data: ProductData }) => {
+    const { addToCart, products } = useCartStore()
+    const notification = useNotification()
+    const [isLoading, setIsLoading] = useState(false)
+
+    const productIds = useMemo(() => new Set(products.map(e => e.id)), [products]);
+    const addedToCart = useMemo(() => productIds.has(data.id), [productIds, data.id]);
+
+    const handleAddToCart = () => {
+        setIsLoading(true)
+        addToCart({ productId: data.id })
+            .then(() => {
+                notification.add({
+                    status: NotificationType.SUCCESS,
+                    title: "Added to cart",
+                    message: "Selected product has been added to cart."
+                })
+                setIsLoading(false)
+            })
+            .catch(() => {
+                notification.add({
+                    status: NotificationType.ERROR,
+                    title: "Error occured",
+                    message: "Adding items to cart failed. Please try later."
+                })
+                setIsLoading(false)
+            })
+    }
+    
     return (
         <div className="group">
             <Link to={`/products/${data.slug}`} className="card h-64 sm:h-72 w-full relative overflow-hidden">
@@ -38,8 +71,25 @@ const ProductCard = ({ data }: { data: ProductData }) => {
                             <div className="title text-2xl font-extralight line-through opacity-50">{data.sellingPrice}</div>
                         )}
                     </div>
-                    <button className="btn btn-square btn-sm btn-success">
-                        <FaPlus className="size-4" />
+                    <button
+                        className={classNames({
+                            "btn btn-square btn-sm": true,
+                            "btn-success": !addedToCart,
+                            "btn-primary": addedToCart
+                        })}
+                        disabled={isLoading}
+                        onClick={handleAddToCart}
+                    >
+                        <label
+                            className={classNames({
+                                "swap swap-flip": true,
+                                "swap-active": addedToCart
+                            })}
+                        >
+                            <FaPlus className="size-4 swap-off" />
+                            <FaCheck className="size-4 swap-on" />
+                        </label>
+
                     </button>
                 </div>
             </div>

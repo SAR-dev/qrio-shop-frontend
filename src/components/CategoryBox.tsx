@@ -15,7 +15,7 @@ const CategoryBox = ({ data }: { data: FeaturedCategory }) => {
                 </Link>
             </div>
             {data.products.map((product, i) => (
-                <div key={i}>
+                <Link to={`/products/${product.productSlug}`} key={i}>
                     <div className="h-32">
                         {product.productImageId.length > 0 ? (
                             <img
@@ -26,8 +26,8 @@ const CategoryBox = ({ data }: { data: FeaturedCategory }) => {
                             <div className="h-32 w-full bg-base-content/50 animate-pulse" />
                         )}
                     </div>
-                    <Link to="/products/1" className="mt-1 text-xs hover:text-success line-clamp-1">{product.productTitle}</Link>
-                </div>
+                    <div className="mt-1 text-xs line-clamp-1">{product.productTitle}</div>
+                </Link>
             ))}
         </div>
     )

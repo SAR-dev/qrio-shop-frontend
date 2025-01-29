@@ -1,13 +1,12 @@
 import { Link } from 'react-router'
 import NavLayout from '../layouts/NavLayout'
-import { FiHeart, FiMinus, FiPlus, FiTrash } from 'react-icons/fi'
 import { MdArrowRightAlt } from 'react-icons/md';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
-import { getImageUrl } from '../helpers';
 import { useState } from 'react';
 import { useWishListStore } from '../stores/wishListStore';
-import ProductCard from '../components/ProductCard';
+import CartProductCard from '../components/CartProductCard';
+import WishedProductCard from '../components/WishedProductCard';
 
 const ShoppingCart = () => {
     const { products: cartProducts } = useCartStore();
@@ -28,71 +27,15 @@ const ShoppingCart = () => {
                         ) : (
                             <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
                                 {cartProducts.map((product, i) => (
-                                    <div className="p-4 md:p-6" key={i}>
-                                        <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                            <Link to={`/products/${product.productSlug}`} className="shrink-0 md:order-1">
-                                                {product.productImageId.length > 0 ? (
-                                                    <img
-                                                        className="h-20 w-20 card"
-                                                        src={getImageUrl({ id: product.productImageId, filename: product.productImageSource })}
-                                                    />
-                                                ) : (
-                                                    <div className="h-20 w-20 card bg-base-content/50 animate-pulse" />
-                                                )}
-                                            </Link>
-                                            <label htmlFor="counter-input" className="sr-only">
-                                                Choose quantity:
-                                            </label>
-                                            <div className="flex items-center justify-between md:order-3 md:justify-end">
-                                                <div className="flex items-center">
-                                                    <button className="btn btn-xs btn-outline btn-square">
-                                                        <FiMinus className="size-2.5" />
-                                                    </button>
-                                                    <input
-                                                        type="text"
-                                                        className="w-10 shrink-0 input focus:outline-none focus:ring-0 border-0"
-                                                        defaultValue={product.productAmount}
-                                                    />
-                                                    <button className="btn btn-xs btn-outline btn-square">
-                                                        <FiPlus className="size-2.5" />
-                                                    </button>
-                                                </div>
-                                                <div className="text-end md:order-4 md:w-32">
-                                                    <p className="font-bold">
-                                                        TK {product.productSellingPrice - product.productDiscount}
-                                                    </p>
-                                                    {product.productDiscount > 0 && (
-                                                        <p className="line-through">
-                                                            TK {product.productSellingPrice}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                                <Link to={`/products/${product.productSlug}`} className="font-medium" >
-                                                    {product.productTitle}
-                                                </Link>
-                                                <div className="flex items-center gap-4">
-                                                    <button className="btn btn-outline border-base-content/25 btn-sm">
-                                                        <FiHeart className='size-4' />
-                                                        Add to Favourites
-                                                    </button>
-                                                    <button className="btn btn-outline border-base-content/25 btn-sm">
-                                                        <FiTrash className='size-4' />
-                                                        Remove
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <CartProductCard product={product} key={i} />
                                 ))}
                             </div>
                         )}
                         <div className="mt-10">
                             <SectionLeftHeader title='✨ WISHLIST' subtitle='Save, organize, and track the products for easy shopping later!' />
-                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+                            <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
                                 {wishedProducts.map((data, i) => (
-                                    <ProductCard data={data} key={i} />
+                                    <WishedProductCard product={data} key={i} />
                                 ))}
                             </div>
                         </div>
@@ -109,7 +52,7 @@ const ShoppingCart = () => {
                                             Original price
                                         </dt>
                                         <dd className="font-medium">
-                                            TK {cartProducts.map(e => Number(e.productSellingPrice)).reduce((a, b) => a + b, 0)}
+                                            TK {cartProducts.map(e => Number(e.sellingPrice)).reduce((a, b) => a + b, 0)}
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -117,7 +60,7 @@ const ShoppingCart = () => {
                                             Savings
                                         </dt>
                                         <dd className="font-medium">
-                                            - TK {cartProducts.map(e => Number(e.productDiscount)).reduce((a, b) => a + b, 0)}
+                                            - TK {cartProducts.map(e => Number(e.discount)).reduce((a, b) => a + b, 0)}
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -142,7 +85,7 @@ const ShoppingCart = () => {
                                         Total
                                     </dt>
                                     <dd className="font-bold">
-                                        TK {(cartProducts.map(e => Number(e.productSellingPrice) - Number(e.productDiscount)).reduce((a, b) => a + b, 0)) + shippingFee + taxFee}
+                                        TK {(cartProducts.map(e => Number(e.sellingPrice) - Number(e.discount)).reduce((a, b) => a + b, 0)) + shippingFee + taxFee}
                                     </dd>
                                 </dl>
                             </div>

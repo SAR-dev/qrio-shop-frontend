@@ -16,19 +16,19 @@ export interface CartProductResType {
 }
 
 export interface CartProduct {
-    productId: string
-    productTitle: string
-    productAmount: number
-    productDiscount: number
-    categorySlug: string
-    seriesSlug: string
+    id: string
+    title: string
+    amount: number
+    discount: number
+    slug: string
+    sellingPrice: number
     cartId: string
-    productSlug: string
-    productSellingPrice: number
     productImageId: string
     productImageSource: string
     categoryTitle: string
+    categorySlug: string
     seriesTitle: string
+    seriesSlug: string
 }
 
 // product suggestions

@@ -4,27 +4,34 @@ import { constants } from '../constants'
 import { api } from '../helpers'
 import { ProductData, WishlistResType } from '../types/response';
 
-type CartStore = {
+type WishListStore = {
     products: ProductData[]
     refetchProducts: () => Promise<void>
+    toogleWish: ({ productId }: { productId: string }) => Promise<void>
 }
 
-export const useWishListStore = create<CartStore>()(
+const fetchWishedProducts = async (): Promise<ProductData[]> => {
+    const res = await api.get("/api/wishlist")
+    return (res.data as WishlistResType)?.wishedProducts ?? []
+}
+
+const toogleWishedProduct = async ({ productId }: { productId: string }) => {
+    await api.post("/api/wishlist", { productId })
+}
+
+export const useWishListStore = create<WishListStore>()(
     persist(
         (set) => {
-            const fetchInitialProducts = async () => {
-                const res = await api.get("/api/wishlist")
-                const data: WishlistResType = res.data as unknown as WishlistResType
-                if(!data) return;
-                set({ products: data.wishedProducts })
-            }
-            fetchInitialProducts()
-
             return {
                 products: [],
                 refetchProducts: async () => {
-                    await fetchInitialProducts()
+                    const products = await fetchWishedProducts()
+                    set({ products })
                 },
+                toogleWish: async ({ productId }) => {
+                    await toogleWishedProduct({ productId })
+                    await useWishListStore.getState().refetchProducts()
+                }
             }
         },
         {
@@ -33,3 +40,5 @@ export const useWishListStore = create<CartStore>()(
         }
     )
 )
+
+useWishListStore.getState().refetchProducts()

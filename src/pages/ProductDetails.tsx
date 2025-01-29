@@ -89,21 +89,30 @@ const ProductDetails = () => {
                             </div>
                         </div>
                         <div className="mt-6 sm:mt-8 lg:mt-0">
-                            <h1 className="text-xl font-semibold sm:text-2xl">
+                            <h1 className="text-2xl font-bold sm:text-3xl">
                                 {productDetails.title}
                             </h1>
                             <div className="mt-4 flex gap-5">
-                                {productDetails.discount > 0 && (
-                                    <>
-                                        <div className="w-fit bg-secondary text-secondary-content py-1 px-2 text-xs">Save TK {productDetails.discount}</div>
-                                        <div className='line-through'>TK {productDetails.sellingPrice}</div>
-                                    </>
+                                {Number(productDetails.discount) > 0 && (
+                                    <div className="w-fit bg-secondary text-secondary-content py-1 px-2 text-sm">Save TK {productDetails.discount}</div>
+                                )}
+                                {productDetails.inStock ? (
+                                    <div className="px-2 py-1 bg-success text-success-content w-fit text-sm">🚀 In Stock</div>
+                                ) : (
+                                    <div className="px-2 py-1 bg-error text-error-content w-fit text-sm">⛟ Out Of Stock</div>
                                 )}
                             </div>
                             <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
-                                <p className="title text-2xl font-extrabold sm:text-3xl">
-                                    TK {productDetails.sellingPrice - productDetails.discount}
-                                </p>
+                                <div className="flex gap-3">
+                                    <p className="title text-2xl font-extrabold sm:text-3xl">
+                                        TK {Number(productDetails.sellingPrice) - Number(productDetails.discount)}
+                                    </p>
+                                    {productDetails.discount > 0 && (
+                                        <p className="title text-2xl sm:text-3xl font-extralight line-through opacity-50">
+                                            TK {productDetails.sellingPrice}
+                                        </p>
+                                    )}
+                                </div>
                                 <div className="flex items-center gap-2 mt-2 sm:mt-0">
                                     <div className="flex items-center gap-1">
                                         <FaStar className="size-4 text-yellow-400" />
@@ -133,18 +142,11 @@ const ProductDetails = () => {
                             <hr className="my-6 md:my-8 border-base-content/25" />
                             <div className="grid grid-cols-1 gap-4">
                                 <div className='flex flex-col gap-2'>
-                                    <div>
-                                        {productDetails.inStock ? (
-                                            <div className="px-2 py-1 bg-success text-success-content w-fit text-sm">🚀 In Stock</div>
-                                        ) : (
-                                            <div className="px-2 py-1 bg-error text-error-content w-fit text-sm">⛟ Out Of Stock</div>
-                                        )}
-                                    </div>
-                                    <div><b>Category: </b> {productDetails.expand.categories.title}</div>
-                                    <div><b>Series: </b> {productDetails.expand.series.title}</div>
+                                    <div><b>🏷️ Category : </b> {productDetails.expand.categories.title}</div>
+                                    <div><b>🎬 Series : </b> {productDetails.expand.series.title}</div>
                                 </div>
                                 <p className='leading-7'>
-                                    {productDetails.summary}
+                                    ✍️ {productDetails.summary}
                                 </p>
                                 {(productDetails.tags as string[]).length > 0 && (
                                     <div className="flex gap-3">
