@@ -2,7 +2,7 @@ import { createContext, useContext, useCallback, useState, useEffect, ReactNode 
 import PocketBase from "pocketbase";
 import { useInterval, useLocalStorage } from "usehooks-ts";
 import { jwtDecode } from "jwt-decode";
-import { Collections, TypedPocketBase, UsersResponse } from "../types/pocketbase-types";
+import { Collections, TypedPocketBase, UsersResponse } from "../types/pocketbase";
 import { constants } from "../constants";
 
 interface DecodedToken {

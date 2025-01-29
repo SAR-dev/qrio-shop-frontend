@@ -1,14 +1,45 @@
+import { CategoriesResponse, ImagesResponse, ProductsResponse, SeriesResponse, ShippingMethodsResponse } from "./pocketbase";
+
 // product details
-
-import { CategoriesResponse, ImagesResponse, ProductsResponse, SeriesResponse } from "./pocketbase-types";
-
 export type TexpandProductDetailsResType = ProductsResponse & {
     expand: {
-      categories: CategoriesResponse;
-      series: SeriesResponse;
-      images: ImagesResponse[];
+        categories: CategoriesResponse;
+        series: SeriesResponse;
+        images: ImagesResponse[];
+        shippingMethods: ShippingMethodsResponse;
     };
-  };
+};
+
+// cart products
+export interface CartProductResType {
+    cartProducts: CartProduct[]
+}
+
+export interface CartProduct {
+    productId: string
+    productTitle: string
+    productAmount: number
+    productDiscount: number
+    categorySlug: string
+    seriesSlug: string
+    cartId: string
+    productSlug: string
+    productSellingPrice: number
+    productImageId: string
+    productImageSource: string
+    categoryTitle: string
+    seriesTitle: string
+}
+
+// product suggestions
+export interface WishlistResType {
+    wishedProducts: ProductData[]
+}
+
+// product suggestions
+export interface ProductSuggestResType {
+    suggestedProducts: ProductData[]
+}
 
 // homepage lists
 export interface HomepageListResType {

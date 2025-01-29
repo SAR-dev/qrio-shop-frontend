@@ -1,4 +1,4 @@
-import { HomepageCarousel } from '../types/response-types'
+import { HomepageCarousel } from '../types/response'
 import { HiArrowLongRight } from "react-icons/hi2";
 import { Link } from 'react-router';
 

@@ -4,18 +4,21 @@ import ShoppingCart from "./pages/ShoppingCart";
 import ProductDetails from "./pages/ProductDetails";
 import OrderHistory from "./pages/OrderHistory";
 import { PocketProvider } from "./contexts/PocketContext";
+import { NotificationProvider } from "./contexts/NotificationContext";
 
 const Router = () => {
   return (
     <PocketProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/shopping-cart" element={<ShoppingCart />} />
-          <Route path="/order-history" element={<OrderHistory />} />
-          <Route path="/products/:slug" element={<ProductDetails />} />
-        </Routes>
-      </BrowserRouter>
+      <NotificationProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/shopping-cart" element={<ShoppingCart />} />
+            <Route path="/order-history" element={<OrderHistory />} />
+            <Route path="/products/:slug" element={<ProductDetails />} />
+          </Routes>
+        </BrowserRouter>
+      </NotificationProvider>
     </PocketProvider>
   );
 }

@@ -11,8 +11,10 @@ import LogoSvg from "../assets/logo.svg";
 import { FcGoogle } from "react-icons/fc";
 import { RiChatSmileAiLine } from "react-icons/ri";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { useCartStore } from "../stores/cartStore";
 
 const Navbar = () => {
+    const { products } = useCartStore()
     const { oAuthLogin, user, logout } = usePocket()
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
     const toggleDrawer = () => {
@@ -49,8 +51,8 @@ const Navbar = () => {
                         {user ? (
                             <button className="btn btn-outline border-base-content/25 gap-2" onClick={toggleDrawer}>
                                 <div className="w-5">
-                                    <img 
-                                        className="h-5 w-5 rounded-full object-cover" 
+                                    <img
+                                        className="h-5 w-5 rounded-full object-cover"
                                         src={`${import.meta.env.VITE_API_URL}/api/files/${user.collectionName}/${user.id}/${user.avatar}`}
                                     />
                                 </div>
@@ -62,15 +64,18 @@ const Navbar = () => {
                                 Continue with Google
                             </button>
                         )}
-                        <Link to="/shopping-cart" className="btn btn-outline border-base-content/25">
-                            <FiShoppingCart className="h-5 w-5" />
-                        </Link>
+                        <div className="indicator">
+                            <Link to="/shopping-cart" className="btn btn-outline border-base-content/25">
+                                <FiShoppingCart className="h-5 w-5" />
+                            </Link>
+                            <span className="indicator-item indicator-bottom indicator-start badge badge-secondary">+{products.length}</span>
+                        </div>
                     </div>
                 </div>
                 {!user && (
                     <div className="bg-base-100 shadow">
                         <div className="bg-primary/20 text-center py-2 lg:px-4 z-[2]">
-                            <button onClick={oAuthLogin} className="py-2 lg:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none lg:rounded-full flex lg:inline-flex group min-w-96">
+                            <button onClick={oAuthLogin} className="py-2 xs:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none xs:rounded-full flex xs:inline-flex group min-w-96 w-full xs:w-fit">
                                 <span className="flex rounded-full bg-accent uppercase px-2 py-1 text-xs font-bold mr-3 text-info-content">
                                     Reminder
                                 </span>

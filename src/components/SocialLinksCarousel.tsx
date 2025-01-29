@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { FaFacebook, FaInstagram, FaTiktok, FaTwitter, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import { pb } from "../contexts/PocketContext";
-import { Collections, SocialsResponse } from "../types/pocketbase-types";
+import { Collections, SocialsResponse } from "../types/pocketbase";
 import { constants } from "../constants";
 import { useLocalStorage } from "usehooks-ts";
 import SectionLeftHeader from "./SectionLeftHeader";

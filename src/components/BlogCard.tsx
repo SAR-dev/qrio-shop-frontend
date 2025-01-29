@@ -1,6 +1,6 @@
 import { Link } from "react-router"
 import { getImageUrl } from "../helpers"
-import { BlogData } from "../types/response-types"
+import { BlogData } from "../types/response"
 
 const dateOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",

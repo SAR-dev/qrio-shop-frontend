@@ -22,7 +22,9 @@ export enum Collections {
 	Images = "images",
 	Products = "products",
 	PromotedProducts = "promotedProducts",
+	Queries = "queries",
 	Series = "series",
+	ShippingMethods = "shippingMethods",
 	Socials = "socials",
 	Users = "users",
 	Wishlists = "wishlists",
@@ -201,11 +203,14 @@ export type ProductsRecord<Ttags = unknown> = {
 	priority: number
 	sellingPrice: number
 	series?: RecordIdString
+	shippingMethods: RecordIdString
+	sizeInCubicCm?: number
 	slug: string
 	summary?: string
 	tags?: null | Ttags
 	title: string
 	updated?: IsoDateString
+	weightInGm?: number
 }
 
 export type PromotedProductsRecord = {
@@ -216,6 +221,16 @@ export type PromotedProductsRecord = {
 	updated?: IsoDateString
 }
 
+export type QueriesRecord = {
+	answer?: string
+	created?: IsoDateString
+	id: string
+	products?: RecordIdString
+	question: string
+	updated?: IsoDateString
+	users: RecordIdString
+}
+
 export type SeriesRecord = {
 	cover?: RecordIdString
 	created?: IsoDateString
@@ -223,6 +238,14 @@ export type SeriesRecord = {
 	priority?: number
 	slug: string
 	thumbnail?: RecordIdString
+	title: string
+	updated?: IsoDateString
+}
+
+export type ShippingMethodsRecord = {
+	created?: IsoDateString
+	description?: HTMLString
+	id: string
 	title: string
 	updated?: IsoDateString
 }
@@ -282,7 +305,9 @@ export type HomepageCarouselResponse<Texpand = unknown> = Required<HomepageCarou
 export type ImagesResponse<Texpand = unknown> = Required<ImagesRecord> & BaseSystemFields<Texpand>
 export type ProductsResponse<Ttags = unknown, Texpand = unknown> = Required<ProductsRecord<Ttags>> & BaseSystemFields<Texpand>
 export type PromotedProductsResponse<Texpand = unknown> = Required<PromotedProductsRecord> & BaseSystemFields<Texpand>
+export type QueriesResponse<Texpand = unknown> = Required<QueriesRecord> & BaseSystemFields<Texpand>
 export type SeriesResponse<Texpand = unknown> = Required<SeriesRecord> & BaseSystemFields<Texpand>
+export type ShippingMethodsResponse<Texpand = unknown> = Required<ShippingMethodsRecord> & BaseSystemFields<Texpand>
 export type SocialsResponse<Texpand = unknown> = Required<SocialsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 export type WishlistsResponse<Texpand = unknown> = Required<WishlistsRecord> & BaseSystemFields<Texpand>
@@ -306,7 +331,9 @@ export type CollectionRecords = {
 	images: ImagesRecord
 	products: ProductsRecord
 	promotedProducts: PromotedProductsRecord
+	queries: QueriesRecord
 	series: SeriesRecord
+	shippingMethods: ShippingMethodsRecord
 	socials: SocialsRecord
 	users: UsersRecord
 	wishlists: WishlistsRecord
@@ -329,7 +356,9 @@ export type CollectionResponses = {
 	images: ImagesResponse
 	products: ProductsResponse
 	promotedProducts: PromotedProductsResponse
+	queries: QueriesResponse
 	series: SeriesResponse
+	shippingMethods: ShippingMethodsResponse
 	socials: SocialsResponse
 	users: UsersResponse
 	wishlists: WishlistsResponse
@@ -355,7 +384,9 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: 'images'): RecordService<ImagesResponse>
 	collection(idOrName: 'products'): RecordService<ProductsResponse>
 	collection(idOrName: 'promotedProducts'): RecordService<PromotedProductsResponse>
+	collection(idOrName: 'queries'): RecordService<QueriesResponse>
 	collection(idOrName: 'series'): RecordService<SeriesResponse>
+	collection(idOrName: 'shippingMethods'): RecordService<ShippingMethodsResponse>
 	collection(idOrName: 'socials'): RecordService<SocialsResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 	collection(idOrName: 'wishlists'): RecordService<WishlistsResponse>

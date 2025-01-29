@@ -1,6 +1,6 @@
 import { Link } from "react-router"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { FeaturedCategory } from "../types/response-types";
+import { FeaturedCategory } from "../types/response";
 import { getImageUrl } from "../helpers";
 
 const CategoryBox = ({ data }: { data: FeaturedCategory }) => {

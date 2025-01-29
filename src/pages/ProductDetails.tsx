@@ -1,21 +1,23 @@
 import NavLayout from '../layouts/NavLayout'
 import { FaPlus, FaStar } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
-// import ProductCard from '../components/ProductCard'
 import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { pb } from '../contexts/PocketContext';
-import { Collections } from '../types/pocketbase-types';
-import { TexpandProductDetailsResType } from '../types/response-types';
-import { getImageUrl } from '../helpers';
+import { Collections } from '../types/pocketbase';
+import { ProductSuggestResType, TexpandProductDetailsResType } from '../types/response';
+import { api, getImageUrl } from '../helpers';
 import NotFoundError from '../components/NotFoundError';
 import DataFetchError from '../components/DataFetchError';
 import SectionLeftHeader from '../components/SectionLeftHeader';
+import ProductCard from '../components/ProductCard';
 
 const ProductDetails = () => {
     const { slug } = useParams();
+
     const [productDetails, setProductDetails] = useState<TexpandProductDetailsResType | null>(null)
+    const [suggestedProductData, setSuggestedProductData] = useState<ProductSuggestResType | null>(null)
 
     const [notFound, setNotFound] = useState(false)
     const [fetchError, setFetchError] = useState(false)
@@ -25,7 +27,7 @@ const ProductDetails = () => {
         pb
             .collection(Collections.Products)
             .getFirstListItem(`slug="${slug}"`, {
-                expand: "categories, images, series"
+                expand: "categories, images, series, shippingMethods"
             })
             .then(res => setProductDetails(res as unknown as TexpandProductDetailsResType))
             .catch(err => {
@@ -36,6 +38,14 @@ const ProductDetails = () => {
                 setFetchError(err.status != 0)
             })
     }, [slug])
+
+    useEffect(() => {
+        if (!productDetails) return
+        api
+            .get(`/api/suggest-products/${productDetails.id}`)
+            .then(res => setSuggestedProductData(res.data))
+    }, [productDetails])
+
 
     if (notFound) return (
         <NavLayout>
@@ -56,7 +66,7 @@ const ProductDetails = () => {
                     <span className="label-text">🤔💭Do you have any questions ? 🤓☝️Let us know</span>
                 </div>
                 <textarea className="textarea textarea-bordered h-24" placeholder="Type here..." />
-                <button className="btn btn-sm bg-base-100 mt-5">Send Query</button>
+                <button className="btn btn-sm bg-base-100 no-animation mt-5">Send Query</button>
             </label>
         </div>
     )
@@ -71,13 +81,6 @@ const ProductDetails = () => {
                                 {productDetails.expand.images.map((image, i) => (
                                     <div id={image.id} className="carousel-item h-full w-full" key={i}>
                                         <img className='w-full object-cover' src={getImageUrl({ id: image.id, filename: image.source })} />
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="flex w-full justify-center gap-2 py-2">
-                                {productDetails.expand.images.map((image, i) => (
-                                    <div className="" key={i}>
-                                        <img className='w-20 h-20 card' src={getImageUrl({ id: image.id, filename: image.source })} />
                                     </div>
                                 ))}
                             </div>
@@ -130,6 +133,13 @@ const ProductDetails = () => {
                             <hr className="my-6 md:my-8 border-base-content/25" />
                             <div className="grid grid-cols-1 gap-4">
                                 <div className='flex flex-col gap-2'>
+                                    <div>
+                                        {productDetails.inStock ? (
+                                            <div className="px-2 py-1 bg-success text-success-content w-fit text-sm">🚀 In Stock</div>
+                                        ) : (
+                                            <div className="px-2 py-1 bg-error text-error-content w-fit text-sm">⛟ Out Of Stock</div>
+                                        )}
+                                    </div>
                                     <div><b>Category: </b> {productDetails.expand.categories.title}</div>
                                     <div><b>Series: </b> {productDetails.expand.series.title}</div>
                                 </div>
@@ -159,11 +169,18 @@ const ProductDetails = () => {
                     </div>
                     <hr className="my-6 md:my-8 border-base-content/25" />
                     <div>
-                        <SectionLeftHeader title='RECOMMENDATIONS' subtitle='You might be interested in these' />
+                        <SectionLeftHeader title='Shipping Details' subtitle={productDetails.expand.shippingMethods.title} />
+                        <article className="prose text-base-content">
+                            {parse(productDetails.expand.shippingMethods.description)}
+                        </article>
+                    </div>
+                    <hr className="my-6 md:my-8 border-base-content/25" />
+                    <div>
+                        <SectionLeftHeader title='RECOMMENDATIONS' subtitle='You might be interested in these items. Feel free to browse.' />
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                            {/* {[...Array(4)].map((_, i) => (
-                            <ProductCard key={i} />
-                        ))} */}
+                            {suggestedProductData?.suggestedProducts.map((data, i) => (
+                                <ProductCard data={data} key={i} />
+                            ))}
                         </div>
                     </div>
                 </div>

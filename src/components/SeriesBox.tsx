@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { FeaturedSeries } from "../types/response-types"
+import { FeaturedSeries } from "../types/response"
 import { getImageUrl } from "../helpers"
 
 const SeriesBox = ({ data }: { data: FeaturedSeries }) => {

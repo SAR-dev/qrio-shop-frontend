@@ -1,7 +1,7 @@
 import { FaPlus } from "react-icons/fa";
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router";
-import { ProductData } from "../types/response-types";
+import { ProductData } from "../types/response";
 import { getImageUrl } from "../helpers";
 
 const ProductCard = ({ data }: { data: ProductData }) => {
@@ -16,10 +16,12 @@ const ProductCard = ({ data }: { data: ProductData }) => {
                 ) : (
                     <div className="absolute top-0 left-0 h-64 w-full transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3 sm:h-72 bg-base-content/50 animate-pulse"></div>
                 )}
+                <div className="bg-primary text-primary-content text-xs px-2 py-1 w-fit absolute bottom-0 left-0 m-2">{data.seriesTitle}</div>
             </Link>
             <div className="pt-4 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                    <Link to="/products/1" className="title text-2xl font-extrabold line-clamp-1">{data.title}</Link>
+                    <Link to="/products/1" className="title text-xl font-bold line-clamp-1">{data.title}</Link>
+                    {/* <Link to="/products/1" className="title text-2xl font-extrabold line-clamp-1">{data.title}</Link> */}
                     <button className="btn btn-ghost btn-sm btn-circle">
                         <FiHeart className="size-4" />
                     </button>

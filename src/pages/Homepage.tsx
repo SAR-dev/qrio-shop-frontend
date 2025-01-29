@@ -5,7 +5,7 @@ import NavLayout from "../layouts/NavLayout";
 import CategoryBox from "../components/CategoryBox";
 import SeriesBox from "../components/SeriesBox";
 import { useLocalStorage } from "usehooks-ts";
-import { HomepageListResType, HomepageResType, TrendingProductResType } from "../types/response-types";
+import { HomepageListResType, HomepageResType, TrendingProductResType } from "../types/response";
 import { constants } from "../constants";
 import { useEffect, useState } from "react";
 import HomepageCarouselItem from "../components/HomepageCarouselItem";
@@ -57,7 +57,7 @@ const Homepage = () => {
     
     return (
         <NavLayout>
-            <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-16">
+            <div className="max-w-screen-xl mx-auto px-5 py-10 lg:py-12 grid grid-cols-1 gap-10 lg:gap-16">
                 {homepageData && (
                     <div className="carousel w-full">
                         {homepageData.homepageCarousel.map((data, i) => (
