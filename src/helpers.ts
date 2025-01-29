@@ -21,5 +21,11 @@ export const maxDivisibleByTwo = (num: number) => {
 
 export const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
-    headers: {'Authorization': JSON.parse(localStorage.getItem(constants.AUTH_TOKEN_API) ?? "")}
+    headers: {
+      'Authorization': (() => {
+        const token = localStorage.getItem(constants.AUTH_TOKEN_API);
+        return token ? JSON.parse(token) : "";
+      })()
+    }
   });
+  
