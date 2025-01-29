@@ -37,7 +37,7 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
                             {data.tagLine}
                         </div>
                         {data.discount > 0 && (
-                            <div className="flex items-center -mt-3 lg:ml-auto w-fit bg-secondary text-secondary-content px-2 text-xs">Save TK {data.discount}</div>
+                            <div className="flex items-center -mt-3 lg:ml-auto w-fit bg-secondary text-secondary-content px-2 py-1 text-xs">Save TK {data.discount}</div>
                         )}
                     </div>
                     <div className="join ml-5 lg:ml-auto ring-2 ring-success w-fit">
