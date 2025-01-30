@@ -7,17 +7,12 @@ import { useState } from 'react';
 import { useWishListStore } from '../stores/wishListStore';
 import CartProductCard from '../components/CartProductCard';
 import WishedProductCard from '../components/WishedProductCard';
-import Drawer from 'react-modern-drawer';
 
 const ShoppingCart = () => {
-    const [showDrawer, setShowDrawer] = useState<boolean>(false)
-    const toggleDrawer = () => {
-        setShowDrawer((prevState) => !prevState)
-    }
     const { products: cartProducts } = useCartStore();
     const { products: wishedProducts } = useWishListStore();
     const [shippingFee] = useState(100)
-    const [taxFee] = useState(100)
+    const [taxFee] = useState(0)
 
     return (
         <NavLayout>
@@ -94,7 +89,7 @@ const ShoppingCart = () => {
                                     </dd>
                                 </dl>
                             </div>
-                            <button className="btn btn-primary" onClick={toggleDrawer}>Proceed to Checkout</button>
+                            <Link to="/shopping-cart/checkout" className="btn btn-primary">Proceed to Checkout</Link>
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-sm font-normal">
                                     or
@@ -113,21 +108,6 @@ const ShoppingCart = () => {
                     </div>
                 </div>
             </div>
-            <Drawer
-                open={showDrawer}
-                onClose={toggleDrawer}
-                direction='right'
-                className=''
-                duration={100}
-            >
-                <div className="h-full bg-base-200">
-                    {/* receiverName */}
-                    {/* contactNo1 */}
-                    {/* contactNo2 */}
-                    {/* receiverAddress */}
-                    
-                </div>
-                </Drawer>
         </NavLayout>
     )
 }
