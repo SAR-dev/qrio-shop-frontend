@@ -44,7 +44,7 @@ const ShoppingCart = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full sticky top-0">
+                    <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full lg:sticky top-[5rem]">
                         <div className="card space-y-4 border border-base-content/25 p-4 sm:p-6">
                             <p className="text-xl font-semibold">
                                 Order summary

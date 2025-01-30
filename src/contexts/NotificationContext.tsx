@@ -2,6 +2,10 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { NotificationType } from '../types/notification';
 import { MdClose } from "react-icons/md";
+import { BsCartXFill } from "react-icons/bs";
+import toast from "react-hot-toast";
+import { FaCartArrowDown } from "react-icons/fa";
+import { FaHeartCircleCheck, FaHeartCircleMinus } from "react-icons/fa6";
 
 interface NotificationProps {
     title: string;
@@ -13,11 +17,19 @@ interface NotificationProps {
 interface CtxInterface {
     add: (props: NotificationProps) => void;
     remove: () => void;
+    showAddedToCart: (props: string) => void;
+    showRemovedFromCart: (props: string) => void;
+    showAddedToWishlist: (props: string) => void;
+    showRemovedFromWishlist: (props: string) => void;
 }
 
 const Ctx = createContext<CtxInterface>({
     add: () => { },
-    remove: () => { }
+    remove: () => { },
+    showAddedToCart: () => { },
+    showRemovedFromCart: () => { },
+    showAddedToWishlist: () => { },
+    showRemovedFromWishlist: () => { },
 });
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
@@ -34,8 +46,108 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
         setIsOpen(false)
     }
 
+    const showAddedToCart = (title: string) => {
+        toast.custom((t) => (
+            <div
+                className={`${t.visible ? 'animate-enter' : 'animate-leave'
+                    } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+            >
+                <div className="flex-1 w-0 p-4">
+                    <div className="flex items-start">
+                        <div className="flex-shrink-0 pt-0.5">
+                            <FaCartArrowDown className='size-10 text-success' />
+                        </div>
+                        <div className="ml-3 flex-1">
+                            <p className="text-sm font-medium text-gray-900">
+                                Cart Updated
+                            </p>
+                            <p className="mt-1 text-sm text-gray-500">
+                                "{title}" has been added to cart
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+
+    const showRemovedFromCart = (title: string) => {
+        toast.custom((t) => (
+            <div
+                className={`${t.visible ? 'animate-enter' : 'animate-leave'
+                    } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+            >
+                <div className="flex-1 w-0 p-4">
+                    <div className="flex items-start">
+                        <div className="flex-shrink-0 pt-0.5">
+                            <BsCartXFill className='size-10 text-error' />
+                        </div>
+                        <div className="ml-3 flex-1">
+                            <p className="text-sm font-medium text-gray-900">
+                                Cart Updated
+                            </p>
+                            <p className="mt-1 text-sm text-gray-500">
+                                "{title}" has been removed from cart
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+
+    const showAddedToWishlist = (title: string) => {
+        toast.custom((t) => (
+            <div
+                className={`${t.visible ? 'animate-enter' : 'animate-leave'
+                    } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+            >
+                <div className="flex-1 w-0 p-4">
+                    <div className="flex items-start">
+                        <div className="flex-shrink-0 pt-0.5">
+                            <FaHeartCircleCheck className='size-10 text-success' />
+                        </div>
+                        <div className="ml-3 flex-1">
+                            <p className="text-sm font-medium text-gray-900">
+                                Wishlist Updated
+                            </p>
+                            <p className="mt-1 text-sm text-gray-500">
+                                "{title}" has been added to wishlist
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+
+    const showRemovedFromWishlist = (title: string) => {
+        toast.custom((t) => (
+            <div
+                className={`${t.visible ? 'animate-enter' : 'animate-leave'
+                    } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+            >
+                <div className="flex-1 w-0 p-4">
+                    <div className="flex items-start">
+                        <div className="flex-shrink-0 pt-0.5">
+                            <FaHeartCircleMinus className='size-10 text-error' />
+                        </div>
+                        <div className="ml-3 flex-1">
+                            <p className="text-sm font-medium text-gray-900">
+                                Wishlist Updated
+                            </p>
+                            <p className="mt-1 text-sm text-gray-500">
+                                "{title}" has been removed from wishlist
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+
     return (
-        <Ctx.Provider value={{ add, remove }}>
+        <Ctx.Provider value={{ add, remove, showAddedToCart, showRemovedFromCart, showAddedToWishlist, showRemovedFromWishlist }}>
             {children}
             {data && (
                 <Dialog className="relative z-10" open={isOpen} onClose={remove}>

@@ -69,11 +69,7 @@ const ProductDetails = () => {
         setIsLoading(true)
         addToCart({ productId: productDetails.id })
             .then(() => {
-                notification.add({
-                    status: NotificationType.SUCCESS,
-                    title: "Added to cart",
-                    message: "Selected product has been added to cart."
-                })
+                notification.showAddedToCart(productDetails.title)
                 setIsLoading(false)
             })
             .catch(() => {
@@ -91,11 +87,12 @@ const ProductDetails = () => {
         setIsLoading(true)
         toogleWish({ productId: productDetails.id })
             .then((res) => {
-                notification.add({
-                    status: NotificationType.SUCCESS,
-                    title: "Wishlist updated",
-                    message: res
-                })
+                if(res == 1){
+                    notification.showAddedToWishlist(productDetails.title)
+                }
+                if(res == 0){
+                    notification.showRemovedFromWishlist(productDetails.title)
+                }
                 setIsLoading(false)
             })
             .catch(() => {
@@ -152,22 +149,22 @@ const ProductDetails = () => {
                 <div className="label pb-5">
                     <span className="label-text">🤔💭Do you have any questions ? 🤓☝️Let us know</span>
                 </div>
-                <textarea 
-                    className="textarea textarea-bordered h-24" 
-                    placeholder="Type here..." 
+                <textarea
+                    className="textarea textarea-bordered h-24"
+                    placeholder="Type here..."
                     value={question}
                     onChange={e => setQuestion(e.target.value)}
                 />
-                <input 
-                    type="text" 
-                    className='mt-5 input input-bordered input-sm' 
-                    placeholder='Contact No (Optional)' 
+                <input
+                    type="text"
+                    className='mt-5 input input-bordered input-sm'
+                    placeholder='Contact No (Optional)'
                     value={contactNo}
                     onChange={e => setContactNo(e.target.value)}
                 />
-                <button 
-                    className="btn btn-sm bg-base-100 no-animation mt-5" 
-                    disabled={isLoading} 
+                <button
+                    className="btn btn-sm bg-base-100 no-animation mt-5"
+                    disabled={isLoading}
                     onClick={handleSubmitQuery}
                 >Send Query</button>
             </label>
@@ -179,7 +176,7 @@ const ProductDetails = () => {
             {productDetails && (
                 <div className="max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-16">
                     <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-                        <div className="shrink-0 w-full mx-auto h-fit lg:sticky top-0">
+                        <div className="shrink-0 w-full mx-auto h-fit lg:sticky top-[5rem]">
                             <div className="carousel rounded-box h-[28rem] w-full">
                                 {productDetails.expand.images.map((image, i) => (
                                     <div id={image.id} className="carousel-item h-full w-full" key={i}>

@@ -48,11 +48,12 @@ const ProductCard = ({ data }: { data: ProductData }) => {
         setIsLoading(true)
         toogleWish({ productId: data.id })
             .then((res) => {
-                notification.add({
-                    status: NotificationType.SUCCESS,
-                    title: "Wishlist updated",
-                    message: res
-                })
+                if(res == 1){
+                    notification.showAddedToWishlist(data.title)
+                }
+                if(res == 0){
+                    notification.showRemovedFromWishlist(data.title)
+                }
                 setIsLoading(false)
             })
             .catch(() => {

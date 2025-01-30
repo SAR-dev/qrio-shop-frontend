@@ -1,4 +1,13 @@
-import { CategoriesResponse, ImagesResponse, ProductsResponse, SeriesResponse, ShippingMethodsResponse } from "./pocketbase";
+import { BlogsResponse, CategoriesResponse, ImagesResponse, ProductsResponse, SeriesResponse, ShippingMethodsResponse, UsersResponse } from "./pocketbase";
+
+// product details
+export type TexpandBlogDetailsResType = BlogsResponse & {
+    expand: {
+        cover: ImagesResponse;
+        images: ImagesResponse[];
+        author: UsersResponse;
+    };
+};
 
 // product details
 export type TexpandProductDetailsResType = ProductsResponse & {

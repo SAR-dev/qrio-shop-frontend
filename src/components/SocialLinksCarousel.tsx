@@ -5,6 +5,7 @@ import { Collections, SocialsResponse } from "../types/pocketbase";
 import { constants } from "../constants";
 import { useLocalStorage } from "usehooks-ts";
 import SectionLeftHeader from "./SectionLeftHeader";
+import { Link } from "react-router";
 
 const socialIcons = [
     {
@@ -49,7 +50,7 @@ const SocialLinksCarousel = ({ enableFetch }: { enableFetch: boolean }) => {
             <div className="w-full flex justify-center">
                 <div className="carousel carousel-end rounded-box max-w-screen-xl">
                     {socialLinks.map((data, i) => (
-                        <a href={data.link} target="_blank" className="carousel-item relative" key={i}>
+                        <Link to={data.link} target="_blank" className="carousel-item relative" key={i}>
                             <img 
                                 className="h-48 w-48 object-cover" 
                                 src={`${import.meta.env.VITE_API_URL}/api/files/${data.collectionId}/${data.id}/${data.image}`} 
@@ -57,7 +58,7 @@ const SocialLinksCarousel = ({ enableFetch }: { enableFetch: boolean }) => {
                             <div className="absolute bottom-0 left-0 m-2 text-white">
                                 {socialIcons.find(e => e.platform == data.platform)?.icon}
                             </div>
-                        </a>
+                        </Link>
                     ))}
                 </div>
             </div>

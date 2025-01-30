@@ -7,7 +7,7 @@ import { ProductData, WishlistResType } from '../types/response';
 type WishListStore = {
     products: ProductData[]
     refetchProducts: () => Promise<void>
-    toogleWish: ({ productId }: { productId: string }) => Promise<string>
+    toogleWish: ({ productId }: { productId: string }) => Promise<number>
 }
 
 const fetchWishedProducts = async (): Promise<ProductData[]> => {
@@ -17,7 +17,7 @@ const fetchWishedProducts = async (): Promise<ProductData[]> => {
 
 const toogleWishedProduct = async ({ productId }: { productId: string }) => {
     const res = await api.post("/api/wishlist", { productId })
-    return res.data.message;
+    return res.data.added;
 }
 
 export const useWishListStore = create<WishListStore>()(

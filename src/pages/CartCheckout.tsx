@@ -60,7 +60,7 @@ const CartCheckout = () => {
                     <SectionLeftHeader title='📦 Delivery Details' subtitle='Your delivery information and contact details' />
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
+                    <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25 h-fit">
                         {cartProducts.map((product, i) => (
                             <div className="" key={i}>
                                 <div className='p-5 flex gap-5 items-center'>
