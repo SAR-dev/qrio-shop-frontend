@@ -1,13 +1,17 @@
 import { ReactNode } from 'react';
 import Navbar from '../components/Navbar'
 import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
+import { useImageModalStore } from '../stores/imageModalStore';
+import { Lightbox } from "react-modal-image";
 
-const NavLayout = ({children}:{children: ReactNode}) => {
-  return (
-    <div className='min-h-screen flex flex-col'>
-        <Navbar />
-        {children}
-        <footer className="footer footer-center bg-base-200 text-base-content rounded p-10 mt-auto">
+const NavLayout = ({ children }: { children: ReactNode }) => {
+    const { imageSrc, closeImageModal } = useImageModalStore()
+
+    return (
+        <div className='min-h-screen flex flex-col'>
+            <Navbar />
+            {children}
+            <footer className="footer footer-center bg-base-200 text-base-content rounded p-10 mt-auto">
                 <nav className="grid grid-flow-col gap-4">
                     <a className="link link-hover">About us</a>
                     <a className="link link-hover">Contact</a>
@@ -47,8 +51,15 @@ const NavLayout = ({children}:{children: ReactNode}) => {
                     <p>Created By WebDev-Craft Team</p>
                 </aside>
             </footer>
-    </div>
-  )
+            {imageSrc.length > 0 && (
+                <Lightbox
+                    medium={imageSrc}
+                    large={imageSrc}
+                    onClose={closeImageModal}
+                />
+            )}
+        </div>
+    )
 }
 
 export default NavLayout

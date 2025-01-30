@@ -10,6 +10,7 @@ import { NotificationType } from "../types/notification";
 import classNames from "classnames";
 import { useWishListStore } from "../stores/wishListStore";
 import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
+import Image from "./Image";
 
 const ProductCard = ({ data }: { data: ProductData }) => {
     const { addToCart, products: cartProducts } = useCartStore()
@@ -68,7 +69,7 @@ const ProductCard = ({ data }: { data: ProductData }) => {
         <div className="group">
             <div className="card h-64 sm:h-72 w-full relative overflow-hidden">
                 {(data.productImageId.length > 0) ? (
-                    <img
+                    <Image
                         src={getImageUrl({ id: data.productImageId, filename: data.productImageSource })}
                         className="absolute top-0 left-0 h-64 w-full object-cover transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3 sm:h-72"
                     />

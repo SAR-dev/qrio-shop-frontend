@@ -18,6 +18,7 @@ import { NotificationType } from '../types/notification';
 import classNames from 'classnames';
 import { useWishListStore } from '../stores/wishListStore';
 import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
+import Image from '../components/Image';
 
 const ProductDetails = () => {
     const { slug } = useParams();
@@ -31,6 +32,8 @@ const ProductDetails = () => {
 
     const [notFound, setNotFound] = useState(false)
     const [fetchError, setFetchError] = useState(false)
+    const [question, setQuestion] = useState("")
+    const [contactNo, setContactNo] = useState("")
 
     const cartProductIds = useMemo(() => new Set(cartProducts.map(e => e.id)), [cartProducts]);
     const wishedProductIds = useMemo(() => new Set(wishedProducts.map(e => e.id)), [wishedProducts]);
@@ -105,6 +108,32 @@ const ProductDetails = () => {
             })
     }
 
+    const handleSubmitQuery = () => {
+        setIsLoading(true)
+        api
+            .post("/api/query", {
+                question, contactNo, productId: productDetails?.id
+            })
+            .then(() => {
+                notification.add({
+                    status: NotificationType.SUCCESS,
+                    title: "Query Submitted",
+                    message: "We have recieved your query. We will get back to you as soon as possible."
+                })
+                setIsLoading(false)
+                setQuestion("")
+                setContactNo("")
+            })
+            .catch(() => {
+                notification.add({
+                    status: NotificationType.ERROR,
+                    title: "Error occured",
+                    message: "Query submit failed. Please try later."
+                })
+                setIsLoading(false)
+            })
+    }
+
     if (notFound) return (
         <NavLayout>
             <NotFoundError />
@@ -123,8 +152,24 @@ const ProductDetails = () => {
                 <div className="label pb-5">
                     <span className="label-text">🤔💭Do you have any questions ? 🤓☝️Let us know</span>
                 </div>
-                <textarea className="textarea textarea-bordered h-24" placeholder="Type here..." />
-                <button className="btn btn-sm bg-base-100 no-animation mt-5">Send Query</button>
+                <textarea 
+                    className="textarea textarea-bordered h-24" 
+                    placeholder="Type here..." 
+                    value={question}
+                    onChange={e => setQuestion(e.target.value)}
+                />
+                <input 
+                    type="text" 
+                    className='mt-5 input input-bordered input-sm' 
+                    placeholder='Contact No (Optional)' 
+                    value={contactNo}
+                    onChange={e => setContactNo(e.target.value)}
+                />
+                <button 
+                    className="btn btn-sm bg-base-100 no-animation mt-5" 
+                    disabled={isLoading} 
+                    onClick={handleSubmitQuery}
+                >Send Query</button>
             </label>
         </div>
     )
@@ -138,7 +183,10 @@ const ProductDetails = () => {
                             <div className="carousel rounded-box h-[28rem] w-full">
                                 {productDetails.expand.images.map((image, i) => (
                                     <div id={image.id} className="carousel-item h-full w-full" key={i}>
-                                        <img className='w-full object-cover' src={getImageUrl({ id: image.id, filename: image.source })} />
+                                        <Image
+                                            className='w-full object-cover'
+                                            src={getImageUrl({ id: image.id, filename: image.source })}
+                                        />
                                     </div>
                                 ))}
                             </div>
@@ -271,7 +319,7 @@ const ProductDetails = () => {
                     <hr className="my-6 md:my-8 border-base-content/25" />
                     <div>
                         <div className="mb-5">
-                        <SectionLeftHeader title='RECOMMENDATIONS' subtitle='You might be interested in these items. Feel free to browse.' />
+                            <SectionLeftHeader title='RECOMMENDATIONS' subtitle='You might be interested in these items. Feel free to browse.' />
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                             {suggestedProductData?.suggestedProducts.map((data, i) => (
