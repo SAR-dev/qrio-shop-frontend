@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { FeaturedCategory } from "../types/response";
-import { getImageUrl } from "../helpers";
+import CategoryBoxProduct from "./CategoryBoxProduct";
 
 const CategoryBox = ({ data }: { data: FeaturedCategory }) => {
     return (
@@ -15,19 +15,7 @@ const CategoryBox = ({ data }: { data: FeaturedCategory }) => {
                 </Link>
             </div>
             {data.products.map((product, i) => (
-                <Link to={`/products/${product.productSlug}`} key={i}>
-                    <div className="h-32">
-                        {product.productImageId.length > 0 ? (
-                            <img
-                            className="h-32 w-full object-cover rounded"
-                            src={getImageUrl({id: product.productImageId, filename: product.productImageSource})}
-                        />
-                        ) : (
-                            <div className="h-32 w-full bg-base-content/50 animate-pulse" />
-                        )}
-                    </div>
-                    <div className="mt-1 text-xs line-clamp-1">{product.productTitle}</div>
-                </Link>
+                <CategoryBoxProduct product={product} key={i} />
             ))}
         </div>
     )

@@ -1,6 +1,7 @@
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { ReactNode, createContext, useContext, useState } from 'react';
 import { NotificationType } from '../types/notification';
+import { MdClose } from "react-icons/md";
 
 interface NotificationProps {
     title: string;
@@ -38,9 +39,12 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
             {children}
             {data && (
                 <Dialog className="relative z-10" open={isOpen} onClose={remove}>
-                    <div className="fixed inset-0 bg-base-content/25 flex justify-center items-center">
+                    <div className="fixed inset-0 bg-base-content/50 flex justify-center items-center">
                         <DialogPanel className="w-full transform overflow-hidden card p-5 bg-base-100 text-left align-middle shadow-xl transition-all max-w-md relative">
-                            <div className='flex flex-col gap-3 p-5'>
+                            <button className="btn btn-sm btn-circle absolute top-0 right-0 m-3" onClick={remove}>
+                                <MdClose className="size-4" />
+                            </button>
+                            <div className='flex flex-col gap-3 px-5 py-10'>
                                 <div className='flex justify-center'>
                                     {data.status === NotificationType.SUCCESS && (
                                         <svg className="checkmark success h-20 w-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
@@ -63,7 +67,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
                                 </div>
                                 <div className='text-center text-xl font-medium'>{data.title}</div>
                                 <div className='text-center'>{data.message}</div>
-                                <div>{data.body}</div>
+                                {data.body && <div>{data.body}</div>}
                             </div>
                         </DialogPanel>
                     </div>

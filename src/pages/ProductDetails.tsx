@@ -1,8 +1,8 @@
 import NavLayout from '../layouts/NavLayout'
-import { FaPlus, FaStar } from 'react-icons/fa'
+import { FaHeart, FaStar } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi'
 import parse from 'html-react-parser';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { pb } from '../contexts/PocketContext';
 import { Collections } from '../types/pocketbase';
@@ -12,15 +12,30 @@ import NotFoundError from '../components/NotFoundError';
 import DataFetchError from '../components/DataFetchError';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import ProductCard from '../components/ProductCard';
+import { useCartStore } from '../stores/cartStore';
+import { useNotification } from '../contexts/NotificationContext';
+import { NotificationType } from '../types/notification';
+import classNames from 'classnames';
+import { useWishListStore } from '../stores/wishListStore';
+import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
 
 const ProductDetails = () => {
     const { slug } = useParams();
+    const { addToCart, products: cartProducts } = useCartStore()
+    const { toogleWish, products: wishedProducts } = useWishListStore()
+    const notification = useNotification()
+    const [isLoading, setIsLoading] = useState(false)
 
     const [productDetails, setProductDetails] = useState<TexpandProductDetailsResType | null>(null)
     const [suggestedProductData, setSuggestedProductData] = useState<ProductSuggestResType | null>(null)
 
     const [notFound, setNotFound] = useState(false)
     const [fetchError, setFetchError] = useState(false)
+
+    const cartProductIds = useMemo(() => new Set(cartProducts.map(e => e.id)), [cartProducts]);
+    const wishedProductIds = useMemo(() => new Set(wishedProducts.map(e => e.id)), [wishedProducts]);
+    const addedToCart = useMemo(() => productDetails ? cartProductIds.has(productDetails.id) : false, [cartProductIds, productDetails]);
+    const addedToWish = useMemo(() => productDetails ? wishedProductIds.has(productDetails.id) : false, [wishedProductIds, productDetails]);
 
     useEffect(() => {
         if (slug?.length == 0) return;
@@ -46,6 +61,49 @@ const ProductDetails = () => {
             .then(res => setSuggestedProductData(res.data))
     }, [productDetails])
 
+    const handleAddToCart = () => {
+        if (!productDetails) return;
+        setIsLoading(true)
+        addToCart({ productId: productDetails.id })
+            .then(() => {
+                notification.add({
+                    status: NotificationType.SUCCESS,
+                    title: "Added to cart",
+                    message: "Selected product has been added to cart."
+                })
+                setIsLoading(false)
+            })
+            .catch(() => {
+                notification.add({
+                    status: NotificationType.ERROR,
+                    title: "Error occured",
+                    message: "Adding items to cart failed. Please try later."
+                })
+                setIsLoading(false)
+            })
+    }
+
+    const handleAddToWish = () => {
+        if (!productDetails) return;
+        setIsLoading(true)
+        toogleWish({ productId: productDetails.id })
+            .then((res) => {
+                notification.add({
+                    status: NotificationType.SUCCESS,
+                    title: "Wishlist updated",
+                    message: res
+                })
+                setIsLoading(false)
+            })
+            .catch(() => {
+                notification.add({
+                    status: NotificationType.ERROR,
+                    title: "Error occured",
+                    message: "Adding items to wishlist failed. Please try later."
+                })
+                setIsLoading(false)
+            })
+    }
 
     if (notFound) return (
         <NavLayout>
@@ -130,13 +188,45 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                             <div className="mt-6 gap-4 items-center flex sm:mt-8">
-                                <button className="btn btn-outline btn-primary">
-                                    <FiHeart className='size-5' />
-                                    Add to favorites
+                                <button
+                                    className={classNames({
+                                        "btn": true,
+                                        "btn-outline btn-primary": !addedToWish,
+                                        "btn-primary": addedToWish
+                                    })}
+                                    disabled={isLoading}
+                                    onClick={handleAddToWish}
+                                >
+                                    <label
+                                        className={classNames({
+                                            "swap swap-flip": true,
+                                            "swap-active": addedToWish
+                                        })}
+                                    >
+                                        <FiHeart className="size-5 swap-off" />
+                                        <FaHeart className="size-5 swap-on" />
+                                    </label>
+                                    {addedToWish ? "Added to wishlist" : "Add to wishlist"}
                                 </button>
-                                <button className="btn btn-primary">
-                                    <FaPlus className='size-5' />
-                                    Add to cart
+                                <button
+                                    className={classNames({
+                                        "btn": true,
+                                        "btn-success": !addedToCart,
+                                        "btn-primary": addedToCart
+                                    })}
+                                    disabled={isLoading}
+                                    onClick={handleAddToCart}
+                                >
+                                    <label
+                                        className={classNames({
+                                            "swap swap-flip": true,
+                                            "swap-active": addedToCart
+                                        })}
+                                    >
+                                        <BsCartPlus className="size-5 swap-off" />
+                                        <BsCartCheckFill className="size-5 swap-on" />
+                                    </label>
+                                    {addedToCart ? "Added to cart" : "Add to cart"}
                                 </button>
                             </div>
                             <hr className="my-6 md:my-8 border-base-content/25" />

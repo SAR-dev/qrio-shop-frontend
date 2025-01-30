@@ -44,7 +44,7 @@ const SocialLinksCarousel = ({ enableFetch }: { enableFetch: boolean }) => {
     return (
         <div className="bg-base-300 px-5 py-10">
             <div className="max-w-screen-xl mx-auto">
-                <SectionLeftHeader title="FOLLOW US" subtitle="Get in touch with us to receive more updates!" />
+                <SectionLeftHeader title="🤗 FOLLOW US" subtitle="Get in touch with us to receive more updates!" />
             </div>
             <div className="w-full flex justify-center">
                 <div className="carousel carousel-end rounded-box max-w-screen-xl">

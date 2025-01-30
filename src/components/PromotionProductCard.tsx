@@ -1,13 +1,45 @@
-import { FaPlus } from "react-icons/fa"
 import { ProductData } from "../types/response"
 import { getImageUrl } from "../helpers"
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { NotificationType } from "../types/notification";
+import { useCartStore } from "../stores/cartStore";
+import { useNotification } from "../contexts/NotificationContext";
+import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
+import classNames from "classnames";
 
 const PromotionProductCard = ({ data }: { data: ProductData }) => {
+    const { addToCart, products: cartProducts } = useCartStore()
+    const notification = useNotification()
+    const [isLoading, setIsLoading] = useState(false)
+
+    const cartProductIds = useMemo(() => new Set(cartProducts.map(e => e.id)), [cartProducts]);
+    const addedToCart = useMemo(() => cartProductIds.has(data.id), [cartProductIds, data.id]);
+
     const discountPercentage = useMemo(
         () => Math.trunc((data.discount / data.sellingPrice) * 100),
         [data]
     );
+
+    const handleAddToCart = () => {
+        setIsLoading(true)
+        addToCart({ productId: data.id })
+            .then(() => {
+                notification.add({
+                    status: NotificationType.SUCCESS,
+                    title: "Added to cart",
+                    message: "Selected product has been added to cart."
+                })
+                setIsLoading(false)
+            })
+            .catch(() => {
+                notification.add({
+                    status: NotificationType.ERROR,
+                    title: "Error occured",
+                    message: "Adding items to cart failed. Please try later."
+                })
+                setIsLoading(false)
+            })
+    }
 
     return (
         <div className="card flex-col lg:flex-row justify-between group border border-base-content/25 overflow-hidden">
@@ -40,11 +72,32 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
                             <div className="flex items-center -mt-3 lg:ml-auto w-fit bg-secondary text-secondary-content px-2 py-1 text-xs">Save TK {data.discount}</div>
                         )}
                     </div>
-                    <div className="join ml-5 lg:ml-auto ring-2 ring-success w-fit">
-                        <div className="join-item flex justify-center items-center border border-success w-24 font-semibold">TK {data.sellingPrice - data.discount}</div>
-                        <button className="join-item btn btn-success no-animation">
-                            <FaPlus className="h-4 w-4" />
-                            <span className="uppercase lg:hidden">Add To Cart</span>
+                    <div className={classNames({
+                            "join lg:ml-auto ring-2 w-fit": true, 
+                            "ring-success": !addedToCart, 
+                            "ring-primary": addedToCart
+                        })}>
+                        <div className="join-item flex justify-center items-center w-24 font-semibold">
+                            TK {data.sellingPrice - data.discount}
+                        </div>
+                        <button
+                            className={classNames({
+                                "join-item btn no-animation": true,
+                                "btn-success": !addedToCart,
+                                "btn-primary": addedToCart
+                            })}
+                            disabled={isLoading}
+                            onClick={handleAddToCart}
+                        >
+                            <label
+                                className={classNames({
+                                    "swap swap-flip": true,
+                                    "swap-active": addedToCart
+                                })}
+                            >
+                                <BsCartPlus className="size-6 swap-off" />
+                                <BsCartCheckFill className="size-6 swap-on" />
+                            </label>
                         </button>
                     </div>
                 </div>

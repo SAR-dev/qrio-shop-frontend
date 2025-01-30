@@ -7,8 +7,13 @@ import { useState } from 'react';
 import { useWishListStore } from '../stores/wishListStore';
 import CartProductCard from '../components/CartProductCard';
 import WishedProductCard from '../components/WishedProductCard';
+import Drawer from 'react-modern-drawer';
 
 const ShoppingCart = () => {
+    const [showDrawer, setShowDrawer] = useState<boolean>(false)
+    const toggleDrawer = () => {
+        setShowDrawer((prevState) => !prevState)
+    }
     const { products: cartProducts } = useCartStore();
     const { products: wishedProducts } = useWishListStore();
     const [shippingFee] = useState(100)
@@ -52,7 +57,7 @@ const ShoppingCart = () => {
                                             Original price
                                         </dt>
                                         <dd className="font-medium">
-                                            TK {cartProducts.map(e => Number(e.sellingPrice)).reduce((a, b) => a + b, 0)}
+                                            {cartProducts.map(e => Number(e.sellingPrice) * Number(e.amount)).reduce((a, b) => a + b, 0)} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -60,7 +65,7 @@ const ShoppingCart = () => {
                                             Savings
                                         </dt>
                                         <dd className="font-medium">
-                                            - TK {cartProducts.map(e => Number(e.discount)).reduce((a, b) => a + b, 0)}
+                                            - {cartProducts.map(e => Number(e.discount) * Number(e.amount)).reduce((a, b) => a + b, 0)} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -68,7 +73,7 @@ const ShoppingCart = () => {
                                             Shipping Fee
                                         </dt>
                                         <dd className="font-medium">
-                                            TK {shippingFee}
+                                            {shippingFee} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -76,7 +81,7 @@ const ShoppingCart = () => {
                                             Tax
                                         </dt>
                                         <dd className="font-medium">
-                                            TK {taxFee}
+                                            {taxFee} TK
                                         </dd>
                                     </dl>
                                 </div>
@@ -85,11 +90,11 @@ const ShoppingCart = () => {
                                         Total
                                     </dt>
                                     <dd className="font-bold">
-                                        TK {(cartProducts.map(e => Number(e.sellingPrice) - Number(e.discount)).reduce((a, b) => a + b, 0)) + shippingFee + taxFee}
+                                        {(cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + shippingFee + taxFee} TK
                                     </dd>
                                 </dl>
                             </div>
-                            <button className="btn btn-primary">Proceed to Checkout</button>
+                            <button className="btn btn-primary" onClick={toggleDrawer}>Proceed to Checkout</button>
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-sm font-normal">
                                     or
@@ -108,6 +113,21 @@ const ShoppingCart = () => {
                     </div>
                 </div>
             </div>
+            <Drawer
+                open={showDrawer}
+                onClose={toggleDrawer}
+                direction='right'
+                className=''
+                duration={100}
+            >
+                <div className="h-full bg-base-200">
+                    {/* receiverName */}
+                    {/* contactNo1 */}
+                    {/* contactNo2 */}
+                    {/* receiverAddress */}
+                    
+                </div>
+                </Drawer>
         </NavLayout>
     )
 }
