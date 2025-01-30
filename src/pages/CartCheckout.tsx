@@ -2,13 +2,56 @@ import NavLayout from '../layouts/NavLayout'
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
 import { useMemo, useState } from 'react';
-import { getImageUrl } from '../helpers';
+import { api, formatNo, getImageUrl } from '../helpers';
+import { constants } from '../constants';
+import { useNotification } from '../contexts/NotificationContext';
+import { NotificationType } from '../types/notification';
+import { useNavigate } from 'react-router';
 
 const CartCheckout = () => {
-    const { products: cartProducts } = useCartStore();
-    const [shippingFee] = useState(100)
-    const [taxFee] = useState(0)
-    const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + shippingFee + taxFee, [cartProducts, shippingFee, taxFee]);
+    const notification = useNotification()
+    const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
+    const { refetchProducts, products: cartProducts } = useCartStore();
+    const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.SHIPPING + constants.FEES.TAX, [cartProducts]);
+
+    const [data, setData] = useState({
+        receiverName: "",
+        receiverNote: "",
+        receiverAddress: "",
+        contactNo1: "",
+        contactNo2: "",
+    })
+
+    const handleCheckout = () => {
+        setIsLoading(true)
+        api.post("/api/checkout", { ...data })
+            .then(res => {
+                notification.add({
+                    status: NotificationType.SUCCESS,
+                    title: "Checkout Completed",
+                    message: `Your order reference no is ${res.data.ref}. You can track details from order history screen.`
+                })
+                refetchProducts()
+                setData({
+                    receiverName: "",
+                    receiverNote: "",
+                    receiverAddress: "",
+                    contactNo1: "",
+                    contactNo2: "",
+                })
+                setIsLoading(false)
+                navigate("/order-history")
+            })
+            .catch(() => {
+                notification.add({
+                    status: NotificationType.ERROR,
+                    title: "Error occured",
+                    message: "Adding items to wishlist failed. Please try later."
+                })
+                setIsLoading(false)
+            })
+    }
 
     return (
         <NavLayout>
@@ -53,11 +96,11 @@ const CartCheckout = () => {
                         ))}
                         <div className="p-5 flex font-semibold text-sm justify-between">
                             <div>Shipping Fee</div>
-                            <div>{shippingFee} TK</div>
+                            <div>{constants.FEES.SHIPPING} TK</div>
                         </div>
                         <div className="p-5 flex font-semibold text-sm justify-between">
                             <div>Tax </div>
-                            <div>{taxFee} TK</div>
+                            <div>{constants.FEES.TAX} TK</div>
                         </div>
                         <div className="p-5 flex font-semibold text-sm justify-between bg-info/25">
                             <div>Total Payable </div>
@@ -70,40 +113,78 @@ const CartCheckout = () => {
                                 <div className="label">
                                     <span className="label-text">Receiver Name</span>
                                 </div>
-                                <input type="text" placeholder="" className="input input-bordered w-full" />
+                                <input
+                                    type="text"
+                                    placeholder=""
+                                    className="input input-bordered w-full"
+                                    value={data.receiverName}
+                                    onChange={e => setData({ ...data, receiverName: e.target.value })}
+                                />
                             </label>
                             <label className="form-control col-span-2">
                                 <div className="label">
                                     <span className="label-text">Receiver Address</span>
                                 </div>
-                                <textarea placeholder="" className="textarea textarea-bordered w-full h-20" />
+                                <textarea
+                                    placeholder=""
+                                    className="textarea textarea-bordered w-full h-20"
+                                    value={data.receiverAddress}
+                                    onChange={e => setData({ ...data, receiverAddress: e.target.value })}
+                                />
                             </label>
                             <label className="form-control col-span-2 lg:col-span-1">
                                 <div className="label">
                                     <span className="label-text">Contact No</span>
                                 </div>
-                                <input type="text" placeholder="" className="input input-bordered w-full" />
+                                <input
+                                    type="text"
+                                    placeholder=""
+                                    className="input input-bordered w-full"
+                                    value={data.contactNo1}
+                                    onChange={e => setData({ ...data, contactNo1: e.target.value })}
+                                />
                             </label>
                             <label className="form-control col-span-2 lg:col-span-1">
                                 <div className="label">
                                     <span className="label-text">Alt. Contact No</span>
                                 </div>
-                                <input type="text" placeholder="" className="input input-bordered w-full" />
+                                <input
+                                    type="text"
+                                    placeholder=""
+                                    className="input input-bordered w-full"
+                                    value={data.contactNo2}
+                                    onChange={e => setData({ ...data, contactNo2: e.target.value })}
+                                />
                             </label>
                             <label className="form-control col-span-2">
                                 <div className="label">
                                     <span className="label-text">Receiver Note</span>
                                 </div>
-                                <textarea placeholder="" className="textarea textarea-bordered w-full h-20" />
+                                <textarea
+                                    placeholder=""
+                                    className="textarea textarea-bordered w-full h-20"
+                                    value={data.receiverNote}
+                                    onChange={e => setData({ ...data, receiverNote: e.target.value })}
+                                />
                             </label>
-                            <div className="text-primary col-span-2">
-                                Please pay {totalPayable} TK to delivery man or bkash to us and message us your mobile no.
+                            <div className="text-primary col-span-2 text-sm">
+                                Please pay {formatNo(totalPayable)} TK to delivery man or bkash to us and message us your mobile no.
                             </div>
-                            <button className="btn btn-primary col-span-2">Confirm Order</button>
+                            <button className="btn btn-primary col-span-2" disabled={isLoading || cartProducts.length == 0} onClick={handleCheckout}>
+                                Confirm Order
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+            {isLoading && (
+                <div className="fixed top-0 left-0 h-screen w-full bg-base-100/85 z-[10] flex justify-center items-center">
+                    <div className="flex flex-col justify-center items-center gap-3">
+                        <div className="loading size-16"></div>
+                        <div className="text-2xl font-bold title">Please wait</div>
+                    </div>
+                </div>
+            )}
         </NavLayout>
     )
 }

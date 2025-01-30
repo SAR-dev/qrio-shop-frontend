@@ -19,6 +19,12 @@ export const maxDivisibleByTwo = (num: number) => {
     return num - (num % 2);
 }
 
+export const formatNo = (number: number) => {
+  return new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(
+    number,
+  )
+}
+
 export const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     headers: {

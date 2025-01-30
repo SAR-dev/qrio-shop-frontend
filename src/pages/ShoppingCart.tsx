@@ -3,16 +3,16 @@ import NavLayout from '../layouts/NavLayout'
 import { MdArrowRightAlt } from 'react-icons/md';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useWishListStore } from '../stores/wishListStore';
 import CartProductCard from '../components/CartProductCard';
 import WishedProductCard from '../components/WishedProductCard';
+import { constants } from '../constants';
 
 const ShoppingCart = () => {
     const { products: cartProducts } = useCartStore();
     const { products: wishedProducts } = useWishListStore();
-    const [shippingFee] = useState(100)
-    const [taxFee] = useState(0)
+    const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.SHIPPING + constants.FEES.TAX, [cartProducts]);
 
     return (
         <NavLayout>
@@ -68,7 +68,7 @@ const ShoppingCart = () => {
                                             Shipping Fee
                                         </dt>
                                         <dd className="font-medium">
-                                            {shippingFee} TK
+                                            {constants.FEES.SHIPPING} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -76,7 +76,7 @@ const ShoppingCart = () => {
                                             Tax
                                         </dt>
                                         <dd className="font-medium">
-                                            {taxFee} TK
+                                            {constants.FEES.TAX} TK
                                         </dd>
                                     </dl>
                                 </div>
@@ -85,7 +85,7 @@ const ShoppingCart = () => {
                                         Total
                                     </dt>
                                     <dd className="font-bold">
-                                        {(cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + shippingFee + taxFee} TK
+                                        {totalPayable} TK
                                     </dd>
                                 </dl>
                             </div>
