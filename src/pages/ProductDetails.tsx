@@ -261,14 +261,18 @@ const ProductDetails = () => {
                     </div>
                     <hr className="my-6 md:my-8 border-base-content/25" />
                     <div>
-                        <SectionLeftHeader title='Shipping Details' subtitle={productDetails.expand.shippingMethods.title} />
+                        <div className="mb-5">
+                            <SectionLeftHeader title='Shipping Details' subtitle={productDetails.expand.shippingMethods.title} />
+                        </div>
                         <article className="prose text-base-content">
                             {parse(productDetails.expand.shippingMethods.description)}
                         </article>
                     </div>
                     <hr className="my-6 md:my-8 border-base-content/25" />
                     <div>
+                        <div className="mb-5">
                         <SectionLeftHeader title='RECOMMENDATIONS' subtitle='You might be interested in these items. Feel free to browse.' />
+                        </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                             {suggestedProductData?.suggestedProducts.map((data, i) => (
                                 <ProductCard data={data} key={i} />

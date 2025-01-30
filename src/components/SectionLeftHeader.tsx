@@ -10,14 +10,12 @@ const SectionLeftHeader = ({
     return (
         <>
             <div className={classNames({
-                "text-3xl font-bold tracking-wide text-left": true,
-                "mb-3": subtitle,
-                "mb-8": !subtitle
+                "text-2xl font-extrabold title text-left": true,
             })}>
                 {title}
             </div>
             {subtitle && (
-                <div className="text-left text-base-content opacity-80 mb-8 text-lg">
+                <div className="text-left text-base-content opacity-80">
                     {subtitle}
                 </div>
             )}

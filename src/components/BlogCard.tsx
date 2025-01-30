@@ -23,7 +23,7 @@ const BlogCard = ({ data }: { data: BlogData }) => {
             <div className="flex flex-col gap-5 p-5">
                 <div className="text-primary leading-4 uppercase title font-bold uppercase">{data.category}</div>
                 <div className="text-xl font-extrabold uppercase title">{data.title}</div>
-                <div className="">
+                <div className="line-clamp-4">
                     {data.summary}
                 </div>
                 <div className="flex w-full justify-between items-center">

@@ -56,7 +56,9 @@ const CartCheckout = () => {
     return (
         <NavLayout>
             <div className="max-w-screen-xl w-full mx-auto px-5 py-10 lg:py-12">
-                <SectionLeftHeader title='📦 Delivery Details' subtitle='Your delivery information and contact details' />
+                <div className="mb-5">
+                    <SectionLeftHeader title='📦 Delivery Details' subtitle='Your delivery information and contact details' />
+                </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
                         {cartProducts.map((product, i) => (

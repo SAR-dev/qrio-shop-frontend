@@ -17,7 +17,9 @@ const ShoppingCart = () => {
     return (
         <NavLayout>
             <div className="max-w-screen-xl w-full mx-auto px-5 py-10 lg:py-12">
-                <SectionLeftHeader title='🛒 SHOPPING CART' subtitle='Review you items added to cart and proceed to checkout' />
+                <div className="mb-5">
+                    <SectionLeftHeader title='🛒 SHOPPING CART' subtitle='Review you items added to cart and proceed to checkout' />
+                </div>
                 <div className="md:gap-6 lg:flex lg:items-start xl:gap-8">
                     <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
                         {cartProducts.length == 0 ? (
@@ -32,7 +34,9 @@ const ShoppingCart = () => {
                             </div>
                         )}
                         <div className="mt-10">
-                            <SectionLeftHeader title='✨ WISHLIST' subtitle='Save, organize, and track the products for easy shopping later!' />
+                            <div className="mb-5">
+                                <SectionLeftHeader title='✨ WISHLIST' subtitle='Save, organize, and track the products for easy shopping later!' />
+                            </div>
                             <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
                                 {wishedProducts.map((data, i) => (
                                     <WishedProductCard product={data} key={i} />
