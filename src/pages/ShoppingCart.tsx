@@ -3,7 +3,7 @@ import NavLayout from '../layouts/NavLayout'
 import { MdArrowRightAlt } from 'react-icons/md';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useWishListStore } from '../stores/wishListStore';
 import CartProductCard from '../components/CartProductCard';
 import WishedProductCard from '../components/WishedProductCard';

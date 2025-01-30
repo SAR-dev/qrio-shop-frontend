@@ -104,18 +104,18 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className="flex flex-col p-3">
-                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
+                            <Link to="/" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <FiShoppingBag className="size-5" />
                                 Shop
-                            </button>
+                            </Link>
                             <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <GrBlog className="size-5" />
                                 Blogs
                             </button>
-                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
+                            <Link to="/shopping-cart" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <FiShoppingCart className="size-5" />
-                                Cart
-                            </button>
+                                Cart & Wishlist
+                            </Link>
                             <Link to="/order-history" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <MdOutlineShoppingCartCheckout className="size-5" />
                                 Order History

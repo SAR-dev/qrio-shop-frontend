@@ -30,7 +30,7 @@ const CartCheckout = () => {
                 notification.add({
                     status: NotificationType.SUCCESS,
                     title: "Checkout Completed",
-                    message: `Your order reference no is ${res.data.ref}. You can track details from order history screen.`
+                    message: `Your order no is ${res.data.ref}. You can track details from order history screen.`
                 })
                 refetchProducts()
                 setData({

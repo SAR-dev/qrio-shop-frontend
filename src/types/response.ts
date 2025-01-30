@@ -10,6 +10,22 @@ export type TexpandProductDetailsResType = ProductsResponse & {
     };
 };
 
+// invoice products
+export interface InvoiceProductResType {
+    invoiceProducts: InvoiceProduct[]
+}
+
+export interface InvoiceProduct {
+    id: string
+    title: string
+    slug: string
+    amount: number
+    sellingPrice: number
+    discount: number
+    productImageId: string
+    productImageSource: string
+}
+
 // cart products
 export interface CartProductResType {
     cartProducts: CartProduct[]
@@ -25,10 +41,6 @@ export interface CartProduct {
     cartId: string
     productImageId: string
     productImageSource: string
-    categoryTitle: string
-    categorySlug: string
-    seriesTitle: string
-    seriesSlug: string
 }
 
 // product suggestions
