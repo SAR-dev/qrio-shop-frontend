@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { useImageModalStore } from '../stores/imageModalStore';
 import { Lightbox } from "react-modal-image";
+import { ScrollRestoration } from 'react-router';
 
 const NavLayout = ({ children }: { children: ReactNode }) => {
     const { imageSrc, closeImageModal } = useImageModalStore()
@@ -58,6 +59,7 @@ const NavLayout = ({ children }: { children: ReactNode }) => {
                     onClose={closeImageModal}
                 />
             )}
+            <ScrollRestoration />
         </div>
     )
 }
