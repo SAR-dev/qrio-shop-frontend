@@ -2,6 +2,7 @@ import { FeaturedSeries } from "../types/response"
 import { getImageUrl } from "../helpers"
 import SeriesBoxProduct from "./SeriesBoxProduct"
 import SectionLeftHeader from "./SectionLeftHeader"
+import Image from "./Image"
 
 const SeriesBox = ({ data }: { data: FeaturedSeries }) => {
     return (
@@ -11,7 +12,7 @@ const SeriesBox = ({ data }: { data: FeaturedSeries }) => {
             </div>
             <div className="h-64 md:h-96 md:col-span-3 relative">
                 {data.seriesImageId.length > 0 ? (
-                    <img
+                    <Image
                         className="w-full h-64 md:h-96 object-cover card"
                         src={getImageUrl({ id: data.seriesImageId, filename: data.seriesImageSource })}
                     />
