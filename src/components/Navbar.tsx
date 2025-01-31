@@ -104,7 +104,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className="flex flex-col p-3">
-                            <Link to="/" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
+                            <Link to="/products" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <FiShoppingBag className="size-5" />
                                 Shop
                             </Link>

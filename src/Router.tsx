@@ -10,12 +10,14 @@ import NavLayout from "./layouts/NavLayout";
 import NotFoundError from "./components/NotFoundError";
 import BlogDetails from "./pages/BlogDetails";
 import { Toaster } from 'react-hot-toast';
+import ProductList from "./pages/ProductList";
 
 const router = createBrowserRouter([
   { path: "/", element: <Homepage /> },
   { path: "/shopping-cart", element: <ShoppingCart /> },
   { path: "/shopping-cart/checkout", element: <CartCheckout /> },
   { path: "/order-history", element: <OrderHistory /> },
+  { path: "/products", element: <ProductList /> },
   { path: "/products/:slug", element: <ProductDetails /> },
   { path: "/blogs/:slug", element: <BlogDetails /> },
   { path: "*", element: <NavLayout><NotFoundError /></NavLayout> }

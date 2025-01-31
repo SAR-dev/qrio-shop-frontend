@@ -1,14 +1,13 @@
 import { Product } from '../types/response'
 import { getImageUrl } from '../helpers'
 import { Link } from 'react-router'
-import Image from './Image'
 
 const CategoryBoxProduct = ({ product }: { product: Product }) => {
     return (
         <Link to={`/products/${product.productSlug}`} className='group'>
             <div className="h-48 lg:h-32 relative">
                 {product.productImageId.length > 0 ? (
-                    <Image
+                    <img
                         className="h-48 lg:h-32 w-full object-cover card"
                         src={getImageUrl({ id: product.productImageId, filename: product.productImageSource })}
                     />

@@ -6,9 +6,16 @@ export const constants = {
     HOMEPAGE_PRODUCT_DATA_STORE_KEY: "homepage-products",
     HOMEPAGE_LISTS_DATA_STORE_KEY: "homepage-lists",
     SOCIAL_LINKS_DATA_STORE_KEY: "social-links",
+    FILTER_FIELDS_DATA_STORE_KEY: "filter-fields",
     AUTH_TOKEN_API: "token",
     FEES: {
         SHIPPING: 100,
         TAX: 0
+    },
+    FILTERS: {
+        SERIES_ID: "seriesId",
+        CATEGORY_ID: "categoryId",
+        PAGE_NO: "pageNo",
+        PAGE_SIZE: "pageSize"
     }
 }

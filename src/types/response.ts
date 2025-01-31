@@ -1,5 +1,16 @@
 import { BlogsResponse, CategoriesResponse, ImagesResponse, ProductsResponse, SeriesResponse, ShippingMethodsResponse, UsersResponse } from "./pocketbase";
 
+// filter fields data
+export interface FilterFieldResType {
+    seriesList: FilterField[]
+    categoryList: FilterField[]
+}
+
+export interface FilterField {
+    id: string;
+    title: string;
+}
+
 // product details
 export type TexpandBlogDetailsResType = BlogsResponse & {
     expand: {
@@ -50,6 +61,17 @@ export interface CartProduct {
     cartId: string
     productImageId: string
     productImageSource: string
+}
+
+// product filter
+export interface FilteredProductResType {
+    items: ProductData[]
+    pageNo: number
+    pageSize: number
+    totalItems: number
+    totalPages: number
+    hasNext: boolean
+    hasPrev: boolean
 }
 
 // product suggestions
