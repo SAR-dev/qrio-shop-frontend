@@ -4,6 +4,7 @@ import { useInterval, useLocalStorage } from "usehooks-ts";
 import { jwtDecode } from "jwt-decode";
 import { Collections, TypedPocketBase, UsersResponse } from "../types/pocketbase";
 import { constants } from "../constants";
+import { setAuthToken } from "../helpers";
 
 interface DecodedToken {
     exp: number; // Expiration timestamp in seconds
@@ -45,6 +46,7 @@ export const PocketProvider = ({ children }: { children: ReactNode }) => {
     const oAuthLogin = useCallback(async () => {
         try {
             await pb.collection(Collections.Users).authWithOAuth2({ provider: "google" });
+            setAuthToken()
         } catch (error) {
             console.error("OAuth login failed:", error);
         }

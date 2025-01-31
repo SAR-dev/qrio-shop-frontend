@@ -26,12 +26,12 @@ export const formatNo = (number: number) => {
 }
 
 export const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    headers: {
-      'Authorization': (() => {
-        const token = localStorage.getItem(constants.AUTH_TOKEN_API);
-        return token ? JSON.parse(token) : "";
-      })()
-    }
-  });
+  baseURL: import.meta.env.VITE_API_URL,
+});
+
+// Function to update the Authorization header
+export const setAuthToken = () => {
+  const token = localStorage.getItem(constants.AUTH_TOKEN_API);
+  api.defaults.headers['Authorization'] = token ? `Bearer ${JSON.parse(token)}` : "";
+};
   
