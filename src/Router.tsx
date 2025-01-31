@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { RouterProvider, createBrowserRouter } from "react-router";
 import Homepage from "./pages/Homepage";
 import ShoppingCart from "./pages/ShoppingCart";
 import ProductDetails from "./pages/ProductDetails";
@@ -11,6 +11,16 @@ import NotFoundError from "./components/NotFoundError";
 import BlogDetails from "./pages/BlogDetails";
 import { Toaster } from 'react-hot-toast';
 
+const router = createBrowserRouter([
+  { path: "/", element: <Homepage /> },
+  { path: "/shopping-cart", element: <ShoppingCart /> },
+  { path: "/shopping-cart/checkout", element: <CartCheckout /> },
+  { path: "/order-history", element: <OrderHistory /> },
+  { path: "/products/:slug", element: <ProductDetails /> },
+  { path: "/blogs/:slug", element: <BlogDetails /> },
+  { path: "*", element: <NavLayout><NotFoundError /></NavLayout> }
+]);
+
 const Router = () => {
   return (
     <PocketProvider>
@@ -19,21 +29,7 @@ const Router = () => {
           position="bottom-left"
           reverseOrder={false} 
         />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/shopping-cart" element={<ShoppingCart />} />
-            <Route path="/shopping-cart/checkout" element={<CartCheckout />} />
-            <Route path="/order-history" element={<OrderHistory />} />
-            <Route path="/products/:slug" element={<ProductDetails />} />
-            <Route path="/blogs/:slug" element={<BlogDetails />} />
-            <Route path="*" element={
-              <NavLayout>
-                <NotFoundError />
-              </NavLayout>
-            } />
-          </Routes>
-        </BrowserRouter>
+        <RouterProvider router={router} />
       </NotificationProvider>
     </PocketProvider>
   );
