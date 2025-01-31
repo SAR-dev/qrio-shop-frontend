@@ -5,7 +5,7 @@ import Image from './Image'
 
 const CategoryBoxProduct = ({ product }: { product: Product }) => {
     return (
-        <div className='group'>
+        <Link to={`/products/${product.productSlug}`} className='group'>
             <div className="h-48 lg:h-32 relative">
                 {product.productImageId.length > 0 ? (
                     <Image
@@ -17,10 +17,10 @@ const CategoryBoxProduct = ({ product }: { product: Product }) => {
                 )}
                 <div className="absolute bottom-0 left-0 m-2 glass text-base-100 text-xs py-1 px-2">TK {product.productPrice}</div>
             </div>
-            <Link to={`/products/${product.productSlug}`} className="mt-2 text-xs line-clamp-1">
+            <div className="mt-2 text-xs line-clamp-1">
                 {product.productTitle}
-            </Link>
-        </div>
+            </div>
+        </Link>
     )
 }
 

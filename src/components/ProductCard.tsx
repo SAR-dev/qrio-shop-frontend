@@ -27,11 +27,7 @@ const ProductCard = ({ data }: { data: ProductData }) => {
         setIsLoading(true)
         addToCart({ productId: data.id })
             .then(() => {
-                notification.add({
-                    status: NotificationType.SUCCESS,
-                    title: "Added to cart",
-                    message: "Selected product has been added to cart."
-                })
+                notification.showAddedToCart(data.title)
                 setIsLoading(false)
             })
             .catch(() => {

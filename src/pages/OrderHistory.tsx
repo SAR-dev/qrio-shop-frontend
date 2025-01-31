@@ -8,6 +8,8 @@ import SectionLeftHeader from '../components/SectionLeftHeader'
 const OrderHistory = () => {
     const { user } = usePocket()
     const [invoices, setInvoices] = useState<InvoicesResponse[]>([])
+    const [refetchId, setRefetchId] = useState(1)
+    const refetch = () => setRefetchId(refetchId + 1)
 
     useEffect(() => {
         if (!user) return;
@@ -15,19 +17,26 @@ const OrderHistory = () => {
             filter: `users = "${user.id}"`,
             sort: '-created'
         }).then(res => setInvoices(res.items))
-    }, [user])
+    }, [user, refetchId])
 
     return (
         <NavLayout>
             <div className="max-w-screen-xl w-full mx-auto px-5 py-12">
-            <div className="mb-5">
+                <div className="mb-5">
                     <SectionLeftHeader title='🫡 Order History' subtitle='Your delivery information and contact details' />
                 </div>
-                <div className="card grid grid-cols-1 gap-10">
-                    {invoices.map((invoice, i) => (
-                        <InvoiceCard invoice={invoice} key={i} />
-                    ))}
-                </div>
+                {invoices.length == 0 && (
+                    <div className="card border border-base-content/25 p-5">
+                        Your order history is empty
+                    </div>
+                )}
+                {invoices.length > 0 && (
+                    <div className="card grid grid-cols-1 gap-10">
+                        {invoices.map((invoice, i) => (
+                            <InvoiceCard invoice={invoice} refetch={refetch} key={i} />
+                        ))}
+                    </div>
+                )}
             </div>
         </NavLayout>
     )

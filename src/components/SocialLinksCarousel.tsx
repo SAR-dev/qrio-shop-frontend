@@ -43,26 +43,30 @@ const SocialLinksCarousel = ({ enableFetch }: { enableFetch: boolean }) => {
     }, [enableFetch])
 
     return (
-        <div className="bg-base-300 px-5 py-10">
-            <div className="max-w-screen-xl mx-auto mb-5">
-                <SectionLeftHeader title="🤗 FOLLOW US" subtitle="Get in touch with us to receive more updates!" />
-            </div>
-            <div className="w-full flex justify-center">
-                <div className="carousel carousel-end rounded-box max-w-screen-xl">
-                    {socialLinks.map((data, i) => (
-                        <Link to={data.link} target="_blank" className="carousel-item relative" key={i}>
-                            <img 
-                                className="h-48 w-48 object-cover" 
-                                src={`${import.meta.env.VITE_API_URL}/api/files/${data.collectionId}/${data.id}/${data.image}`} 
-                            />
-                            <div className="absolute bottom-0 left-0 m-2 text-white">
-                                {socialIcons.find(e => e.platform == data.platform)?.icon}
-                            </div>
-                        </Link>
-                    ))}
+        <>
+            {socialLinks.length > 0 && (
+                <div className="bg-base-300 px-5 py-10">
+                    <div className="max-w-screen-xl mx-auto mb-5">
+                        <SectionLeftHeader title="🤗 FOLLOW US" subtitle="Get in touch with us to receive more updates!" />
+                    </div>
+                    <div className="w-full flex justify-center">
+                        <div className="carousel carousel-end rounded-box max-w-screen-xl">
+                            {socialLinks.map((data, i) => (
+                                <Link to={data.link} target="_blank" className="carousel-item relative" key={i}>
+                                    <img
+                                        className="h-48 w-48 object-cover"
+                                        src={`${import.meta.env.VITE_API_URL}/api/files/${data.collectionId}/${data.id}/${data.image}`}
+                                    />
+                                    <div className="absolute bottom-0 left-0 m-2 text-white">
+                                        {socialIcons.find(e => e.platform == data.platform)?.icon}
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            )}
+        </>
     )
 }
 

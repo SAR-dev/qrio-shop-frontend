@@ -46,10 +46,11 @@ const CartProductCard = ({ product }: { product: CartProduct }) => {
                     ) : (
                         <div className="h-20 w-20 card bg-base-content/50 animate-pulse" />
                     )}
-                    <div className="flex flex-col gap-2 lg:hidden">
-                        <Link to={`/products/${product.slug}`} className="font-medium" >
+
+                    <Link to={`/products/${product.slug}`} className="flex flex-col gap-2 lg:hidden">
+                        <div className="font-medium" >
                             {product.title}
-                        </Link>
+                        </div>
                         <div className='flex gap-2'>
                             <p className="font-bold">
                                 TK {Number(product.sellingPrice) - Number(product.discount)}
@@ -60,7 +61,7 @@ const CartProductCard = ({ product }: { product: CartProduct }) => {
                                 </p>
                             )}
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <div className="flex items-center justify-between md:order-3 md:flex-1 md:justify-end">
                     <div className="flex items-center">

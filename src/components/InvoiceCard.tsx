@@ -4,6 +4,9 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { InvoicesResponse } from '../types/pocketbase';
 import { api, formatNo, getImageUrl } from '../helpers';
 import { InvoiceProduct, InvoiceProductResType } from '../types/response';
+import { FcCancel } from 'react-icons/fc';
+import { useNotification } from '../contexts/NotificationContext';
+import { NotificationType } from '../types/notification';
 
 const dateOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -12,14 +15,16 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 };
 
 const InvoiceStatus = {
-    CREATED: "CREATED 🆕📦",
-    PROCESSING: "PROCESSING ⚙️⏳",
-    SHIPPED: "SHIPPED 🚚📤",
-    DELIVERED: "DELIVERED 📬✅"
+    CREATED: "CREATED 📦",
+    PROCESSING: "PROCESSING ⏳",
+    SHIPPED: "SHIPPED 🚚",
+    DELIVERED: "DELIVERED ✅",
+    CANCELLED: "CANCELLED ⛔"
 };
 
 
-const InvoiceCard = ({ invoice }: { invoice: InvoicesResponse }) => {
+const InvoiceCard = ({ invoice, refetch }: { invoice: InvoicesResponse, refetch: () => void }) => {
+    const notification = useNotification()
     const [isLoading, setIsLoading] = useState(false)
     const [invoiceProducts, setInvoiceProducts] = useState<InvoiceProduct[]>([])
 
@@ -34,10 +39,33 @@ const InvoiceCard = ({ invoice }: { invoice: InvoicesResponse }) => {
             })
     }
 
+    const handleDeleteInvoice = () => {
+        setIsLoading(true)
+        api
+            .post("/api/order-cancel", { invoiceId: invoice.id })
+            .then(() => {
+                refetch()
+                notification.add({
+                    status: NotificationType.SUCCESS,
+                    title: "Order Cancelled",
+                    message: "Order has been cancelled. Please check now."
+                })
+                setIsLoading(false)
+            })
+            .catch(() => {
+                notification.add({
+                    status: NotificationType.ERROR,
+                    title: "Error occured",
+                    message: "Error cancelling order. Please try later."
+                })
+                setIsLoading(false)
+            })
+    }
+
     return (
         <div className='card grid grid-cols-1 divide-y divide-base-content/25 border border-base-content/25 overflow-hidden'>
             <div className="w-full flex flex-col lg:flex-row gap-5 justify-between items-center p-5">
-                <div className="flex gap-10 w-full lg:w-fit">
+                <div className="flex flex-col md:flex-row gap-5 md:gap-10 w-full lg:w-fit">
                     <div className="flex flex-col gap-1">
                         <div className="font-semibold opacity-75">Order number</div>
                         <div>{invoice.ref}</div>
@@ -144,6 +172,12 @@ const InvoiceCard = ({ invoice }: { invoice: InvoicesResponse }) => {
                         <FaCheckCircle className='size-5' />
                         <div>Delivered on {(new Date(invoice.deliveredAt)).toLocaleDateString(undefined, dateOptions)}</div>
                     </div>
+                )}
+                {invoice.status == "CREATED" && (
+                    <button className="btn btn-outline border border-base-content/25" disabled={isLoading} onClick={handleDeleteInvoice}>
+                        <FcCancel className='size-5' />
+                        Cancel Order
+                    </button>
                 )}
             </div>
         </div>

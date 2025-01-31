@@ -2,7 +2,7 @@ import NavLayout from '../layouts/NavLayout'
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
 import { useMemo, useState } from 'react';
-import { api, formatNo, getImageUrl } from '../helpers';
+import { api, getImageUrl } from '../helpers';
 import { constants } from '../constants';
 import { useNotification } from '../contexts/NotificationContext';
 import { NotificationType } from '../types/notification';
@@ -22,6 +22,13 @@ const CartCheckout = () => {
         contactNo1: "",
         contactNo2: "",
     })
+
+    const formNotFilled = useMemo(() => 
+        data.receiverName.trim().length == 0 
+        || data.receiverAddress.trim().length == 0 
+        || data.contactNo1.trim().length < 10 
+        || data.contactNo2.trim().length < 10
+    , [data])
 
     const handleCheckout = () => {
         setIsLoading(true)
@@ -60,123 +67,133 @@ const CartCheckout = () => {
                     <SectionLeftHeader title='📦 Delivery Details' subtitle='Your delivery information and contact details' />
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25 h-fit">
-                        {cartProducts.map((product, i) => (
-                            <div className="" key={i}>
-                                <div className='p-5 flex gap-5 items-center'>
-                                    <div className="shrink-0">
-                                        {product.productImageId.length > 0 ? (
-                                            <img
-                                                className="h-10 w-10 card"
-                                                src={getImageUrl({ id: product.productImageId, filename: product.productImageSource })}
-                                            />
-                                        ) : (
-                                            <div className="h-20 w-20 card bg-base-content/50 animate-pulse" />
-                                        )}
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="flex flex-col text-sm">
-                                            <div className='font-semibold'>{product.title}</div>
-                                            <div className='flex gap-2 items-center'>
-                                                <div className='opacity-75 font-bold'>
-                                                    {Number(product.sellingPrice)} x {product.amount} TK
+                    {cartProducts.length == 0 && (
+                        <div className="card border border-base-content/25 p-5">
+                            Your cart is empty
+                        </div>
+                    )}
+                    {cartProducts.length > 0 && (
+                        <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25 h-fit">
+                            {cartProducts.map((product, i) => (
+                                <div className="" key={i}>
+                                    <div className='p-5 flex gap-5 items-center'>
+                                        <div className="shrink-0">
+                                            {product.productImageId.length > 0 ? (
+                                                <img
+                                                    className="h-10 w-10 card"
+                                                    src={getImageUrl({ id: product.productImageId, filename: product.productImageSource })}
+                                                />
+                                            ) : (
+                                                <div className="h-20 w-20 card bg-base-content/50 animate-pulse" />
+                                            )}
+                                        </div>
+                                        <div className="flex-1">
+                                            <div className="flex flex-col text-sm">
+                                                <div className='font-semibold'>{product.title}</div>
+                                                <div className='flex gap-2 items-center'>
+                                                    <div className='opacity-75 font-bold'>
+                                                        {Number(product.sellingPrice)} x {product.amount} TK
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div>
+                                            {(Number(product.sellingPrice)) * Number(product.amount)} TK
+                                        </div>
                                     </div>
-                                    <div>
-                                        {(Number(product.sellingPrice)) * Number(product.amount)} TK
-                                    </div>
+                                    {Number(product.discount) > 0 && (
+                                        <div className="px-5 py-2 border-t border-base-content/25 flex justify-between">
+                                            <div className="text-primary text-sm">Discount {Number(product.discount)} x {product.amount} TK</div>
+                                            <div className="text-primary text-sm">- {(Number(product.discount)) * Number(product.amount)} TK</div>
+                                        </div>
+                                    )}
                                 </div>
-                                {Number(product.discount) > 0 && (
-                                    <div className="px-5 py-2 border-t border-base-content/25 flex justify-between">
-                                        <div className="text-primary text-sm">Discount {Number(product.discount)} x {product.amount} TK</div>
-                                        <div className="text-primary text-sm">- {(Number(product.discount)) * Number(product.amount)} TK</div>
-                                    </div>
-                                )}
+                            ))}
+                            <div className="p-5 flex font-semibold text-sm justify-between">
+                                <div>Shipping Fee</div>
+                                <div>{constants.FEES.SHIPPING} TK</div>
                             </div>
-                        ))}
-                        <div className="p-5 flex font-semibold text-sm justify-between">
-                            <div>Shipping Fee</div>
-                            <div>{constants.FEES.SHIPPING} TK</div>
-                        </div>
-                        <div className="p-5 flex font-semibold text-sm justify-between">
-                            <div>Tax </div>
-                            <div>{constants.FEES.TAX} TK</div>
-                        </div>
-                        <div className="p-5 flex font-semibold text-sm justify-between bg-info/25">
-                            <div>Total Payable </div>
-                            <div>{totalPayable} TK</div>
-                        </div>
-                    </div>
-                    <div className="card p-5 bg-base-300 overflow-hidden divide-y divide-base-content/25 h-fit lg:sticky top-0">
-                        <div className="grid grid-cols-2 gap-5">
-                            <label className="form-control col-span-2">
-                                <div className="label">
-                                    <span className="label-text">Receiver Name</span>
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder=""
-                                    className="input input-bordered w-full"
-                                    value={data.receiverName}
-                                    onChange={e => setData({ ...data, receiverName: e.target.value })}
-                                />
-                            </label>
-                            <label className="form-control col-span-2">
-                                <div className="label">
-                                    <span className="label-text">Receiver Address</span>
-                                </div>
-                                <textarea
-                                    placeholder=""
-                                    className="textarea textarea-bordered w-full h-20"
-                                    value={data.receiverAddress}
-                                    onChange={e => setData({ ...data, receiverAddress: e.target.value })}
-                                />
-                            </label>
-                            <label className="form-control col-span-2 lg:col-span-1">
-                                <div className="label">
-                                    <span className="label-text">Contact No</span>
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder=""
-                                    className="input input-bordered w-full"
-                                    value={data.contactNo1}
-                                    onChange={e => setData({ ...data, contactNo1: e.target.value })}
-                                />
-                            </label>
-                            <label className="form-control col-span-2 lg:col-span-1">
-                                <div className="label">
-                                    <span className="label-text">Alt. Contact No</span>
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder=""
-                                    className="input input-bordered w-full"
-                                    value={data.contactNo2}
-                                    onChange={e => setData({ ...data, contactNo2: e.target.value })}
-                                />
-                            </label>
-                            <label className="form-control col-span-2">
-                                <div className="label">
-                                    <span className="label-text">Receiver Note</span>
-                                </div>
-                                <textarea
-                                    placeholder=""
-                                    className="textarea textarea-bordered w-full h-20"
-                                    value={data.receiverNote}
-                                    onChange={e => setData({ ...data, receiverNote: e.target.value })}
-                                />
-                            </label>
-                            <div className="text-primary col-span-2 text-sm">
-                                Please pay {formatNo(totalPayable)} TK to delivery man or bkash to us and message us your mobile no.
+                            <div className="p-5 flex font-semibold text-sm justify-between">
+                                <div>Tax </div>
+                                <div>{constants.FEES.TAX} TK</div>
                             </div>
-                            <button className="btn btn-primary col-span-2" disabled={isLoading || cartProducts.length == 0} onClick={handleCheckout}>
-                                Confirm Order
-                            </button>
+                            <div className="p-5 flex font-semibold text-sm justify-between bg-info/25">
+                                <div>Total Payable (Cash On Delivery)</div>
+                                <div>{totalPayable} TK</div>
+                            </div>
                         </div>
-                    </div>
+                    )}
+                    {cartProducts.length > 0 && (
+                        <div className="card p-5 bg-base-300 overflow-hidden divide-y divide-base-content/25 h-fit lg:sticky top-0">
+                            <div className="grid grid-cols-2 gap-5">
+                                <label className="form-control col-span-2">
+                                    <div className="label">
+                                        <span className="label-text">Receiver Name <span className="text-error">*</span></span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder=""
+                                        className="input input-bordered w-full"
+                                        value={data.receiverName}
+                                        onChange={e => setData({ ...data, receiverName: e.target.value })}
+                                    />
+                                </label>
+                                <label className="form-control col-span-2">
+                                    <div className="label">
+                                        <span className="label-text">Receiver Address <span className="text-error">*</span></span>
+                                    </div>
+                                    <textarea
+                                        placeholder=""
+                                        className="textarea textarea-bordered w-full h-20"
+                                        value={data.receiverAddress}
+                                        onChange={e => setData({ ...data, receiverAddress: e.target.value })}
+                                    />
+                                </label>
+                                <label className="form-control col-span-2 lg:col-span-1">
+                                    <div className="label">
+                                        <span className="label-text">Contact No <span className="text-error">*</span></span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder=""
+                                        className="input input-bordered w-full"
+                                        value={data.contactNo1}
+                                        onChange={e => setData({ ...data, contactNo1: e.target.value })}
+                                    />
+                                </label>
+                                <label className="form-control col-span-2 lg:col-span-1">
+                                    <div className="label">
+                                        <span className="label-text">Alt. Contact No <span className="text-error">*</span></span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder=""
+                                        className="input input-bordered w-full"
+                                        value={data.contactNo2}
+                                        onChange={e => setData({ ...data, contactNo2: e.target.value })}
+                                    />
+                                </label>
+                                <label className="form-control col-span-2">
+                                    <div className="label">
+                                        <span className="label-text">Receiver Note</span>
+                                    </div>
+                                    <textarea
+                                        placeholder=""
+                                        className="textarea textarea-bordered w-full h-20"
+                                        value={data.receiverNote}
+                                        onChange={e => setData({ ...data, receiverNote: e.target.value })}
+                                    />
+                                </label>
+                                <button
+                                    className="btn btn-primary col-span-2"
+                                    disabled={isLoading || cartProducts.length == 0 || formNotFilled}
+                                    onClick={handleCheckout}
+                                >
+                                    Confirm Order
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
             {isLoading && (

@@ -3,16 +3,29 @@ import NavLayout from '../layouts/NavLayout'
 import { MdArrowRightAlt } from 'react-icons/md';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useWishListStore } from '../stores/wishListStore';
 import CartProductCard from '../components/CartProductCard';
 import WishedProductCard from '../components/WishedProductCard';
 import { constants } from '../constants';
+import { useNotification } from '../contexts/NotificationContext';
+import { NotificationType } from '../types/notification';
 
 const ShoppingCart = () => {
+    const notification = useNotification()
     const { products: cartProducts } = useCartStore();
     const { products: wishedProducts } = useWishListStore();
     const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.SHIPPING + constants.FEES.TAX, [cartProducts]);
+    const [voucher, setVoucher] = useState("")
+
+    const handleVoucher = () => {
+        setVoucher("")
+        notification.add({
+            status: NotificationType.ERROR,
+            title: "Invalid voucher or gift card",
+            message: "The voucher or gift card is not applicable to these items."
+        })
+    }
 
     return (
         <NavLayout>
@@ -37,11 +50,17 @@ const ShoppingCart = () => {
                             <div className="mb-5">
                                 <SectionLeftHeader title='✨ WISHLIST' subtitle='Save, organize, and track the products for easy shopping later!' />
                             </div>
-                            <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
-                                {wishedProducts.map((data, i) => (
-                                    <WishedProductCard product={data} key={i} />
-                                ))}
-                            </div>
+                            {wishedProducts.length == 0 ? (
+                                <div className="card border border-base-content/25 p-5">
+                                    Your wishlist is empty
+                                </div>
+                            ) : (
+                                <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
+                                    {wishedProducts.map((data, i) => (
+                                        <WishedProductCard product={data} key={i} />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full lg:sticky top-[5rem]">
@@ -106,8 +125,13 @@ const ShoppingCart = () => {
                             <div className="text-sm font-medium">
                                 Do you have a voucher or gift card?
                             </div>
-                            <input type="text" className="input input-bordered w-full" />
-                            <button className="btn btn-accent w-full">Apply Code</button>
+                            <input 
+                                type="text" 
+                                className="input input-bordered w-full" 
+                                value={voucher}
+                                onChange={e => setVoucher(e.target.value)}
+                            />
+                            <button className="btn btn-accent w-full" onClick={handleVoucher}>Apply Code</button>
                         </div>
                     </div>
                 </div>
