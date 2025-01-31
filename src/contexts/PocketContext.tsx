@@ -40,6 +40,7 @@ export const PocketProvider = ({ children }: { children: ReactNode }) => {
         localStorage.clear();
         pb.authStore.clear();
         setUser(null);
+        setAuthToken()
     }, []);
 
     // Handle OAuth login with error handling
@@ -64,6 +65,7 @@ export const PocketProvider = ({ children }: { children: ReactNode }) => {
             // Refresh the token if it's close to expiration
             if (currentTimeInSeconds >= tokenExpiration - 5 * 60) {
                 await pb.collection(Collections.Users).authRefresh();
+                setAuthToken()
             }
         } catch (error) {
             console.error("Failed to refresh session:", error);
