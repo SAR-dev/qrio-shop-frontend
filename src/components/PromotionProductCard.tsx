@@ -67,7 +67,7 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
                     <div className="f-full flex flex-1 flex-col text-left lg:text-right">
                         <div className="text-secondary leading-4 uppercase title font-bold">{data.seriesTitle}</div>
                         <Link to={`/products/${data.slug}`} className="text-xl font-extrabold uppercase title my-3">{data.title}</Link>
-                        <Link to={`/products/${data.slug}`} className="mx-auto lg:ml-auto lg:mr-0 w-full lg:w-48 font-light line-clamp-2 lg:line-clamp-3 mb-3">
+                        <Link to={`/products/${data.slug}`} className="mx-auto lg:ml-auto lg:mr-0 w-full font-light line-clamp-2 mb-3">
                             {data.tagLine}
                         </Link>
                         {data.discount > 0 && (
