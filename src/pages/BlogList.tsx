@@ -59,7 +59,7 @@ const BlogList = () => {
                     <SectionLeftHeader title='🤗 WELCOME TO OUR BLOG' subtitle='Your Daily Dose of Knowledge and Inspiration. Stay Curious. Stay Informed.' />
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 mb-10">
-                    <label className="form-control w-full max-w-xs col-span-2 md:col-span-1">
+                    <label className="form-control w-full col-span-2 md:col-span-1">
                         <div className="label">
                             <span className="label-text">Search Text</span>
                             <span className="label-text-alt">Press 'Enter' to search</span>

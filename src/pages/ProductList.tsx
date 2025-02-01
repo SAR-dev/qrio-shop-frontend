@@ -115,7 +115,7 @@ function ProductList() {
                             ))}
                         </select>
                     </label>
-                    <label className="form-control w-full max-w-xs col-span-2 md:col-span-1">
+                    <label className="form-control w-full col-span-2 md:col-span-1">
                         <div className="label">
                             <span className="label-text">Search Text</span>
                             <span className="label-text-alt">Press 'Enter' to search</span>
