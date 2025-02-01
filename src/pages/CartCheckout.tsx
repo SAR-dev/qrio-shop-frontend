@@ -2,7 +2,7 @@ import NavLayout from '../layouts/NavLayout'
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
 import { useMemo, useState } from 'react';
-import { api, getImageUrl } from '../helpers';
+import { api, formatPrice, getImageUrl } from '../helpers';
 import { constants } from '../constants';
 import { useNotification } from '../contexts/NotificationContext';
 import { NotificationType } from '../types/notification';
@@ -92,34 +92,34 @@ const CartCheckout = () => {
                                                 <div className='font-semibold'>{product.title}</div>
                                                 <div className='flex gap-2 items-center'>
                                                     <div className='opacity-75 font-bold'>
-                                                        {Number(product.sellingPrice)} x {product.amount} TK
+                                                        {formatPrice(Number(product.sellingPrice))} x {product.amount} TK
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
-                                            {(Number(product.sellingPrice)) * Number(product.amount)} TK
+                                            {formatPrice((Number(product.sellingPrice)) * Number(product.amount))} TK
                                         </div>
                                     </div>
                                     {Number(product.discount) > 0 && (
                                         <div className="px-5 py-2 border-t border-base-content/25 flex justify-between">
-                                            <div className="text-primary text-sm">Discount {Number(product.discount)} x {product.amount} TK</div>
-                                            <div className="text-primary text-sm">- {(Number(product.discount)) * Number(product.amount)} TK</div>
+                                            <div className="text-primary text-sm">Discount {formatPrice(Number(product.discount))} x {product.amount} TK</div>
+                                            <div className="text-primary text-sm">- {formatPrice((Number(product.discount)) * Number(product.amount))} TK</div>
                                         </div>
                                     )}
                                 </div>
                             ))}
                             <div className="p-5 flex font-semibold text-sm justify-between">
                                 <div>Shipping Fee</div>
-                                <div>{constants.FEES.SHIPPING} TK</div>
+                                <div>{formatPrice(constants.FEES.SHIPPING)} TK</div>
                             </div>
                             <div className="p-5 flex font-semibold text-sm justify-between">
                                 <div>Tax </div>
-                                <div>{constants.FEES.TAX} TK</div>
+                                <div>{formatPrice(constants.FEES.TAX)} TK</div>
                             </div>
                             <div className="p-5 flex font-semibold text-sm justify-between bg-info/25">
                                 <div>Total Payable (Cash On Delivery)</div>
-                                <div>{totalPayable} TK</div>
+                                <div>{formatPrice(totalPayable)} TK</div>
                             </div>
                         </div>
                     )}

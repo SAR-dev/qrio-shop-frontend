@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AiOutlineExpand } from "react-icons/ai";
 import { FaCheckCircle } from 'react-icons/fa';
 import { InvoicesResponse } from '../types/pocketbase';
-import { api, formatNo, getImageUrl } from '../helpers';
+import { api, formatPrice, getImageUrl } from '../helpers';
 import { InvoiceProduct, InvoiceProductResType } from '../types/response';
 import { FcCancel } from 'react-icons/fc';
 import { useNotification } from '../contexts/NotificationContext';
@@ -76,7 +76,7 @@ const InvoiceCard = ({ invoice, refetch }: { invoice: InvoicesResponse, refetch:
                     </div>
                     <div className="flex flex-col gap-1">
                         <div className="font-semibold opacity-75">Total amount</div>
-                        <div className='font-semibold'>TK {formatNo(invoice.totalFee)}</div>
+                        <div className='font-semibold'>TK {formatPrice(invoice.totalFee)}</div>
                     </div>
                 </div>
                 {invoiceProducts.length == 0 && (
@@ -106,19 +106,19 @@ const InvoiceCard = ({ invoice, refetch }: { invoice: InvoicesResponse, refetch:
                                 <div className='font-semibold'>{product.title}</div>
                                 <div className='flex gap-2 items-center'>
                                     <div className='opacity-75 font-bold'>
-                                        {Number(product.sellingPrice)} x {product.amount} TK
+                                        {formatPrice(Number(product.sellingPrice))} x {product.amount} TK
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            {(Number(product.sellingPrice)) * Number(product.amount)} TK
+                            {formatPrice((Number(product.sellingPrice)) * Number(product.amount))} TK
                         </div>
                     </div>
                     {Number(product.discount) > 0 && (
                         <div className="px-5 py-2 border-t border-base-content/25 flex justify-between">
-                            <div className="text-primary text-sm">Discount {Number(product.discount)} x {product.amount} TK</div>
-                            <div className="text-primary text-sm">- {(Number(product.discount)) * Number(product.amount)} TK</div>
+                            <div className="text-primary text-sm">Discount {formatPrice(Number(product.discount))} x {product.amount} TK</div>
+                            <div className="text-primary text-sm">- {formatPrice((Number(product.discount)) * Number(product.amount))} TK</div>
                         </div>
                     )}
                 </div>
@@ -127,11 +127,11 @@ const InvoiceCard = ({ invoice, refetch }: { invoice: InvoicesResponse, refetch:
                 <>
                     <div className="px-5 py-2 flex font-semibold text-sm justify-between">
                         <div>Shipping Fee</div>
-                        <div>{invoice.shippingFee} TK</div>
+                        <div>{formatPrice(invoice.shippingFee)} TK</div>
                     </div>
                     <div className="px-5 py-2 flex font-semibold text-sm justify-between">
                         <div>Tax</div>
-                        <div>{invoice.taxFee} TK</div>
+                        <div>{formatPrice(invoice.taxFee)} TK</div>
                     </div>
                     <div className="px-5 py-2 flex font-semibold text-sm justify-between gap-5">
                         <div>Receiver</div>

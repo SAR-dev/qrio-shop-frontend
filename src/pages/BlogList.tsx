@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import SectionLeftHeader from '../components/SectionLeftHeader'
 import NavLayout from '../layouts/NavLayout'
 import { useSearchParams } from 'react-router';

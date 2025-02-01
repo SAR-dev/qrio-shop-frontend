@@ -10,6 +10,7 @@ import WishedProductCard from '../components/WishedProductCard';
 import { constants } from '../constants';
 import { useNotification } from '../contexts/NotificationContext';
 import { NotificationType } from '../types/notification';
+import { formatPrice } from '../helpers';
 
 const ShoppingCart = () => {
     const notification = useNotification()
@@ -75,7 +76,7 @@ const ShoppingCart = () => {
                                             Original price
                                         </dt>
                                         <dd className="font-medium">
-                                            {cartProducts.map(e => Number(e.sellingPrice) * Number(e.amount)).reduce((a, b) => a + b, 0)} TK
+                                            {formatPrice(cartProducts.map(e => Number(e.sellingPrice) * Number(e.amount)).reduce((a, b) => a + b, 0))} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -83,7 +84,7 @@ const ShoppingCart = () => {
                                             Savings
                                         </dt>
                                         <dd className="font-medium">
-                                            - {cartProducts.map(e => Number(e.discount) * Number(e.amount)).reduce((a, b) => a + b, 0)} TK
+                                            - {formatPrice(cartProducts.map(e => Number(e.discount) * Number(e.amount)).reduce((a, b) => a + b, 0))} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -91,7 +92,7 @@ const ShoppingCart = () => {
                                             Shipping Fee
                                         </dt>
                                         <dd className="font-medium">
-                                            {constants.FEES.SHIPPING} TK
+                                            {formatPrice(constants.FEES.SHIPPING)} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -99,7 +100,7 @@ const ShoppingCart = () => {
                                             Tax
                                         </dt>
                                         <dd className="font-medium">
-                                            {constants.FEES.TAX} TK
+                                            {formatPrice(constants.FEES.TAX)} TK
                                         </dd>
                                     </dl>
                                 </div>
@@ -108,7 +109,7 @@ const ShoppingCart = () => {
                                         Total
                                     </dt>
                                     <dd className="font-bold">
-                                        {totalPayable} TK
+                                        {formatPrice(totalPayable)} TK
                                     </dd>
                                 </dl>
                             </div>

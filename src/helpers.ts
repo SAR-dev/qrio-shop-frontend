@@ -19,7 +19,7 @@ export const maxDivisibleByTwo = (num: number) => {
     return num - (num % 2);
 }
 
-export const formatNo = (number: number) => {
+export const formatPrice = (number: number) => {
   return new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(
     number,
   )
