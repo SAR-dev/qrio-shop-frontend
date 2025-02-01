@@ -16,6 +16,7 @@ export const constants = {
         SERIES_ID: "seriesId",
         CATEGORY_ID: "categoryId",
         PAGE_NO: "pageNo",
+        SEARCH: "search",
         PAGE_SIZE: "pageSize"
     }
 }

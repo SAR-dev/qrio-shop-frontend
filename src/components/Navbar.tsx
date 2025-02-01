@@ -5,21 +5,28 @@ import { FiShoppingBag, FiShoppingCart } from "react-icons/fi";
 import Drawer from 'react-modern-drawer';
 import { LuChevronRight } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { usePocket } from "../contexts/PocketContext";
 import LogoSvg from "../assets/logo.svg";
 import { FcGoogle } from "react-icons/fc";
 import { RiChatSmileAiLine } from "react-icons/ri";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { useCartStore } from "../stores/cartStore";
+import { constants } from "../constants";
 
 const Navbar = () => {
     const { products } = useCartStore()
+    const navigate = useNavigate()
     const { oAuthLogin, user, logout } = usePocket()
     const [showDrawer, setShowDrawer] = useState<boolean>(false)
     const toggleDrawer = () => {
         setShowDrawer((prevState) => !prevState)
     }
+    const [showSearch, setShowSearch] = useState<boolean>(false)
+    const toggleSearch = () => {
+        setShowSearch((prevState) => !prevState)
+    }
+    const [searchText, setSearchText] = useState("")
 
     const handleSignOut = () => {
         logout()
@@ -40,12 +47,23 @@ const Navbar = () => {
                     </div>
                     <div className="navbar-center">
                         <label className="input input-bordered input hidden lg:flex items-center gap-2 w-96">
-                            <input type="text" className="grow" placeholder="Search products" />
+                            <input
+                                type="text"
+                                className="grow"
+                                placeholder="Search products"
+                                value={searchText}
+                                onChange={(e) => setSearchText(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        navigate(`/products?${constants.FILTERS.SEARCH}=${searchText}`)
+                                    }
+                                }}
+                            />
                             <RiSearchLine className="h-4 w-4 opacity-70" />
                         </label>
                     </div>
                     <div className="navbar-end gap-3">
-                        <button className="btn btn-outline border-base-content/25 lg:hidden">
+                        <button onClick={toggleSearch} className="btn btn-outline border-base-content/25 lg:hidden">
                             <RiSearchLine className="h-5 w-5" />
                         </button>
                         {user ? (
@@ -85,6 +103,25 @@ const Navbar = () => {
                                 <LuChevronRight className="opacity-75 h-4 w-4" />
                             </button>
                         </div>
+                    </div>
+                )}
+                {showSearch && (
+                    <div className="bg-base-300 shadow flex justify-center p-2">
+                        <label className="input input-bordered input lg:hidden flex items-center gap-2 w-96">
+                            <input
+                                type="text"
+                                className="grow"
+                                placeholder="Search products"
+                                value={searchText}
+                                onChange={(e) => setSearchText(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        navigate(`/products?${constants.FILTERS.SEARCH}=${searchText}`)
+                                    }
+                                }}
+                            />
+                            <RiSearchLine className="h-4 w-4 opacity-70" />
+                        </label>
                     </div>
                 )}
             </div>

@@ -15,6 +15,7 @@ function ProductList() {
     const [filterFieldData, setFilterFieldData] = useLocalStorage<FilterFieldResType | null>(constants.FILTER_FIELDS_DATA_STORE_KEY, null);
     const [productRes, setProductRes] = useState<FilteredProductResType | null>(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [searchText, setSearchText] = useState(searchParams.get(constants.FILTERS.SEARCH) ?? "");
 
     useEffect(() => {
         api
@@ -26,12 +27,13 @@ function ProductList() {
     useEffect(() => {
         setIsLoading(true)
         const pageNo = searchParams.get(constants.FILTERS.PAGE_NO)
+        const search = searchParams.get(constants.FILTERS.SEARCH) ?? ""
         const seriesId = filterFieldData?.seriesList.find(e => e.id == searchParams.get(constants.FILTERS.SERIES_ID))?.id ?? ""
         const categoryId = filterFieldData?.categoryList.find(e => e.id == searchParams.get(constants.FILTERS.CATEGORY_ID))?.id ?? ""
 
         api.get("/api/products", {
             params: {
-                seriesId, categoryId, pageNo, pageSize
+                seriesId, categoryId, pageNo, pageSize, search
             }
         }).then(res => {
             setProductRes(res.data)
@@ -45,18 +47,20 @@ function ProductList() {
     }, [searchParams])
 
     const handleNext = () => {
-        setSearchParams({ 
+        setSearchParams({
             seriesId: searchParams.get(constants.FILTERS.SERIES_ID) ?? "",
             categoryId: searchParams.get(constants.FILTERS.CATEGORY_ID) ?? "",
+            search: searchParams.get(constants.FILTERS.SEARCH) ?? "",
             pageSize: pageSize.toString(),
             pageNo: (Number(searchParams.get(constants.FILTERS.PAGE_NO) ?? 1) + 1).toString()
         })
     }
 
     const handlePrev = () => {
-        setSearchParams({ 
+        setSearchParams({
             seriesId: searchParams.get(constants.FILTERS.SERIES_ID) ?? "",
             categoryId: searchParams.get(constants.FILTERS.CATEGORY_ID) ?? "",
+            search: searchParams.get(constants.FILTERS.SEARCH) ?? "",
             pageSize: pageSize.toString(),
             pageNo: (Number(searchParams.get(constants.FILTERS.PAGE_NO) ?? 2) - 1).toString()
         })
@@ -68,7 +72,7 @@ function ProductList() {
                 <div className="mb-5">
                     <SectionLeftHeader title='😊 WELCOME TO OUR SHOP' subtitle='Your One-Stop Shopping Destination. Find What You Love, Love What You Find' />
                 </div>
-                <div className="flex flex-col sm:flex-row gap-5 mb-10">
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 mb-10">
                     <label className="form-control w-full max-w-xs">
                         <div className="label">
                             <span className="label-text">Category</span>
@@ -77,7 +81,11 @@ function ProductList() {
                             disabled={isLoading}
                             value={searchParams.get(constants.FILTERS.CATEGORY_ID) ?? ""}
                             className="select select-bordered"
-                            onChange={e => setSearchParams({ seriesId: searchParams.get(constants.FILTERS.SERIES_ID) ?? "", categoryId: e.target.value })}
+                            onChange={e => setSearchParams({
+                                seriesId: searchParams.get(constants.FILTERS.SERIES_ID) ?? "",
+                                categoryId: e.target.value,
+                                search: searchParams.get(constants.FILTERS.SEARCH) ?? "",
+                            })}
                         >
                             <option selected value="">All</option>
                             {filterFieldData?.categoryList.map((e, i) => (
@@ -92,7 +100,11 @@ function ProductList() {
                         <select
                             disabled={isLoading}
                             value={searchParams.get(constants.FILTERS.SERIES_ID) ?? ""}
-                            onChange={e => setSearchParams({ seriesId: e.target.value, categoryId: searchParams.get(constants.FILTERS.CATEGORY_ID) ?? "" })}
+                            onChange={e => setSearchParams({
+                                seriesId: e.target.value,
+                                categoryId: searchParams.get(constants.FILTERS.CATEGORY_ID) ?? "",
+                                search: searchParams.get(constants.FILTERS.SEARCH) ?? "",
+                            })}
                             className="select select-bordered"
                         >
                             <option selected value="">All</option>
@@ -100,6 +112,28 @@ function ProductList() {
                                 <option value={e.id} key={i}>{e.title}</option>
                             ))}
                         </select>
+                    </label>
+                    <label className="form-control w-full max-w-xs col-span-2 md:col-span-1">
+                        <div className="label">
+                            <span className="label-text">Search Text</span>
+                            <span className="label-text-alt">Press 'Enter' to search</span>
+                        </div>
+                        <input
+                            type='text'
+                            disabled={isLoading}
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    setSearchParams({
+                                        seriesId: searchParams.get(constants.FILTERS.SERIES_ID) ?? "",
+                                        categoryId: searchParams.get(constants.FILTERS.CATEGORY_ID) ?? "",
+                                        search: searchText,
+                                    });
+                                }
+                            }}
+                            className="input input-bordered"
+                        />
                     </label>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
@@ -109,7 +143,7 @@ function ProductList() {
                 </div>
                 <div className="flex flex-col md:flex-row w-full gap-5 md:items-center md:justify-between mt-10">
                     <div className="opacity-50">
-                    Total {productRes?.totalItems ?? 0} products found . Showing page {productRes?.pageNo ?? 1} of {productRes?.totalPages ?? 1}
+                        Total {productRes?.totalItems ?? 0} products found . Showing page {productRes?.pageNo ?? 1} of {productRes?.totalPages ?? 1}
                     </div>
                     <div className="join grid grid-cols-2">
                         <button className="join-item btn btn-outline" disabled={!productRes?.hasPrev} onClick={handlePrev}>Previous page</button>
