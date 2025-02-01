@@ -1,9 +1,9 @@
-import NavLayout from '../layouts/NavLayout'
 import { useEffect, useState } from 'react'
 import { pb, usePocket } from '../contexts/PocketContext'
 import { Collections, InvoicesResponse } from '../types/pocketbase'
 import InvoiceCard from '../components/InvoiceCard'
 import SectionLeftHeader from '../components/SectionLeftHeader'
+import AuthNavLayout from '../layouts/AuthNavLayout'
 
 const OrderHistory = () => {
     const { user } = usePocket()
@@ -20,7 +20,7 @@ const OrderHistory = () => {
     }, [user, refetchId])
 
     return (
-        <NavLayout>
+        <AuthNavLayout>
             <div className="max-w-screen-xl w-full mx-auto px-5 py-12">
                 <div className="mb-5">
                     <SectionLeftHeader title='🫡 Order History' subtitle='Your delivery information and contact details' />
@@ -38,7 +38,7 @@ const OrderHistory = () => {
                     </div>
                 )}
             </div>
-        </NavLayout>
+        </AuthNavLayout>
     )
 }
 

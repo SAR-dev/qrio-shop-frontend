@@ -1,4 +1,3 @@
-import NavLayout from '../layouts/NavLayout'
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
 import { useMemo, useState } from 'react';
@@ -7,6 +6,7 @@ import { constants } from '../constants';
 import { useNotification } from '../contexts/NotificationContext';
 import { NotificationType } from '../types/notification';
 import { useNavigate } from 'react-router';
+import AuthNavLayout from '../layouts/AuthNavLayout';
 
 const CartCheckout = () => {
     const notification = useNotification()
@@ -61,7 +61,7 @@ const CartCheckout = () => {
     }
 
     return (
-        <NavLayout>
+        <AuthNavLayout>
             <div className="max-w-screen-xl w-full mx-auto px-5 py-10 lg:py-12">
                 <div className="mb-5">
                     <SectionLeftHeader title='📦 Delivery Details' subtitle='Your delivery information and contact details' />
@@ -204,7 +204,7 @@ const CartCheckout = () => {
                     </div>
                 </div>
             )}
-        </NavLayout>
+        </AuthNavLayout>
     )
 }
 

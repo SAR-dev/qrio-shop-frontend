@@ -1,5 +1,4 @@
 import { Link } from 'react-router'
-import NavLayout from '../layouts/NavLayout'
 import { MdArrowRightAlt } from 'react-icons/md';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
@@ -11,6 +10,7 @@ import { constants } from '../constants';
 import { useNotification } from '../contexts/NotificationContext';
 import { NotificationType } from '../types/notification';
 import { formatPrice } from '../helpers';
+import AuthNavLayout from '../layouts/AuthNavLayout';
 
 const ShoppingCart = () => {
     const notification = useNotification()
@@ -29,7 +29,7 @@ const ShoppingCart = () => {
     }
 
     return (
-        <NavLayout>
+        <AuthNavLayout>
             <div className="max-w-screen-xl w-full mx-auto px-5 py-10 lg:py-12">
                 <div className="mb-5">
                     <SectionLeftHeader title='🛒 SHOPPING CART' subtitle='Review you items added to cart and proceed to checkout' />
@@ -137,7 +137,7 @@ const ShoppingCart = () => {
                     </div>
                 </div>
             </div>
-        </NavLayout>
+        </AuthNavLayout>
     )
 }
 
