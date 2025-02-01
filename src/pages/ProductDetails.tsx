@@ -4,7 +4,7 @@ import { FiHeart } from 'react-icons/fi'
 import parse from 'html-react-parser';
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
-import { pb } from '../contexts/PocketContext';
+import { pb, usePocket } from '../contexts/PocketContext';
 import { Collections } from '../types/pocketbase';
 import { ProductSuggestResType, TexpandProductDetailsResType } from '../types/response';
 import { api, getImageUrl } from '../helpers';
@@ -21,6 +21,7 @@ import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
 import Image from '../components/Image';
 
 const ProductDetails = () => {
+    const { user } = usePocket()
     const { slug } = useParams();
     const { addToCart, products: cartProducts } = useCartStore()
     const { toogleWish, products: wishedProducts } = useWishListStore()
@@ -65,6 +66,14 @@ const ProductDetails = () => {
     }, [productDetails])
 
     const handleAddToCart = () => {
+        if(!user){
+            notification.add({
+                status: NotificationType.INFO,
+                title: "Sign In",
+                message: "Please sign in to access this feature."
+            })
+            return;
+        }
         if (!productDetails) return;
         setIsLoading(true)
         addToCart({ productId: productDetails.id })
@@ -83,6 +92,14 @@ const ProductDetails = () => {
     }
 
     const handleAddToWish = () => {
+        if(!user){
+            notification.add({
+                status: NotificationType.INFO,
+                title: "Sign In",
+                message: "Please sign in to access this feature."
+            })
+            return;
+        }
         if (!productDetails) return;
         setIsLoading(true)
         toogleWish({ productId: productDetails.id })
@@ -106,6 +123,14 @@ const ProductDetails = () => {
     }
 
     const handleSubmitQuery = () => {
+        if(!user){
+            notification.add({
+                status: NotificationType.INFO,
+                title: "Sign In",
+                message: "Please sign in to access this feature."
+            })
+            return;
+        }
         setIsLoading(true)
         api
             .post("/api/query", {

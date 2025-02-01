@@ -11,8 +11,10 @@ import classNames from "classnames";
 import { useWishListStore } from "../stores/wishListStore";
 import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
 import Image from "./Image";
+import { usePocket } from "../contexts/PocketContext";
 
 const ProductCard = ({ data }: { data: ProductData }) => {
+    const { user } = usePocket()
     const { addToCart, products: cartProducts } = useCartStore()
     const { toogleWish, products: wishedProducts } = useWishListStore()
     const notification = useNotification()
@@ -24,6 +26,14 @@ const ProductCard = ({ data }: { data: ProductData }) => {
     const addedToWish = useMemo(() => wishedProductIds.has(data.id), [wishedProductIds, data.id]);
 
     const handleAddToCart = () => {
+        if(!user){
+            notification.add({
+                status: NotificationType.INFO,
+                title: "Sign In",
+                message: "Please sign in to access this feature."
+            })
+            return;
+        }
         setIsLoading(true)
         addToCart({ productId: data.id })
             .then(() => {
@@ -41,6 +51,14 @@ const ProductCard = ({ data }: { data: ProductData }) => {
     }
 
     const handleAddToWish = () => {
+        if(!user){
+            notification.add({
+                status: NotificationType.INFO,
+                title: "Sign In",
+                message: "Please sign in to access this feature."
+            })
+            return;
+        }
         setIsLoading(true)
         toogleWish({ productId: data.id })
             .then((res) => {

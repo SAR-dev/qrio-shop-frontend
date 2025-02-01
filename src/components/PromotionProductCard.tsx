@@ -8,8 +8,10 @@ import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
 import classNames from "classnames";
 import { Link } from "react-router";
 import Image from "./Image";
+import { usePocket } from "../contexts/PocketContext";
 
 const PromotionProductCard = ({ data }: { data: ProductData }) => {
+    const { user } = usePocket()
     const { addToCart, products: cartProducts } = useCartStore()
     const notification = useNotification()
     const [isLoading, setIsLoading] = useState(false)
@@ -23,6 +25,14 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
     );
 
     const handleAddToCart = () => {
+        if(!user){
+            notification.add({
+                status: NotificationType.INFO,
+                title: "Sign In",
+                message: "Please sign in to access this feature."
+            })
+            return;
+        }
         setIsLoading(true)
         addToCart({ productId: data.id })
             .then(() => {
