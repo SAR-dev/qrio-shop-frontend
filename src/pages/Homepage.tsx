@@ -80,7 +80,7 @@ const Homepage = () => {
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
                             {homepageListData.seriesList.map((series, i) => (
-                                <Link to={`/search?seriesSlug=${series.slug}`} className="h-40 w-full relative overflow-hidden group" key={i}>
+                                <Link to={`/products?${constants.FILTERS.SERIES_ID}=${series.id}`} className="h-40 w-full relative overflow-hidden group" key={i}>
                                     {series.seriesImageId.length > 0 ? (
                                         <img
                                             className="card w-full h-40 object-cover"
@@ -151,7 +151,7 @@ const Homepage = () => {
                         <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-8 text-xl font-semibold">
                             {homepageListData.categoryList.map((category, i) => (
                                 <div className="flex flex-col items-center gap-3" key={i}>
-                                    <Link to={`/search?categorySlug=${category.slug}`} className="btn btn-circle btn-lg btn-outline hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-base-100" key={i}>
+                                    <Link to={`/products?${constants.FILTERS.CATEGORY_ID}=${category.id}`} className="btn btn-circle btn-lg btn-outline hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-base-100" key={i}>
                                         {category.categoryImageId.length > 0 ? (
                                             <img className="h-full w-full rounded-full object-cover" src={getImageUrl({ id: category.categoryImageId, filename: category.categoryImageSource })} alt="" />
                                         ) : (

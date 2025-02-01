@@ -3,6 +3,8 @@ import { getImageUrl } from "../helpers"
 import SeriesBoxProduct from "./SeriesBoxProduct"
 import SectionLeftHeader from "./SectionLeftHeader"
 import Image from "./Image"
+import { Link } from "react-router"
+import { constants } from "../constants"
 
 const SeriesBox = ({ data }: { data: FeaturedSeries }) => {
     return (
@@ -20,9 +22,9 @@ const SeriesBox = ({ data }: { data: FeaturedSeries }) => {
                     <div className="w-full h-64 md:h-96 object-cover card bg-base-content/50 animate-pulse" />
                 )}
                 <div className="absolute bottom-0 left-0 m-3">
-                    <button className="btn glass">
+                    <Link to={`/products?${constants.FILTERS.SERIES_ID}=${data.seriesId}`} className="btn glass">
                         {data.seriesTitle}
-                    </button>
+                    </Link>
                 </div>
             </div>
             <div className="md:col-span-2 h-64 md:h-96">
