@@ -11,6 +11,7 @@ import NotFoundError from "./components/NotFoundError";
 import BlogDetails from "./pages/BlogDetails";
 import { Toaster } from 'react-hot-toast';
 import ProductList from "./pages/ProductList";
+import BlogList from "./pages/BlogList";
 
 const router = createBrowserRouter([
   { path: "/", element: <Homepage /> },
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
   { path: "/order-history", element: <OrderHistory /> },
   { path: "/products", element: <ProductList /> },
   { path: "/products/:slug", element: <ProductDetails /> },
+  { path: "/blogs", element: <BlogList /> },
   { path: "/blogs/:slug", element: <BlogDetails /> },
   { path: "*", element: <NavLayout><NotFoundError /></NavLayout> }
 ]);

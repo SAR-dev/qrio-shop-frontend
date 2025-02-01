@@ -145,10 +145,10 @@ const Navbar = () => {
                                 <FiShoppingBag className="size-5" />
                                 Shop
                             </Link>
-                            <button className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
+                            <Link to="/blogs" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <GrBlog className="size-5" />
                                 Blogs
-                            </button>
+                            </Link>
                             <Link to="/shopping-cart" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <FiShoppingCart className="size-5" />
                                 Cart & Wishlist

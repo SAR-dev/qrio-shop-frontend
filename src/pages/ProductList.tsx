@@ -31,15 +31,17 @@ function ProductList() {
         const seriesId = filterFieldData?.seriesList.find(e => e.id == searchParams.get(constants.FILTERS.SERIES_ID))?.id ?? ""
         const categoryId = filterFieldData?.categoryList.find(e => e.id == searchParams.get(constants.FILTERS.CATEGORY_ID))?.id ?? ""
 
-        api.get("/api/products", {
-            params: {
-                seriesId, categoryId, pageNo, pageSize, search
-            }
-        }).then(res => {
-            setProductRes(res.data)
-            setIsLoading(false)
-            window.scrollTo(0, 0)
-        })
+        api
+            .get("/api/products", {
+                params: {
+                    seriesId, categoryId, pageNo, pageSize, search
+                }
+            })
+            .then(res => {
+                setProductRes(res.data)
+                setIsLoading(false)
+                window.scrollTo(0, 0)
+            })
             .catch(() => {
                 setProductRes(null)
                 setIsLoading(false)
@@ -70,7 +72,7 @@ function ProductList() {
         <NavLayout>
             <div className="max-w-screen-xl w-full mx-auto px-5 py-10 lg:py-12">
                 <div className="mb-5">
-                    <SectionLeftHeader title='😊 WELCOME TO OUR SHOP' subtitle='Your One-Stop Shopping Destination. Find What You Love, Love What You Find' />
+                    <SectionLeftHeader title='😊 WELCOME TO OUR SHOP' subtitle='Your One-Stop Shopping Destination. Find What You Love, Love What You Find.' />
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 mb-10">
                     <label className="form-control w-full max-w-xs">

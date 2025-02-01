@@ -63,6 +63,18 @@ export interface CartProduct {
     productImageSource: string
 }
 
+// blog filter
+// product filter
+export interface FilteredBlogResType {
+    items: BlogData[]
+    pageNo: number
+    pageSize: number
+    totalItems: number
+    totalPages: number
+    hasNext: boolean
+    hasPrev: boolean
+}
+
 // product filter
 export interface FilteredProductResType {
     items: ProductData[]
