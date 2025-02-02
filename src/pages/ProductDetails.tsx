@@ -46,7 +46,7 @@ const ProductDetails = () => {
         pb
             .collection(Collections.Products)
             .getFirstListItem(`slug="${slug}"`, {
-                expand: "categories, images, series, shippingMethods"
+                expand: "categories, images, series"
             })
             .then(res => setProductDetails(res as unknown as TexpandProductDetailsResType))
             .catch(err => {
