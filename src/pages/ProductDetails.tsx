@@ -1,5 +1,5 @@
 import NavLayout from '../layouts/NavLayout'
-import { FaHeart, FaStar } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi'
 import parse from 'html-react-parser';
 import { useEffect, useMemo, useState } from 'react';
@@ -81,11 +81,11 @@ const ProductDetails = () => {
                 notification.showAddedToCart(productDetails.title)
                 setIsLoading(false)
             })
-            .catch(() => {
+            .catch((err) => {
                 notification.add({
                     status: NotificationType.ERROR,
                     title: "Error occured",
-                    message: "Adding items to cart failed. Please try later."
+                    message: err.response.data.message ?? "Adding items to cart failed. Please try later."
                 })
                 setIsLoading(false)
             })
@@ -220,17 +220,7 @@ const ProductDetails = () => {
                             <h1 className="text-2xl font-bold sm:text-3xl">
                                 {productDetails.title}
                             </h1>
-                            <div className="mt-4 flex gap-5">
-                                {Number(productDetails.discount) > 0 && (
-                                    <div className="w-fit bg-secondary text-secondary-content py-1 px-2 text-sm">Save TK {productDetails.discount}</div>
-                                )}
-                                {productDetails.inStock ? (
-                                    <div className="px-2 py-1 bg-success text-success-content w-fit text-sm">🚀 In Stock</div>
-                                ) : (
-                                    <div className="px-2 py-1 bg-error text-error-content w-fit text-sm">⛟ Out Of Stock</div>
-                                )}
-                            </div>
-                            <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
+                            <div className="mt-6 sm:items-center sm:gap-4 sm:flex">
                                 <div className="flex gap-3">
                                     <p className="title text-2xl font-extrabold sm:text-3xl">
                                         TK {Number(productDetails.sellingPrice) - Number(productDetails.discount)}
@@ -240,21 +230,6 @@ const ProductDetails = () => {
                                             TK {productDetails.sellingPrice}
                                         </p>
                                     )}
-                                </div>
-                                <div className="flex items-center gap-2 mt-2 sm:mt-0">
-                                    <div className="flex items-center gap-1">
-                                        <FaStar className="size-4 text-yellow-400" />
-                                        <FaStar className="size-4 text-yellow-400" />
-                                        <FaStar className="size-4 text-yellow-400" />
-                                        <FaStar className="size-4 text-yellow-400" />
-                                        <FaStar className="size-4 text-yellow-400" />
-                                    </div>
-                                    <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
-                                        (5.0)
-                                    </p>
-                                    <a href="#" className="text-sm font-medium leading-none underline hover:no-underline">
-                                        345 Reviews
-                                    </a>
                                 </div>
                             </div>
                             <div className="mt-6 gap-4 items-center flex sm:mt-8">
@@ -301,6 +276,16 @@ const ProductDetails = () => {
                             </div>
                             <hr className="my-6 md:my-8 border-base-content/25" />
                             <div className="grid grid-cols-1 gap-4">
+                            <div className="flex gap-2">
+                                {Number(productDetails.discount) > 0 && (
+                                    <div className="w-fit bg-secondary text-secondary-content py-1 px-2 text-sm">Save TK {productDetails.discount}</div>
+                                )}
+                                {productDetails.inStock ? (
+                                    <div className="px-2 py-1 bg-success text-success-content w-fit text-sm">🚀 In Stock</div>
+                                ) : (
+                                    <div className="px-2 py-1 bg-error text-error-content w-fit text-sm">⛟ Out Of Stock</div>
+                                )}
+                            </div>
                                 <div className='flex flex-col gap-2'>
                                     <div><b>🏷️ Category : </b> {productDetails.expand.categories.title}</div>
                                     <div><b>🎬 Series : </b> {productDetails.expand.series.title}</div>
@@ -328,15 +313,6 @@ const ProductDetails = () => {
                                 <QueryForm />
                             </div>
                         </div>
-                    </div>
-                    <hr className="my-6 md:my-8 border-base-content/25" />
-                    <div>
-                        <div className="mb-5">
-                            <SectionLeftHeader title='Shipping Details' subtitle={productDetails.expand.shippingMethods.title} />
-                        </div>
-                        <article className="prose text-base-content">
-                            {parse(productDetails.expand.shippingMethods.description)}
-                        </article>
                     </div>
                     <hr className="my-6 md:my-8 border-base-content/25" />
                     <div>

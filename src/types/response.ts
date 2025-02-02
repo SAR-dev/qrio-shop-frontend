@@ -1,4 +1,11 @@
-import { BlogsResponse, CategoriesResponse, ImagesResponse, ProductsResponse, SeriesResponse, ShippingMethodsResponse, UsersResponse } from "./pocketbase";
+import {
+    BlogsResponse,
+    CategoriesResponse,
+    ImagesResponse,
+    ProductsResponse,
+    SeriesResponse,
+    UsersResponse,
+} from "./pocketbase";
 
 // filter fields data
 export interface FilterFieldResType {
@@ -26,7 +33,6 @@ export type TexpandProductDetailsResType = ProductsResponse & {
         categories: CategoriesResponse;
         series: SeriesResponse;
         images: ImagesResponse[];
-        shippingMethods: ShippingMethodsResponse;
     };
 };
 

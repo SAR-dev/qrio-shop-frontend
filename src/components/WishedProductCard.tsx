@@ -24,11 +24,11 @@ const WishedProductCard = ({ product }: { product: ProductData }) => {
                 })
                 setIsLoading(false)
             })
-            .catch(() => {
+            .catch((err) => {
                 notification.add({
                     status: NotificationType.ERROR,
                     title: "Error occured",
-                    message: "Adding items to cart failed. Please try later."
+                    message: err.response.data.message ?? "Adding items to cart failed. Please try later."
                 })
                 setIsLoading(false)
             })
