@@ -83,7 +83,7 @@ const Navbar = () => {
                             </button>
                         )}
                         <div className="indicator">
-                            <Link to="/shopping-cart" className="btn btn-outline border-base-content/25">
+                            <Link to="/carts" className="btn btn-outline border-base-content/25">
                                 <FiShoppingCart className="h-5 w-5" />
                             </Link>
                             <span className="indicator-item indicator-bottom indicator-start badge badge-secondary h-8 w-8">{products.length}</span>
@@ -149,11 +149,11 @@ const Navbar = () => {
                                 <GrBlog className="size-5" />
                                 Blogs
                             </Link>
-                            <Link to="/shopping-cart" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
+                            <Link to="/carts" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <FiShoppingCart className="size-5" />
                                 Cart & Wishlist
                             </Link>
-                            <Link to="/order-history" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
+                            <Link to="/orders" className="no-animation btn gap-3 justify-start btn-primary bg-transparent text-base-content border-transparent hover:text-primary-content">
                                 <MdOutlineShoppingCartCheckout className="size-5" />
                                 Order History
                             </Link>

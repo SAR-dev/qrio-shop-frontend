@@ -5,11 +5,9 @@ import InvoiceCard from '../components/InvoiceCard'
 import SectionLeftHeader from '../components/SectionLeftHeader'
 import AuthNavLayout from '../layouts/AuthNavLayout'
 
-const OrderHistory = () => {
+const OrderList = () => {
     const { user } = usePocket()
     const [invoices, setInvoices] = useState<InvoicesResponse[]>([])
-    const [refetchId, setRefetchId] = useState(1)
-    const refetch = () => setRefetchId(refetchId + 1)
 
     useEffect(() => {
         if (!user) return;
@@ -17,7 +15,7 @@ const OrderHistory = () => {
             filter: `users = "${user.id}"`,
             sort: '-created'
         }).then(res => setInvoices(res.items))
-    }, [user, refetchId])
+    }, [user])
 
     return (
         <AuthNavLayout>
@@ -33,7 +31,7 @@ const OrderHistory = () => {
                 {invoices.length > 0 && (
                     <div className="card grid grid-cols-1 gap-10">
                         {invoices.map((invoice, i) => (
-                            <InvoiceCard invoice={invoice} refetch={refetch} key={i} />
+                            <InvoiceCard invoice={invoice} key={i} />
                         ))}
                     </div>
                 )}
@@ -42,4 +40,4 @@ const OrderHistory = () => {
     )
 }
 
-export default OrderHistory
+export default OrderList

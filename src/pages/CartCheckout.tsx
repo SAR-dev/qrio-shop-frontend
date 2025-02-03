@@ -48,7 +48,7 @@ const CartCheckout = () => {
                     contactNo2: "",
                 })
                 setIsLoading(false)
-                navigate("/order-history")
+                navigate("/orders")
             })
             .catch(() => {
                 notification.add({

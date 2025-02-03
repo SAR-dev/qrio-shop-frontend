@@ -113,7 +113,7 @@ const ShoppingCart = () => {
                                     </dd>
                                 </dl>
                             </div>
-                            <Link to="/shopping-cart/checkout" className="btn btn-primary">Proceed to Checkout</Link>
+                            <Link to="/carts/checkout" className="btn btn-primary">Proceed to Checkout</Link>
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-sm font-normal">
                                     or
