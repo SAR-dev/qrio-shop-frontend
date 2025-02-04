@@ -74,24 +74,30 @@ const Navbar = () => {
                                         src={`${import.meta.env.VITE_API_URL}/api/files/${user.collectionName}/${user.id}/${user.avatar}`}
                                     />
                                 </div>
-                                {user.name}
+                                <span className="hidden md:flex">
+                                    {user.name}
+                                </span>
                             </button>
                         ) : (
                             <button className="btn btn-outline border-base-content/25 gap-2" onClick={oAuthLogin}>
                                 <FcGoogle className="size-5" />
-                                Continue with Google
+                                <span className="hidden md:flex">
+                                    Continue with Google
+                                </span>
                             </button>
                         )}
                         <div className="indicator">
                             <Link to="/carts" className="btn btn-outline border-base-content/25">
                                 <FiShoppingCart className="h-5 w-5" />
                             </Link>
-                            <span className="indicator-item indicator-bottom indicator-start badge badge-secondary h-8 w-8">{products.length}</span>
+                            {user && (
+                                <span className="indicator-item indicator-bottom indicator-start badge badge-secondary h-8 w-8">{products.length}</span>
+                            )}
                         </div>
                     </div>
                 </div>
                 {!user && (
-                    <div className="bg-base-100 shadow">
+                    <div className="hidden md:block bg-base-100 shadow">
                         <div className="bg-primary/20 text-center py-2 lg:px-4 z-[2]">
                             <button onClick={oAuthLogin} className="py-2 xs:px-2 px-5 text-center bg-primary items-center text-primary-content leading-none xs:rounded-full flex xs:inline-flex group min-w-96 w-full xs:w-fit">
                                 <span className="flex rounded-full bg-accent uppercase px-2 py-1 text-xs font-bold mr-3 text-info-content">
