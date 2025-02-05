@@ -3,9 +3,14 @@ import { getImageUrl } from '../helpers'
 import { Link } from 'react-router'
 
 const CategoryBoxProduct = ({ product }: { product?: Product }) => {
-    if(!product){
+    if (!product) {
         return (
-            <div className="card h-48 lg:h-32 w-full bg-base-content/50 animate-pulse" />
+            <div className="group">
+                <div className="card h-48 lg:h-32 w-full bg-base-content/50 animate-pulse" />
+                <div className="mt-2 text-xs">
+                    N/A
+                </div>
+            </div>
         )
     }
     return (
