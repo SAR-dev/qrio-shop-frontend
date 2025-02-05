@@ -37,7 +37,9 @@ const CartCheckout = () => {
                 notification.add({
                     status: NotificationType.SUCCESS,
                     title: "Checkout Completed",
-                    message: `Your order no is ${res.data.ref}. You can track details from order history screen.`
+                    message: `Your order has been placed. Order no is ${res.data.ref}. 
+                    You can track details from order history screen. 
+                    An email has been sent to you with details too. Please check spam folder too.`
                 })
                 refetchProducts()
                 setData({
@@ -132,6 +134,7 @@ const CartCheckout = () => {
                                     </div>
                                     <input
                                         type="text"
+                                        name='name'
                                         placeholder=""
                                         className="input input-bordered w-full"
                                         value={data.receiverName}
@@ -143,6 +146,7 @@ const CartCheckout = () => {
                                         <span className="label-text">Receiver Address <span className="text-error">*</span></span>
                                     </div>
                                     <textarea
+                                        name='address'
                                         placeholder=""
                                         className="textarea textarea-bordered w-full h-20"
                                         value={data.receiverAddress}
@@ -151,10 +155,11 @@ const CartCheckout = () => {
                                 </label>
                                 <label className="form-control col-span-2 lg:col-span-1">
                                     <div className="label">
-                                        <span className="label-text">Contact No <span className="text-error">*</span></span>
+                                        <span className="label-text">Contact No 1<span className="text-error">*</span></span>
                                     </div>
                                     <input
                                         type="text"
+                                        name='contact_no_1'
                                         placeholder=""
                                         className="input input-bordered w-full"
                                         value={data.contactNo1}
@@ -163,10 +168,11 @@ const CartCheckout = () => {
                                 </label>
                                 <label className="form-control col-span-2 lg:col-span-1">
                                     <div className="label">
-                                        <span className="label-text">Alt. Contact No <span className="text-error">*</span></span>
+                                        <span className="label-text">Contact No 2<span className="text-error">*</span></span>
                                     </div>
                                     <input
                                         type="text"
+                                        name='contact_no_2'
                                         placeholder=""
                                         className="input input-bordered w-full"
                                         value={data.contactNo2}
@@ -178,6 +184,7 @@ const CartCheckout = () => {
                                         <span className="label-text">Receiver Note</span>
                                     </div>
                                     <textarea
+                                        name='receiver_note'
                                         placeholder=""
                                         className="textarea textarea-bordered w-full h-20"
                                         value={data.receiverNote}

@@ -2,7 +2,12 @@ import { Product } from '../types/response'
 import { Link } from 'react-router'
 import { getImageUrl } from '../helpers'
 
-const SeriesBoxProduct = ({ product }: { product: Product }) => {
+const SeriesBoxProduct = ({ product }: { product?: Product }) => {
+    if(!product){
+        return (
+            <div className="card h-full w-full bg-base-content/50 animate-pulse" />
+        )
+    }
     return (
         <Link to={`/products/${product.productSlug}`} className="h-full w-full card overflow-hidden group relative">
             {product.productImageId.length > 0 ? (

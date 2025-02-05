@@ -32,6 +32,7 @@ const SeriesBox = ({ data }: { data: FeaturedSeries }) => {
                     {data.products.map((product, i) => (
                         <SeriesBoxProduct product={product} key={i} />
                     ))}
+                    {[...Array(4 - data.products.length)].map((_, i) => <SeriesBoxProduct key={i} />)}
                 </div>
             </div>
         </div>

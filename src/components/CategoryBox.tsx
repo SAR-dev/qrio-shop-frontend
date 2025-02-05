@@ -11,6 +11,7 @@ const CategoryBox = ({ data }: { data: FeaturedCategory }) => {
             {data.products.map((product, i) => (
                 <CategoryBoxProduct product={product} key={i} />
             ))}
+            {[...Array(4 - data.products.length)].map((_, i) => <CategoryBoxProduct key={i} />)}
         </div>
     )
 }

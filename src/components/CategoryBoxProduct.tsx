@@ -2,7 +2,12 @@ import { Product } from '../types/response'
 import { getImageUrl } from '../helpers'
 import { Link } from 'react-router'
 
-const CategoryBoxProduct = ({ product }: { product: Product }) => {
+const CategoryBoxProduct = ({ product }: { product?: Product }) => {
+    if(!product){
+        return (
+            <div className="card h-48 lg:h-32 w-full bg-base-content/50 animate-pulse" />
+        )
+    }
     return (
         <Link to={`/products/${product.productSlug}`} className='group'>
             <div className="h-48 lg:h-32 relative">
