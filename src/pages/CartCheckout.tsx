@@ -33,13 +33,11 @@ const CartCheckout = () => {
     const handleCheckout = () => {
         setIsLoading(true)
         api.post("/api/checkout", { ...data })
-            .then(res => {
+            .then(() => {
                 notification.add({
                     status: NotificationType.SUCCESS,
                     title: "Checkout Completed",
-                    message: `Your order has been placed. Order no is ${res.data.ref}. 
-                    You can track details from order history screen. 
-                    An email has been sent to you with details too. Please check spam folder too.`
+                    message: `Order has been placed. Check your mail inbox for details.`
                 })
                 refetchProducts()
                 setData({
