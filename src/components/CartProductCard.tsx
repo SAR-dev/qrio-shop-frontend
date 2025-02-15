@@ -40,7 +40,7 @@ const CartProductCard = ({ product }: { product: CartProduct }) => {
                 <div className="shrink-0 md:order-1 flex gap-5">
                     {product.productImageId.length > 0 ? (
                         <img
-                            className="h-20 w-20 card"
+                            className="h-20 w-20 card object-cover"
                             src={getImageUrl({ id: product.productImageId, filename: product.productImageSource })}
                         />
                     ) : (
