@@ -66,7 +66,7 @@ const ProductDetails = () => {
     }, [productDetails])
 
     const handleAddToCart = () => {
-        if(!user){
+        if (!user) {
             notification.add({
                 status: NotificationType.INFO,
                 title: "Sign In",
@@ -92,7 +92,7 @@ const ProductDetails = () => {
     }
 
     const handleAddToWish = () => {
-        if(!user){
+        if (!user) {
             notification.add({
                 status: NotificationType.INFO,
                 title: "Sign In",
@@ -104,10 +104,10 @@ const ProductDetails = () => {
         setIsLoading(true)
         toogleWish({ productId: productDetails.id })
             .then((res) => {
-                if(res == 1){
+                if (res == 1) {
                     notification.showAddedToWishlist(productDetails.title)
                 }
-                if(res == 0){
+                if (res == 0) {
                     notification.showRemovedFromWishlist(productDetails.title)
                 }
                 setIsLoading(false)
@@ -123,7 +123,7 @@ const ProductDetails = () => {
     }
 
     const handleSubmitQuery = () => {
-        if(!user){
+        if (!user) {
             notification.add({
                 status: NotificationType.INFO,
                 title: "Sign In",
@@ -168,34 +168,6 @@ const ProductDetails = () => {
         </NavLayout>
     )
 
-    const QueryForm = () => (
-        <div className="card bg-base-200 p-5">
-            <label className="form-control">
-                <div className="label pb-5">
-                    <span className="label-text">🤔💭Do you have any questions ? 🤓☝️Let us know</span>
-                </div>
-                <textarea
-                    className="textarea textarea-bordered h-24"
-                    placeholder="Type here..."
-                    value={question}
-                    onChange={e => setQuestion(e.target.value)}
-                />
-                <input
-                    type="text"
-                    className='mt-5 input input-bordered input-sm'
-                    placeholder='Contact No (Optional)'
-                    value={contactNo}
-                    onChange={e => setContactNo(e.target.value)}
-                />
-                <button
-                    className="btn btn-sm bg-base-100 no-animation mt-5"
-                    disabled={isLoading}
-                    onClick={handleSubmitQuery}
-                >Send Query</button>
-            </label>
-        </div>
-    )
-
     return (
         <NavLayout>
             {productDetails && (
@@ -213,7 +185,31 @@ const ProductDetails = () => {
                                 ))}
                             </div>
                             <div className="my-5 hidden lg:block">
-                                <QueryForm />
+                                <div className="card bg-base-200 p-5">
+                                    <label className="form-control">
+                                        <div className="label pb-5">
+                                            <span className="label-text">🤔💭Do you have any questions ? 🤓☝️Let us know</span>
+                                        </div>
+                                        <textarea
+                                            className="textarea textarea-bordered h-24"
+                                            placeholder="Type here..."
+                                            value={question}
+                                            onChange={e => setQuestion(e.target.value)}
+                                        />
+                                        <input
+                                            type="text"
+                                            className='mt-5 input input-bordered input-sm'
+                                            placeholder='Contact No (Optional)'
+                                            value={contactNo}
+                                            onChange={e => setContactNo(e.target.value)}
+                                        />
+                                        <button
+                                            className="btn btn-sm bg-base-100 no-animation mt-5"
+                                            disabled={isLoading}
+                                            onClick={handleSubmitQuery}
+                                        >Send Query</button>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div className="mt-6 sm:mt-8 lg:mt-0">
@@ -276,16 +272,16 @@ const ProductDetails = () => {
                             </div>
                             <hr className="my-6 md:my-8 border-base-content/25" />
                             <div className="grid grid-cols-1 gap-4">
-                            <div className="flex gap-2">
-                                {Number(productDetails.discount) > 0 && (
-                                    <div className="w-fit bg-secondary text-secondary-content py-1 px-2 text-sm">Save TK {productDetails.discount}</div>
-                                )}
-                                {productDetails.inStock ? (
-                                    <div className="px-2 py-1 bg-success text-success-content w-fit text-sm">🚀 In Stock</div>
-                                ) : (
-                                    <div className="px-2 py-1 bg-error text-error-content w-fit text-sm">⛟ Out Of Stock</div>
-                                )}
-                            </div>
+                                <div className="flex gap-2">
+                                    {Number(productDetails.discount) > 0 && (
+                                        <div className="w-fit bg-secondary text-secondary-content py-1 px-2 text-sm">Save TK {productDetails.discount}</div>
+                                    )}
+                                    {productDetails.inStock ? (
+                                        <div className="px-2 py-1 bg-success text-success-content w-fit text-sm">🚀 In Stock</div>
+                                    ) : (
+                                        <div className="px-2 py-1 bg-error text-error-content w-fit text-sm">⛟ Out Of Stock</div>
+                                    )}
+                                </div>
                                 <div className='flex flex-col gap-2'>
                                     <div><b>🏷️ Category : </b> {productDetails.expand.categories.title}</div>
                                     <div><b>🎬 Series : </b> {productDetails.expand.series.title}</div>
@@ -310,7 +306,31 @@ const ProductDetails = () => {
                                 </>
                             )}
                             <div className="mt-5 block lg:hidden">
-                                <QueryForm />
+                                <div className="card bg-base-200 p-5">
+                                    <label className="form-control">
+                                        <div className="label pb-5">
+                                            <span className="label-text">🤔💭Do you have any questions ? 🤓☝️Let us know</span>
+                                        </div>
+                                        <textarea
+                                            className="textarea textarea-bordered h-24"
+                                            placeholder="Type here..."
+                                            value={question}
+                                            onChange={e => setQuestion(e.target.value)}
+                                        />
+                                        <input
+                                            type="text"
+                                            className='mt-5 input input-bordered input-sm'
+                                            placeholder='Contact No (Optional)'
+                                            value={contactNo}
+                                            onChange={e => setContactNo(e.target.value)}
+                                        />
+                                        <button
+                                            className="btn btn-sm bg-base-100 no-animation mt-5"
+                                            disabled={isLoading}
+                                            onClick={handleSubmitQuery}
+                                        >Send Query</button>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>

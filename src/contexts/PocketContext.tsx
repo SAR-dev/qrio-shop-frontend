@@ -5,6 +5,8 @@ import { jwtDecode } from "jwt-decode";
 import { Collections, TypedPocketBase, UsersResponse } from "../types/pocketbase";
 import { constants } from "../constants";
 import { setAuthToken } from "../helpers";
+import { useCartStore } from "../stores/cartStore";
+import { useWishListStore } from "../stores/wishListStore";
 
 interface DecodedToken {
     exp: number; // Expiration timestamp in seconds
@@ -27,6 +29,8 @@ const PocketContext = createContext<PocketContextType | undefined>(undefined);
 
 // PocketBase Provider component
 export const PocketProvider = ({ children }: { children: ReactNode }) => {
+    const { refetchProducts: refetchCartProducts } = useCartStore()
+    const { refetchProducts: refetchWishProducts } = useWishListStore()
     const [token, setToken] = useLocalStorage<string | null>(
         constants.AUTH_TOKEN_API,
         pb.authStore.token
@@ -48,6 +52,8 @@ export const PocketProvider = ({ children }: { children: ReactNode }) => {
         try {
             await pb.collection(Collections.Users).authWithOAuth2({ provider: "google" });
             setAuthToken()
+            refetchCartProducts()
+            refetchWishProducts()
         } catch (error) {
             console.error("OAuth login failed:", error);
         }
