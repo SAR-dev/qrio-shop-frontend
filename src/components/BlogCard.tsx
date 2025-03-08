@@ -13,11 +13,11 @@ const BlogCard = ({ data }: { data: BlogData }) => {
         <div className="flex flex-col lg:flex-row gap-5 group">
             {data.blogImageId.length > 0 ? (
                 <img
-                    className="h-64 w-full lg:w-96 object-cover"
+                    className=" flex-shrink-0 h-72 w-full lg:w-96 object-cover"
                     src={getImageUrl({ id: data.blogImageId, filename: data.blogImageSource })}
                 />
             ) : (
-                <div className="h-64 w-full lg:w-96 bg-base-content/50 animate-pulse" />
+                <div className=" flex-shrink-0 h-72 w-full lg:w-96 bg-base-content/50 animate-pulse" />
             )}
 
             <div className="flex flex-col gap-5 p-5">
