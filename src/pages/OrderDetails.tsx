@@ -19,14 +19,6 @@ const dateOptions: Intl.DateTimeFormatOptions = {
     day: "numeric",
 };
 
-const InvoiceStatus = {
-    CREATED: "CREATED 📦",
-    PROCESSING: "PROCESSING ⏳",
-    SHIPPED: "SHIPPED 🚚",
-    DELIVERED: "DELIVERED ✅",
-    CANCELLED: "CANCELLED ⛔"
-};
-
 const OrderDetails = () => {
     const { ref } = useParams();
     const { user } = usePocket()
@@ -200,7 +192,7 @@ const OrderDetails = () => {
                     {invoice && (
                         <div className="p-5 w-full flex justify-between items-center bg-base-300">
                             <div className='font-semibold'>
-                                <span className="opacity-75">STATUS</span> : {InvoiceStatus[invoice.status as keyof typeof InvoiceStatus]}
+                                <span className="opacity-75">STATUS</span> : {invoice.status}
                             </div>
                             {invoice.status == "DELIVERED" && invoice.deliveredAt && (
                                 <div className="text-success font-semibold flex items-center gap-2">
