@@ -289,7 +289,7 @@ const ProductDetails = () => {
                                 <p className='leading-7'>
                                     ✍️ {productDetails.summary}
                                 </p>
-                                {(productDetails.tags as string[]).length > 0 && (
+                                {!!productDetails.tags && (productDetails.tags as string[]).length > 0 && (
                                     <div className="flex gap-3">
                                         {(productDetails.tags as string[]).map((tag, i) => (
                                             <div className="px-2 py-1 text-xs bg-info/20 uppercase" key={i}>{tag}</div>
