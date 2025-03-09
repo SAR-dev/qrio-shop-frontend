@@ -41,10 +41,11 @@ const Carousel = ({ children, smallButton }: { children: ReactNode; smallButton?
             <div className="absolute top-0 right-0 h-full flex items-center">
                 <button
                     className={classNames(
-                        'btn btn-square opacity-0 group-hover:opacity-100 duration-100 rounded-full m-2',
+                        'btn btn-square opacity-0 group-hover:opacity-100 duration-100 rounded-full m-2 z-[1]',
                         { 'btn-sm': smallButton }
                     )}
                     onClick={goNext}
+                    disabled={activeIndex >= itemsCount - 1}
                 >
                     <FaChevronRight className='size-5' />
                 </button>
@@ -52,10 +53,11 @@ const Carousel = ({ children, smallButton }: { children: ReactNode; smallButton?
             <div className="absolute top-0 left-0 h-full flex items-center">
                 <button
                     className={classNames(
-                        'btn btn-square opacity-0 group-hover:opacity-100 duration-100 rounded-full m-2',
+                        'btn btn-square opacity-0 group-hover:opacity-100 duration-100 rounded-full m-2 z-[1]',
                         { 'btn-sm': smallButton }
                     )}
                     onClick={goPrev}
+                    disabled={activeIndex <= 0}
                 >
                     <FaChevronLeft className='size-5' />
                 </button>
