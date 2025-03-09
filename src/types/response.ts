@@ -137,10 +137,11 @@ export interface CategoryData {
 }
 
 // homepage products
-export interface TrendingProductResType {
-    trendingProducts: ProductData[];
-    discountProducts: ProductData[];
-    promotedProducts: ProductData[];
+export interface ProductSectionData {
+    id: string;
+    title: string;
+    subtitle: string;
+    products: ProductData[]
 }
 
 export interface ProductData {

@@ -4,6 +4,7 @@ export const constants = {
     WISHLIST_STORE_KEY: "wishlist",
     HOMEPAGE_DATA_STORE_KEY: "homepage",
     HOMEPAGE_PRODUCT_DATA_STORE_KEY: "homepage-products",
+    PROMOTED_PRODUCT_DATA_STORE_KEY: "promoted-products",
     HOMEPAGE_LISTS_DATA_STORE_KEY: "homepage-lists",
     SOCIAL_LINKS_DATA_STORE_KEY: "social-links",
     FILTER_FIELDS_DATA_STORE_KEY: "filter-fields",

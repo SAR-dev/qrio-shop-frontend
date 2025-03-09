@@ -1,24 +1,24 @@
-import PromotionProductCard from "../components/PromotionProductCard";
-import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import NavLayout from "../layouts/NavLayout";
 import CategoryBox from "../components/CategoryBox";
 import SeriesBox from "../components/SeriesBox";
 import { useLocalStorage } from "usehooks-ts";
-import { HomepageListResType, HomepageResType, TrendingProductResType } from "../types/response";
+import { HomepageListResType, HomepageResType, ProductData, ProductSectionData } from "../types/response";
 import { constants } from "../constants";
 import { useEffect, useState } from "react";
 import HomepageCarouselItem from "../components/HomepageCarouselItem";
-import { api, getImageUrl, maxDivisibleByThree, maxDivisibleByTwo } from "../helpers";
+import { api, getImageUrl, maxDivisibleByFour, maxDivisibleByThree, maxDivisibleByTwo } from "../helpers";
 import SectionLeftHeader from "../components/SectionLeftHeader";
 import { Link } from "react-router";
 import SocialLinksCarousel from "../components/SocialLinksCarousel";
+import PromotionProductCard from "../components/PromotionProductCard";
 
 const Homepage = () => {
     const [step, setStep] = useState(1)
 
     const [homepageData, setHomepageData] = useLocalStorage<HomepageResType | null>(constants.HOMEPAGE_DATA_STORE_KEY, null)
-    const [homepageProductData, setHomepageProductData] = useLocalStorage<TrendingProductResType | null>(constants.HOMEPAGE_PRODUCT_DATA_STORE_KEY, null)
+    const [promotedProductListData, setPromotedProductListData] = useLocalStorage<ProductData[] | []>(constants.PROMOTED_PRODUCT_DATA_STORE_KEY, [])
+    const [homepageProductData, setHomepageProductData] = useLocalStorage<ProductSectionData[]>(constants.HOMEPAGE_PRODUCT_DATA_STORE_KEY, [])
     const [homepageListData, setHomepageListData] = useLocalStorage<HomepageListResType | null>(constants.HOMEPAGE_LISTS_DATA_STORE_KEY, null)
 
     useEffect(() => {
@@ -35,10 +35,21 @@ const Homepage = () => {
     useEffect(() => {
         if (step != 2) return;
         api
+            .get('/api/promoted-products')
+            .then(res => {
+                setPromotedProductListData(res.data)
+                setStep(3)
+            })
+            .catch(err => console.log(err))
+    }, [step])
+
+    useEffect(() => {
+        if (step != 3) return;
+        api
             .get('/api/homepage-products')
             .then(res => {
                 setHomepageProductData(res.data)
-                setStep(3)
+                setStep(4)
             })
             .catch(err => console.log(err))
     }, [step])
@@ -49,7 +60,7 @@ const Homepage = () => {
             .get('/api/homepage-lists')
             .then(res => {
                 setHomepageListData(res.data)
-                setStep(4)
+                setStep(5)
             })
             .catch(err => console.log(err))
     }, [step])
@@ -95,54 +106,30 @@ const Homepage = () => {
                         </div>
                     </div>
                 )}
-                {homepageProductData && homepageProductData.trendingProducts.length > 0 && (
-                    <div>
-                        <div className="mb-5">
-                            <SectionLeftHeader title="POPULAR PRODUCTS" subtitle="Visit our most popular categories which is mind-blowing" />
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                            {homepageProductData.trendingProducts.map((data, i) => (
-                                <ProductCard data={data} key={i} />
-                            ))}
-                        </div>
-                    </div>
-                )}
-                {homepageProductData && homepageProductData.promotedProducts.length > 0 && (
+                {promotedProductListData.length > 0 && (
                     <div>
                         <div className="mb-5">
                             <SectionLeftHeader title="PROMOTED PRODUCTS" subtitle="Visit our most popular categories which is mind-blowing" />
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                            {homepageProductData.promotedProducts.slice(0, maxDivisibleByTwo(homepageProductData?.promotedProducts.length)).map((data, i) => (
+                            {promotedProductListData.slice(0, maxDivisibleByTwo(promotedProductListData.length)).map((data, i) => (
                                 <PromotionProductCard data={data} key={i} />
                             ))}
                         </div>
                     </div>
                 )}
-                {homepageProductData && homepageProductData.discountProducts.length > 0 && (
-                    <div>
+                {homepageProductData.map((section, i) => (
+                    <div key={i}>
                         <div className="mb-5">
-                            <SectionLeftHeader title="DISCOUNTED PRODUCTS" subtitle="Visit our most popular categories which is mind-blowing" />
+                            <SectionLeftHeader title={section.title.toUpperCase()} subtitle={section.subtitle} />
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                            {homepageProductData.discountProducts.map((data, i) => (
+                            {section.products.slice(0, maxDivisibleByFour(section.products.length)).map((data, i) => (
                                 <ProductCard data={data} key={i} />
                             ))}
                         </div>
                     </div>
-                )}
-                {homepageListData && homepageListData.blogList.length > 0 && (
-                    <div>
-                        <div className="mb-5">
-                            <SectionLeftHeader title="BLOG CORNER" subtitle="Where thoughts take shape and ideas come to life" />
-                        </div>
-                        <div className="card grid grid-cols-1 border border-base-content/25 overflow-hidden divide-y divide-base-content/25">
-                            {homepageListData.blogList.map((data, i) => (
-                                <BlogCard data={data} key={i} />
-                            ))}
-                        </div>
-                    </div>
-                )}
+                ))}
                 {homepageListData && homepageListData.categoryList.length > 0 && (
                     <div>
                         <div className="mb-5">

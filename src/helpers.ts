@@ -19,6 +19,11 @@ export const maxDivisibleByTwo = (num: number) => {
     return num - (num % 2);
 }
 
+export const maxDivisibleByFour = (num: number) => {
+  if (num < 0) return 0;
+  return num - (num % 4);
+}
+
 export const formatPrice = (number: number) => {
   return new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(
     number,
