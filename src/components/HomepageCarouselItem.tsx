@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const HomepageCarouselItem = ({ data }: { data: HomepageCarousel }) => {
     return (
-        <div className="carousel-item w-full card bg-base-100 from-base-200 not-prose outline-base-content/5 relative overflow-hidden bg-gradient-to-b font-sans shadow-lg outline -outline-offset-1 md:flex-row-reverse">
+        <div className="w-full card bg-base-100 from-base-200 not-prose outline-base-content/5 relative overflow-hidden bg-gradient-to-b font-sans shadow-lg outline -outline-offset-1 md:flex-row-reverse">
             <figure className="max-md:bg-primary/10 isolate shrink-0 md:w-2/3">
                 <img
                     className="pointer-events-none h-64 md:h-96 lg:h-[30rem]"

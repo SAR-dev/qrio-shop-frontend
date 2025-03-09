@@ -12,6 +12,7 @@ import SectionLeftHeader from "../components/SectionLeftHeader";
 import { Link } from "react-router";
 import SocialLinksCarousel from "../components/SocialLinksCarousel";
 import PromotionProductCard from "../components/PromotionProductCard";
+import Carousel from "../components/Carousel";
 
 const Homepage = () => {
     const [step, setStep] = useState(1)
@@ -70,11 +71,13 @@ const Homepage = () => {
         <NavLayout>
             <div className="max-w-screen-xl mx-auto px-5 py-10 lg:py-12 grid grid-cols-1 gap-10 lg:gap-16">
                 {homepageData && (
-                    <div className="carousel w-full">
+                    <Carousel>
                         {homepageData.homepageCarousel.map((data, i) => (
-                            <HomepageCarouselItem data={data} key={i} />
+                            <div className="carousel-item w-full" key={i}>
+                                <HomepageCarouselItem data={data} />
+                            </div>
                         ))}
-                    </div>
+                    </Carousel>
                 )}
                 {homepageData && (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
