@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import AuthNavLayout from '../layouts/AuthNavLayout'
 import { pb, usePocket } from '../contexts/PocketContext'
-import { Collections, InvoicesResponse } from '../types/pocketbase'
+import { Collections } from '../types/pocketbase';
 import { useNavigate, useParams } from 'react-router'
 import NavLayout from '../layouts/NavLayout'
 import NotFoundError from '../components/NotFoundError'
 import DataFetchError from '../components/DataFetchError'
 import { api, formatPrice, getImageUrl } from '../helpers'
-import { InvoiceProduct, InvoiceProductResType } from '../types/response'
+import { InvoiceProduct, InvoiceProductResType, TexpanInvoiceDetailsResType } from '../types/response'
 import { FaCheckCircle } from 'react-icons/fa'
 import { FcCancel } from 'react-icons/fc'
 import { useNotification } from '../contexts/NotificationContext'
@@ -24,7 +24,7 @@ const OrderDetails = () => {
     const { user } = usePocket()
     const notification = useNotification()
     const navigate = useNavigate()
-    const [invoice, setInvoice] = useState<InvoicesResponse | null>(null)
+    const [invoice, setInvoice] = useState<TexpanInvoiceDetailsResType | null>(null)
     const [invoiceProducts, setInvoiceProducts] = useState<InvoiceProduct[]>([])
     const [isLoading, setIsLoading] = useState(false)
 
@@ -35,8 +35,8 @@ const OrderDetails = () => {
         if (!user || ref?.length == 0) return;
         pb
             .collection(Collections.Invoices)
-            .getFirstListItem(`users = "${user.id}" && ref = "${ref}"`)
-            .then(res => setInvoice(res))
+            .getFirstListItem(`users = "${user.id}" && ref = "${ref}"`, { expand: "shippingCharge" })
+            .then(res => setInvoice(res as unknown as TexpanInvoiceDetailsResType))
             .catch(err => {
                 if (err.status == 404) {
                     setNotFound(true)
@@ -153,7 +153,7 @@ const OrderDetails = () => {
                         <>
                             <div className="px-5 py-2 flex font-semibold text-sm justify-between">
                                 <div>Shipping Fee</div>
-                                <div>{formatPrice(invoice.shippingFee)} TK</div>
+                                <div>{formatPrice(invoice.expand.shippingCharge.shippingCost)} TK</div>
                             </div>
                             <div className="px-5 py-2 flex font-semibold text-sm justify-between">
                                 <div>Tax</div>

@@ -2,8 +2,10 @@ import {
     BlogsResponse,
     CategoriesResponse,
     ImagesResponse,
+    InvoicesResponse,
     ProductsResponse,
     SeriesResponse,
+    ShippingChargesResponse,
     UsersResponse,
 } from "./pocketbase";
 
@@ -33,6 +35,13 @@ export type TexpandProductDetailsResType = ProductsResponse & {
         categories: CategoriesResponse;
         series: SeriesResponse;
         images: ImagesResponse[];
+    };
+};
+
+// invoice details
+export type TexpanInvoiceDetailsResType = InvoicesResponse & {
+    expand: {
+        shippingCharge: ShippingChargesResponse;
     };
 };
 

@@ -175,7 +175,7 @@ const CartCheckout = () => {
                                         {Object.keys(shippingChargesGrouped).map((sc, i) => (
                                             <optgroup label={sc} key={i}>
                                                 {shippingChargesGrouped[sc].map((e, j) => (
-                                                    <option value={e.id}>{e.shippingArea} - TK {e.shippingCost}</option>
+                                                    <option value={e.id} key={j}>{e.shippingArea} - TK {e.shippingCost}</option>
                                                 ))}
                                             </optgroup>
                                         ))}
