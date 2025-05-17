@@ -1,17 +1,21 @@
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { useCartStore } from '../stores/cartStore';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { api, formatPrice, getImageUrl } from '../helpers';
 import { constants } from '../constants';
 import { useNotification } from '../contexts/NotificationContext';
 import { NotificationType } from '../types/notification';
 import { useNavigate } from 'react-router';
 import AuthNavLayout from '../layouts/AuthNavLayout';
+import { useLocalStorage } from 'usehooks-ts';
+import { Collections, ShippingChargesResponse } from '../types/pocketbase';
+import { pb } from '../contexts/PocketContext';
 
 const CartCheckout = () => {
     const notification = useNotification()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
+    const [shippingCharges, setShippingCharges] = useLocalStorage<ShippingChargesResponse[]>(constants.SHIPPING_CHARGES_STORE_KEY, [])
     const { refetchProducts, products: cartProducts } = useCartStore();
     const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.SHIPPING + constants.FEES.TAX, [cartProducts]);
 
@@ -21,14 +25,32 @@ const CartCheckout = () => {
         receiverAddress: "",
         contactNo1: "",
         contactNo2: "",
+        shippingCharge: ""
     })
 
-    const formNotFilled = useMemo(() => 
-        data.receiverName.trim().length == 0 
-        || data.receiverAddress.trim().length == 0 
-        || data.contactNo1.trim().length < 10 
+    const formNotFilled = useMemo(() =>
+        data.receiverName.trim().length == 0
+        || data.shippingCharge.length == 0
+        || data.receiverAddress.trim().length == 0
+        || data.contactNo1.trim().length < 10
         || data.contactNo2.trim().length < 10
-    , [data])
+        , [data])
+
+    const shippingChargesGrouped = useMemo(() => {
+        return shippingCharges.reduce<Record<string, ShippingChargesResponse[]>>((acc, record) => {
+            const key = record.shippingCompany
+            if (!acc[key]) {
+                acc[key] = []
+            }
+            acc[key].push(record)
+            return acc
+        }, {})
+    }, [shippingCharges])
+
+    useEffect(() => {
+        pb.collection(Collections.ShippingCharges).getFullList().then(res => setShippingCharges(res))
+    }, [])
+
 
     const handleCheckout = () => {
         setIsLoading(true)
@@ -46,6 +68,7 @@ const CartCheckout = () => {
                     receiverAddress: "",
                     contactNo1: "",
                     contactNo2: "",
+                    shippingCharge: ""
                 })
                 setIsLoading(false)
                 navigate("/orders")
@@ -54,7 +77,7 @@ const CartCheckout = () => {
                 notification.add({
                     status: NotificationType.ERROR,
                     title: "Error occured",
-                    message: "Adding items to wishlist failed. Please try later."
+                    message: "Order place failed. Please try later."
                 })
                 setIsLoading(false)
             })
@@ -80,7 +103,7 @@ const CartCheckout = () => {
                                         <div className="shrink-0">
                                             {product.productImageId.length > 0 ? (
                                                 <img
-                                                    className="h-10 w-10 card"
+                                                    className="h-10 w-10 card object-cover"
                                                     src={getImageUrl({ id: product.productImageId, filename: product.productImageSource })}
                                                 />
                                             ) : (
@@ -117,7 +140,7 @@ const CartCheckout = () => {
                                 <div>Tax </div>
                                 <div>{formatPrice(constants.FEES.TAX)} TK</div>
                             </div>
-                            <div className="p-5 flex font-semibold text-sm justify-between bg-info/25">
+                            <div className="p-5 flex font-semibold justify-between text-black bg-yellow-500 text-xl">
                                 <div>Total Payable (Cash On Delivery)</div>
                                 <div>{formatPrice(totalPayable)} TK</div>
                             </div>
@@ -133,53 +156,81 @@ const CartCheckout = () => {
                                     <input
                                         type="text"
                                         name='name'
-                                        placeholder=""
-                                        className="input input-bordered w-full"
+                                        placeholder="Fahim Ahmed"
+                                        className="input input-bordered w-full placeholder:opacity-30"
                                         value={data.receiverName}
                                         onChange={e => setData({ ...data, receiverName: e.target.value })}
                                     />
                                 </label>
                                 <label className="form-control col-span-2">
                                     <div className="label">
+                                        <span className="label-text">Delivery Area and Company <span className="text-error">*</span></span>
+                                    </div>
+                                    <select 
+                                        className="select select-bordered w-full" 
+                                        value={data.shippingCharge} 
+                                        onChange={e => setData({ ...data, shippingCharge: e.target.value })}
+                                    >
+                                        <option disabled value="">Select One</option>
+                                        {Object.keys(shippingChargesGrouped).map((sc, i) => (
+                                            <optgroup label={sc} key={i}>
+                                                {shippingChargesGrouped[sc].map((e, j) => (
+                                                    <option value={e.id}>{e.shippingArea} - TK {e.shippingCost}</option>
+                                                ))}
+                                            </optgroup>
+                                        ))}
+                                    </select>
+                                    {/* <input
+                                        type="text"
+                                        name='name'
+                                        placeholder="Fahim Ahmed"
+                                        className="input input-bordered w-full placeholder:opacity-30"
+                                        value={data.receiverName}
+                                        onChange={e => setData({ ...data, receiverName: e.target.value })}
+                                    /> */}
+                                </label>
+
+                                <label className="form-control col-span-2">
+                                    <div className="label">
                                         <span className="label-text">Receiver Address <span className="text-error">*</span></span>
                                     </div>
                                     <textarea
                                         name='address'
-                                        placeholder=""
-                                        className="textarea textarea-bordered w-full h-20"
+                                        placeholder="House 24, Road 8, Dhanmondi R/A, Dhaka 1209, Bangladesh"
+                                        className="textarea textarea-bordered w-full h-20 placeholder:opacity-30"
                                         value={data.receiverAddress}
                                         onChange={e => setData({ ...data, receiverAddress: e.target.value })}
                                     />
                                 </label>
                                 <label className="form-control col-span-2 lg:col-span-1">
                                     <div className="label">
-                                        <span className="label-text">Contact No 1<span className="text-error">*</span></span>
+                                        <span className="label-text">Mobile No<span className="text-error">*</span></span>
                                     </div>
                                     <input
                                         type="text"
                                         name='contact_no_1'
-                                        placeholder=""
-                                        className="input input-bordered w-full"
+                                        placeholder="01234567890"
+                                        className="input input-bordered w-full placeholder:opacity-30"
                                         value={data.contactNo1}
                                         onChange={e => setData({ ...data, contactNo1: e.target.value })}
                                     />
                                 </label>
                                 <label className="form-control col-span-2 lg:col-span-1">
                                     <div className="label">
-                                        <span className="label-text">Contact No 2<span className="text-error">*</span></span>
+                                        <span className="label-text">Alt Mobile No<span className="text-error">*</span></span>
                                     </div>
                                     <input
                                         type="text"
                                         name='contact_no_2'
-                                        placeholder=""
-                                        className="input input-bordered w-full"
+                                        placeholder="01234567890"
+                                        className="input input-bordered w-full placeholder:opacity-30"
                                         value={data.contactNo2}
                                         onChange={e => setData({ ...data, contactNo2: e.target.value })}
                                     />
                                 </label>
                                 <label className="form-control col-span-2">
                                     <div className="label">
-                                        <span className="label-text">Receiver Note</span>
+                                        <span className="label-text">Note for Qrio (Optional)</span>
                                     </div>
                                     <textarea
                                         name='receiver_note'
