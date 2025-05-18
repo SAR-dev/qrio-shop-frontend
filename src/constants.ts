@@ -11,7 +11,6 @@ export const constants = {
     FILTER_FIELDS_DATA_STORE_KEY: "filter-fields",
     AUTH_TOKEN_API: "token",
     FEES: {
-        SHIPPING: 100,
         TAX: 0
     },
     FILTERS: {

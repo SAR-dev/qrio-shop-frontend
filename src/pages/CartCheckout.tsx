@@ -15,10 +15,7 @@ const CartCheckout = () => {
     const notification = useNotification()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
-    const [shippingCharges, setShippingCharges] = useLocalStorage<ShippingChargesResponse[]>(constants.SHIPPING_CHARGES_STORE_KEY, [])
     const { refetchProducts, products: cartProducts } = useCartStore();
-    const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.SHIPPING + constants.FEES.TAX, [cartProducts]);
-
     const [data, setData] = useState({
         receiverName: "",
         receiverNote: "",
@@ -27,15 +24,7 @@ const CartCheckout = () => {
         contactNo2: "",
         shippingCharge: ""
     })
-
-    const formNotFilled = useMemo(() =>
-        data.receiverName.trim().length == 0
-        || data.shippingCharge.length == 0
-        || data.receiverAddress.trim().length == 0
-        || data.contactNo1.trim().length < 10
-        || data.contactNo2.trim().length < 10
-        , [data])
-
+    const [shippingCharges, setShippingCharges] = useLocalStorage<ShippingChargesResponse[]>(constants.SHIPPING_CHARGES_STORE_KEY, [])
     const shippingChargesGrouped = useMemo(() => {
         return shippingCharges.reduce<Record<string, ShippingChargesResponse[]>>((acc, record) => {
             const key = record.shippingCompany
@@ -46,6 +35,21 @@ const CartCheckout = () => {
             return acc
         }, {})
     }, [shippingCharges])
+
+    const totalPayable = useMemo(() => 
+        (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + 
+        (shippingCharges.find(e => e.id == data.shippingCharge)?.shippingCost || 0 )+ 
+        constants.FEES.TAX, 
+    [cartProducts, data]
+    );
+
+    const formNotFilled = useMemo(() =>
+        data.receiverName.trim().length == 0
+        || data.shippingCharge.length == 0
+        || data.receiverAddress.trim().length == 0
+        || data.contactNo1.trim().length < 10
+        || data.contactNo2.trim().length < 10
+        , [data])
 
     useEffect(() => {
         pb.collection(Collections.ShippingCharges).getFullList().then(res => setShippingCharges(res))
@@ -134,7 +138,7 @@ const CartCheckout = () => {
                             ))}
                             <div className="p-5 flex font-semibold text-sm justify-between">
                                 <div>Shipping Fee</div>
-                                <div>{formatPrice(constants.FEES.SHIPPING)} TK</div>
+                                <div>{formatPrice(shippingCharges.find(e => e.id == data.shippingCharge)?.shippingCost || 0 )} TK</div>
                             </div>
                             <div className="p-5 flex font-semibold text-sm justify-between">
                                 <div>Tax </div>
@@ -180,14 +184,6 @@ const CartCheckout = () => {
                                             </optgroup>
                                         ))}
                                     </select>
-                                    {/* <input
-                                        type="text"
-                                        name='name'
-                                        placeholder="Fahim Ahmed"
-                                        className="input input-bordered w-full placeholder:opacity-30"
-                                        value={data.receiverName}
-                                        onChange={e => setData({ ...data, receiverName: e.target.value })}
-                                    /> */}
                                 </label>
 
                                 <label className="form-control col-span-2">

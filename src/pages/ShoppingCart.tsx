@@ -16,7 +16,7 @@ const ShoppingCart = () => {
     const notification = useNotification()
     const { products: cartProducts } = useCartStore();
     const { products: wishedProducts } = useWishListStore();
-    const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.SHIPPING + constants.FEES.TAX, [cartProducts]);
+    const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.TAX, [cartProducts]);
     const [voucher, setVoucher] = useState("")
 
     const handleVoucher = () => {
@@ -85,14 +85,6 @@ const ShoppingCart = () => {
                                         </dt>
                                         <dd className="font-medium">
                                             - {formatPrice(cartProducts.map(e => Number(e.discount) * Number(e.amount)).reduce((a, b) => a + b, 0))} TK
-                                        </dd>
-                                    </dl>
-                                    <dl className="flex items-center justify-between gap-4">
-                                        <dt className='text-base-content/75'>
-                                            Shipping Fee
-                                        </dt>
-                                        <dd className="font-medium">
-                                            {formatPrice(constants.FEES.SHIPPING)} TK
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
