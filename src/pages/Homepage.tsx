@@ -118,7 +118,7 @@ const Homepage = () => {
                             <SectionLeftHeader title={section.title} subtitle={section.subtitle} />
                         </div>
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-10'>
-                            {section.products.slice(0, maxDivisibleByTwo(promotedProducts.length)).map((data, i) => (
+                            {section.products.slice(0, maxDivisibleByTwo(section.products.length)).map((data, i) => (
                                 <PromotionProductCard data={data} key={i} />
                             ))}
                         </div>
