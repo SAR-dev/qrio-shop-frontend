@@ -136,7 +136,7 @@ const CartCheckout = () => {
                             ))}
                             <div className="p-5 flex font-semibold text-sm justify-between">
                                 <div>Shipping Fee</div>
-                                <div>{formatPrice((shippingCharges.find(charge => charge.id === data.shippingCharge)?.shippingCost || 0))} TK</div>
+                                <div>{formatPrice(shippingCharges.find(charge => charge.id === data.shippingCharge)?.shippingCost || 0)} TK</div>
                             </div>
                             <div className="p-5 flex font-semibold text-sm justify-between">
                                 <div>Tax </div>

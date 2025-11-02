@@ -164,6 +164,14 @@ const OrderDetails = () => {
                                 <div>{invoice.receiverName}</div>
                             </div>
                             <div className="px-5 py-2 flex font-semibold text-sm justify-between gap-5">
+                                <div>City </div>
+                                <div>{invoice.receiverCity}</div>
+                            </div>
+                            <div className="px-5 py-2 flex font-semibold text-sm justify-between gap-5">
+                                <div>Post Code </div>
+                                <div>{invoice.receiverPostCode}</div>
+                            </div>
+                            <div className="px-5 py-2 flex font-semibold text-sm justify-between gap-5">
                                 <div>Address </div>
                                 <div>{invoice.receiverAddress}</div>
                             </div>

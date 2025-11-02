@@ -146,10 +146,20 @@ export interface CategoryData {
 }
 
 // homepage products
+export enum ProductSectionLayout {
+    FOUR_IN_ONE = 'FOUR_IN_ONE', 
+    FOUR_WITH_COVER = 'FOUR_WITH_COVER', 
+    FOUR_IN_ROW = 'FOUR_IN_ROW',
+    PROMOTION = 'PROMOTION'
+}
+
 export interface ProductSectionData {
     id: string;
     title: string;
     subtitle: string;
+    imageId: string;
+    imageSource: string;
+    layout: ProductSectionLayout;
     products: ProductData[]
 }
 
@@ -171,29 +181,7 @@ export interface ProductData {
 
 // homepage
 export interface HomepageResType {
-    featuredCategories: FeaturedCategory[];
-    featuredSeries: FeaturedSeries[];
     homepageCarousel: HomepageCarousel[];
-}
-
-export interface FeaturedCategory {
-    tagLine: string;
-    categoryId: string;
-    categoryImageId: string;
-    categoryImageSource: string;
-    categorySlug: string;
-    categoryTitle: string;
-    products: Product[];
-}
-
-export interface FeaturedSeries {
-    tagLine: string;
-    seriesId: string;
-    seriesImageId: string;
-    seriesImageSource: string;
-    seriesSlug: string;
-    seriesTitle: string;
-    products: Product[];
 }
 
 export interface Product {
