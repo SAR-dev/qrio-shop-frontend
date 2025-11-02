@@ -44,17 +44,6 @@ const CartCheckout = () => {
         || data.contactNo1.trim().length < 10
         , [data])
 
-    const shippingChargesGrouped = useMemo(() => {
-        return shippingCharges.reduce<Record<string, ShippingChargesResponse[]>>((acc, record) => {
-            const key = record.shippingCompany
-            if (!acc[key]) {
-                acc[key] = []
-            }
-            acc[key].push(record)
-            return acc
-        }, {})
-    }, [shippingCharges])
-
     useEffect(() => {
         pb.collection(Collections.ShippingCharges).getFullList().then(res => {
             setShippingCharges(res)
