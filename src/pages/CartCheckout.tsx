@@ -17,23 +17,31 @@ const CartCheckout = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [shippingCharges, setShippingCharges] = useLocalStorage<ShippingChargesResponse[]>(constants.SHIPPING_CHARGES_STORE_KEY, [])
     const { refetchProducts, products: cartProducts } = useCartStore();
-    const totalPayable = useMemo(() => (cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) + constants.FEES.SHIPPING + constants.FEES.TAX, [cartProducts]);
-
+   
     const [data, setData] = useState({
         receiverName: "",
         receiverNote: "",
+        receiverPostCode: "",
+        receiverCity: "",
         receiverAddress: "",
         contactNo1: "",
         contactNo2: "",
         shippingCharge: ""
     })
 
+    const totalPayable = useMemo(() => (
+        cartProducts.map(e => (Number(e.sellingPrice) - Number(e.discount)) * Number(e.amount)).reduce((a, b) => a + b, 0)) 
+        + (shippingCharges.find(charge => charge.id === data.shippingCharge)?.shippingCost || 0) 
+        + constants.FEES.TAX
+    , [cartProducts, data, shippingCharges]);
+
     const formNotFilled = useMemo(() =>
         data.receiverName.trim().length == 0
         || data.shippingCharge.length == 0
+        || data.receiverCity.trim().length == 0
+        || data.receiverPostCode.trim().length == 0
         || data.receiverAddress.trim().length == 0
         || data.contactNo1.trim().length < 10
-        || data.contactNo2.trim().length < 10
         , [data])
 
     const shippingChargesGrouped = useMemo(() => {
@@ -48,7 +56,10 @@ const CartCheckout = () => {
     }, [shippingCharges])
 
     useEffect(() => {
-        pb.collection(Collections.ShippingCharges).getFullList().then(res => setShippingCharges(res))
+        pb.collection(Collections.ShippingCharges).getFullList().then(res => {
+            setShippingCharges(res)
+            setData({ ...data, shippingCharge: res[0]?.id || "" })
+        })
     }, [])
 
 
@@ -65,6 +76,8 @@ const CartCheckout = () => {
                 setData({
                     receiverName: "",
                     receiverNote: "",
+                    receiverPostCode: "",
+                    receiverCity: "",
                     receiverAddress: "",
                     contactNo1: "",
                     contactNo2: "",
@@ -121,7 +134,7 @@ const CartCheckout = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            {formatPrice((Number(product.sellingPrice)) * Number(product.amount))} TK
+                                            {formatPrice(shippingCharges.find(charge => charge.id === data.shippingCharge)?.shippingCost || 0)} TK
                                         </div>
                                     </div>
                                     {Number(product.discount) > 0 && (
@@ -149,6 +162,7 @@ const CartCheckout = () => {
                     {cartProducts.length > 0 && (
                         <div className="card p-5 bg-base-300 overflow-hidden divide-y divide-base-content/25 h-fit lg:sticky top-0">
                             <div className="grid grid-cols-2 gap-5">
+                                <div className="col-span-2 text-accent text-xl font-bold">☎️ Contact Information</div>
                                 <label className="form-control col-span-2">
                                     <div className="label">
                                         <span className="label-text">Receiver Name <span className="text-error">*</span></span>
@@ -160,46 +174,6 @@ const CartCheckout = () => {
                                         className="input input-bordered w-full placeholder:opacity-30"
                                         value={data.receiverName}
                                         onChange={e => setData({ ...data, receiverName: e.target.value })}
-                                    />
-                                </label>
-                                <label className="form-control col-span-2">
-                                    <div className="label">
-                                        <span className="label-text">Delivery Area and Company <span className="text-error">*</span></span>
-                                    </div>
-                                    <select 
-                                        className="select select-bordered w-full" 
-                                        value={data.shippingCharge} 
-                                        onChange={e => setData({ ...data, shippingCharge: e.target.value })}
-                                    >
-                                        <option disabled value="">Select One</option>
-                                        {Object.keys(shippingChargesGrouped).map((sc, i) => (
-                                            <optgroup label={sc} key={i}>
-                                                {shippingChargesGrouped[sc].map((e, j) => (
-                                                    <option value={e.id} key={j}>{e.shippingArea} - TK {e.shippingCost}</option>
-                                                ))}
-                                            </optgroup>
-                                        ))}
-                                    </select>
-                                    {/* <input
-                                        type="text"
-                                        name='name'
-                                        placeholder="Fahim Ahmed"
-                                        className="input input-bordered w-full placeholder:opacity-30"
-                                        value={data.receiverName}
-                                        onChange={e => setData({ ...data, receiverName: e.target.value })}
-                                    /> */}
-                                </label>
-
-                                <label className="form-control col-span-2">
-                                    <div className="label">
-                                        <span className="label-text">Receiver Address <span className="text-error">*</span></span>
-                                    </div>
-                                    <textarea
-                                        name='address'
-                                        placeholder="House 24, Road 8, Dhanmondi R/A, Dhaka 1209, Bangladesh"
-                                        className="textarea textarea-bordered w-full h-20 placeholder:opacity-30"
-                                        value={data.receiverAddress}
-                                        onChange={e => setData({ ...data, receiverAddress: e.target.value })}
                                     />
                                 </label>
                                 <label className="form-control col-span-2 lg:col-span-1">
@@ -217,21 +191,76 @@ const CartCheckout = () => {
                                 </label>
                                 <label className="form-control col-span-2 lg:col-span-1">
                                     <div className="label">
-                                        <span className="label-text">Alt Mobile No<span className="text-error">*</span></span>
+                                        <span className="label-text">Alt Mobile No</span>
                                     </div>
                                     <input
                                         type="text"
                                         name='contact_no_2'
-                                        placeholder="01234567890"
+                                        placeholder=""
                                         className="input input-bordered w-full placeholder:opacity-30"
                                         value={data.contactNo2}
                                         onChange={e => setData({ ...data, contactNo2: e.target.value })}
                                     />
                                 </label>
+
+                                <div className="col-span-2 text-accent text-xl font-bold mt-5">🚚 Delivery Information</div>
                                 <label className="form-control col-span-2">
                                     <div className="label">
-                                        <span className="label-text">Note for Qrio (Optional)</span>
+                                        <span className="label-text">Delivery Area <span className="text-error">*</span></span>
                                     </div>
+                                    <select 
+                                        className="select select-bordered w-full" 
+                                        value={data.shippingCharge} 
+                                        onChange={e => setData({ ...data, shippingCharge: e.target.value })}
+                                    >
+                                        <option disabled value="">Select One</option>
+                                        {shippingCharges.map((e, i) => (
+                                            <option value={e.id} key={i}>{e.shippingArea} - TK {e.shippingCost}</option>
+                                        ))}
+                                    </select>
+                                </label>
+                                <label className="form-control col-span-1">
+                                    <div className="label">
+                                        <span className="label-text">Post Code<span className="text-error">*</span></span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        name='receiver_post_code'
+                                        placeholder="1209"
+                                        className="input input-bordered w-full placeholder:opacity-30"
+                                        value={data.receiverPostCode}
+                                        onChange={e => setData({ ...data, receiverPostCode: Number(e.target.value).toString() })}
+                                    />
+                                </label>
+                                <label className="form-control col-span-1">
+                                    <div className="label">
+                                        <span className="label-text">City<span className="text-error">*</span></span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        name='receiver_city'
+                                        placeholder="Dhaka"
+                                        className="input input-bordered w-full placeholder:opacity-30"
+                                        value={data.receiverCity}
+                                        onChange={e => setData({ ...data, receiverCity: e.target.value })}
+                                    />
+                                </label>
+                                <label className="form-control col-span-2">
+                                    <div className="label">
+                                        <span className="label-text">Delivery Address <span className="text-error">*</span></span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        name='receiver_address'
+                                        placeholder="House 24, Road 8, Dhanmondi"
+                                        className="input input-bordered w-full placeholder:opacity-30"
+                                        value={data.receiverAddress}
+                                        onChange={e => setData({ ...data, receiverAddress: e.target.value })}
+                                    />
+                                </label>
+
+                                <div className="col-span-2 text-accent text-xl font-bold mt-5">✍ Note for Qrio (Optional)</div>
+                                <label className="form-control col-span-2">
                                     <textarea
                                         name='receiver_note'
                                         placeholder=""
@@ -263,5 +292,6 @@ const CartCheckout = () => {
         </AuthNavLayout>
     )
 }
+
 
 export default CartCheckout
