@@ -123,7 +123,7 @@ const CartCheckout = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            {formatPrice(shippingCharges.find(charge => charge.id === data.shippingCharge)?.shippingCost || 0)} TK
+                                            {formatPrice((Number(product.sellingPrice)) * Number(product.amount))} TK
                                         </div>
                                     </div>
                                     {Number(product.discount) > 0 && (
@@ -142,7 +142,7 @@ const CartCheckout = () => {
                                 <div>Tax </div>
                                 <div>{formatPrice(constants.FEES.TAX)} TK</div>
                             </div>
-                            <div className="p-5 flex font-semibold justify-between text-black bg-yellow-500 text-xl">
+                            <div className="p-5 flex font-bold justify-between text-black bg-yellow-500 text-lg">
                                 <div>Total Payable (Cash On Delivery)</div>
                                 <div>{formatPrice(totalPayable)} TK</div>
                             </div>
@@ -193,21 +193,34 @@ const CartCheckout = () => {
                                 </label>
 
                                 <div className="col-span-2 text-accent text-xl font-bold mt-5">🚚 Delivery Information</div>
-                                <label className="form-control col-span-2">
+                                <div className="form-control col-span-2">
                                     <div className="label">
                                         <span className="label-text">Delivery Area <span className="text-error">*</span></span>
                                     </div>
-                                    <select 
-                                        className="select select-bordered w-full" 
-                                        value={data.shippingCharge} 
-                                        onChange={e => setData({ ...data, shippingCharge: e.target.value })}
-                                    >
-                                        <option disabled value="">Select One</option>
+                                    <div className="flex flex-col gap-3">
                                         {shippingCharges.map((e, i) => (
-                                            <option value={e.id} key={i}>{e.shippingArea} - TK {e.shippingCost}</option>
+                                            <label key={i} className="cursor-pointer flex items-center gap-3 p-3 border border-base-content/25 rounded-lg hover:bg-base-200">
+                                                <input
+                                                    type="radio"
+                                                    name="shipping_charge"
+                                                    value={e.id}
+                                                    checked={data.shippingCharge === e.id}
+                                                    onChange={e => setData({ ...data, shippingCharge: e.target.value })}
+                                                    className="radio checked:bg-yellow-500"
+                                                />
+                                                <div className="flex w-full justify-between items-center">
+                                                    <div className="flex flex-col">
+                                                        <div>{e.shippingArea}</div>
+                                                        <div className="text-sm opacity-75">{e.shippingNote}</div>
+                                                    </div>
+                                                    <div className="font-semibold">
+                                                        TK {e.shippingCost}
+                                                    </div>
+                                                </div>
+                                            </label>
                                         ))}
-                                    </select>
-                                </label>
+                                    </div>
+                                </div>
                                 <label className="form-control col-span-1">
                                     <div className="label">
                                         <span className="label-text">Post Code<span className="text-error">*</span></span>

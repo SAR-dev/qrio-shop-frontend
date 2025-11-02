@@ -54,6 +54,7 @@ export const PocketProvider = ({ children }: { children: ReactNode }) => {
             setAuthToken()
             refetchCartProducts()
             refetchWishProducts()
+            window.location.reload();
         } catch (error) {
             console.error("OAuth login failed:", error);
         }

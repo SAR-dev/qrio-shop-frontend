@@ -11,9 +11,10 @@ import classNames from "classnames";
 import { useWishListStore } from "../stores/wishListStore";
 import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
 import { usePocket } from "../contexts/PocketContext";
+import { FcGoogle } from "react-icons/fc";
 
 const ProductCard = ({ data }: { data: ProductData }) => {
-    const { user } = usePocket()
+    const { user, oAuthLogin } = usePocket()
     const { addToCart, products: cartProducts } = useCartStore()
     const { toogleWish, products: wishedProducts } = useWishListStore()
     const notification = useNotification()
@@ -29,7 +30,15 @@ const ProductCard = ({ data }: { data: ProductData }) => {
             notification.add({
                 status: NotificationType.INFO,
                 title: "Sign In",
-                message: "Please sign in to access this feature."
+                message: "Please sign in to access this feature.",
+                body: (
+                    <div className='flex w-full justify-center'>
+                        <button className='btn btn-outline border-base-content/25 gap-2' onClick={oAuthLogin}>
+                            <FcGoogle className='size-5' />
+                            <span className='hidden md:flex'>Continue with Google</span>
+                        </button>
+                    </div>
+                ),
             })
             return;
         }
@@ -54,7 +63,15 @@ const ProductCard = ({ data }: { data: ProductData }) => {
             notification.add({
                 status: NotificationType.INFO,
                 title: "Sign In",
-                message: "Please sign in to access this feature."
+                message: "Please sign in to access this feature.",
+                body: (
+                    <div className='flex w-full justify-center'>
+                        <button className='btn btn-outline border-base-content/25 gap-2' onClick={oAuthLogin}>
+                            <FcGoogle className='size-5' />
+                            <span className='hidden md:flex'>Continue with Google</span>
+                        </button>
+                    </div>
+                ),
             })
             return;
         }

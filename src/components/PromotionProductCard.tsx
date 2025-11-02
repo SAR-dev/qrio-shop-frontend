@@ -9,9 +9,10 @@ import classNames from "classnames";
 import { Link } from "react-router";
 import Image from "./Image";
 import { usePocket } from "../contexts/PocketContext";
+import { FcGoogle } from "react-icons/fc";
 
 const PromotionProductCard = ({ data }: { data: ProductData }) => {
-    const { user } = usePocket()
+    const { user, oAuthLogin } = usePocket()
     const { addToCart, products: cartProducts } = useCartStore()
     const notification = useNotification()
     const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +30,15 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
             notification.add({
                 status: NotificationType.INFO,
                 title: "Sign In",
-                message: "Please sign in to access this feature."
+                message: "Please sign in to access this feature.",
+                body: (
+                    <div className='flex w-full justify-center'>
+                        <button className='btn btn-outline border-base-content/25 gap-2' onClick={oAuthLogin}>
+                            <FcGoogle className='size-5' />
+                            <span className='hidden md:flex'>Continue with Google</span>
+                        </button>
+                    </div>
+                ),
             })
             return;
         }
