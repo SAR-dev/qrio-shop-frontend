@@ -15,17 +15,14 @@ export enum Collections {
 	Carts = "carts",
 	Categories = "categories",
 	Comments = "comments",
-	FeaturedCategories = "featuredCategories",
-	FeaturedSeries = "featuredSeries",
 	HomepageCarousel = "homepageCarousel",
+	HomepageProducts = "homepageProducts",
 	Images = "images",
 	InvoiceProducts = "invoiceProducts",
 	Invoices = "invoices",
 	Payments = "payments",
-	ProductSections = "productSections",
 	ProductVariants = "productVariants",
 	Products = "products",
-	PromotedProducts = "promotedProducts",
 	Queries = "queries",
 	Series = "series",
 	ShippingCharges = "shippingCharges",
@@ -151,22 +148,6 @@ export type CommentsRecord = {
 	users?: RecordIdString
 }
 
-export type FeaturedCategoriesRecord = {
-	categories: RecordIdString
-	created?: IsoDateString
-	id: string
-	tagLine: string
-	updated?: IsoDateString
-}
-
-export type FeaturedSeriesRecord = {
-	created?: IsoDateString
-	id: string
-	series: RecordIdString
-	tagLine: string
-	updated?: IsoDateString
-}
-
 export type HomepageCarouselRecord = {
 	buttonText?: string
 	created?: IsoDateString
@@ -177,6 +158,23 @@ export type HomepageCarouselRecord = {
 	subtitle?: string
 	title1?: string
 	title2?: string
+	updated?: IsoDateString
+}
+
+export enum HomepageProductsLayoutOptions {
+	"FOUR_IN_ONE" = "FOUR_IN_ONE",
+	"FOUR_WITH_COVER" = "FOUR_WITH_COVER",
+	"FOUR_IN_ROW" = "FOUR_IN_ROW",
+	"PROMOTION" = "PROMOTION",
+}
+export type HomepageProductsRecord = {
+	created?: IsoDateString
+	id: string
+	images?: RecordIdString
+	layout: HomepageProductsLayoutOptions
+	products: RecordIdString[]
+	subtitle?: string
+	title: string
 	updated?: IsoDateString
 }
 
@@ -216,8 +214,10 @@ export type InvoicesRecord = {
 	payments?: RecordIdString[]
 	productsFee: number
 	receiverAddress: string
+	receiverCity: string
 	receiverName: string
 	receiverNote?: string
+	receiverPostCode?: number
 	ref: string
 	shippingCharge: RecordIdString
 	shippingCompany?: string
@@ -240,15 +240,6 @@ export type PaymentsRecord = {
 	updated?: IsoDateString
 }
 
-export type ProductSectionsRecord = {
-	created?: IsoDateString
-	id: string
-	products?: RecordIdString[]
-	subtitle: string
-	title: string
-	updated?: IsoDateString
-}
-
 export type ProductVariantsRecord = {
 	created?: IsoDateString
 	id: string
@@ -257,20 +248,12 @@ export type ProductVariantsRecord = {
 	updated?: IsoDateString
 }
 
-export enum ProductsDisplayTypeOptions {
-	"PROMOTION" = "PROMOTION",
-	"DISCOUNT" = "DISCOUNT",
-	"TRENDING" = "TRENDING",
-	"SERIES" = "SERIES",
-	"CATEGORY" = "CATEGORY",
-}
 export type ProductsRecord<Ttags = unknown> = {
 	buyingPrice?: number
 	categories?: RecordIdString
 	created?: IsoDateString
 	description?: HTMLString
 	discount?: number
-	displayType?: ProductsDisplayTypeOptions
 	id: string
 	images?: RecordIdString[]
 	inStock?: boolean
@@ -284,14 +267,6 @@ export type ProductsRecord<Ttags = unknown> = {
 	title: string
 	updated?: IsoDateString
 	weightInGm?: number
-}
-
-export type PromotedProductsRecord = {
-	created?: IsoDateString
-	id: string
-	products?: RecordIdString
-	tagLine: string
-	updated?: IsoDateString
 }
 
 export type QueriesRecord = {
@@ -321,8 +296,8 @@ export type ShippingChargesRecord = {
 	created?: IsoDateString
 	id: string
 	shippingArea: string
-	shippingCompany: string
 	shippingCost: number
+	shippingNote?: string
 	updated?: IsoDateString
 }
 
@@ -374,17 +349,14 @@ export type BlogsResponse<Texpand = unknown> = Required<BlogsRecord> & BaseSyste
 export type CartsResponse<Texpand = unknown> = Required<CartsRecord> & BaseSystemFields<Texpand>
 export type CategoriesResponse<Texpand = unknown> = Required<CategoriesRecord> & BaseSystemFields<Texpand>
 export type CommentsResponse<Texpand = unknown> = Required<CommentsRecord> & BaseSystemFields<Texpand>
-export type FeaturedCategoriesResponse<Texpand = unknown> = Required<FeaturedCategoriesRecord> & BaseSystemFields<Texpand>
-export type FeaturedSeriesResponse<Texpand = unknown> = Required<FeaturedSeriesRecord> & BaseSystemFields<Texpand>
 export type HomepageCarouselResponse<Texpand = unknown> = Required<HomepageCarouselRecord> & BaseSystemFields<Texpand>
+export type HomepageProductsResponse<Texpand = unknown> = Required<HomepageProductsRecord> & BaseSystemFields<Texpand>
 export type ImagesResponse<Texpand = unknown> = Required<ImagesRecord> & BaseSystemFields<Texpand>
 export type InvoiceProductsResponse<Texpand = unknown> = Required<InvoiceProductsRecord> & BaseSystemFields<Texpand>
 export type InvoicesResponse<Texpand = unknown> = Required<InvoicesRecord> & BaseSystemFields<Texpand>
 export type PaymentsResponse<Texpand = unknown> = Required<PaymentsRecord> & BaseSystemFields<Texpand>
-export type ProductSectionsResponse<Texpand = unknown> = Required<ProductSectionsRecord> & BaseSystemFields<Texpand>
 export type ProductVariantsResponse<Texpand = unknown> = Required<ProductVariantsRecord> & BaseSystemFields<Texpand>
 export type ProductsResponse<Ttags = unknown, Texpand = unknown> = Required<ProductsRecord<Ttags>> & BaseSystemFields<Texpand>
-export type PromotedProductsResponse<Texpand = unknown> = Required<PromotedProductsRecord> & BaseSystemFields<Texpand>
 export type QueriesResponse<Texpand = unknown> = Required<QueriesRecord> & BaseSystemFields<Texpand>
 export type SeriesResponse<Texpand = unknown> = Required<SeriesRecord> & BaseSystemFields<Texpand>
 export type ShippingChargesResponse<Texpand = unknown> = Required<ShippingChargesRecord> & BaseSystemFields<Texpand>
@@ -404,17 +376,14 @@ export type CollectionRecords = {
 	carts: CartsRecord
 	categories: CategoriesRecord
 	comments: CommentsRecord
-	featuredCategories: FeaturedCategoriesRecord
-	featuredSeries: FeaturedSeriesRecord
 	homepageCarousel: HomepageCarouselRecord
+	homepageProducts: HomepageProductsRecord
 	images: ImagesRecord
 	invoiceProducts: InvoiceProductsRecord
 	invoices: InvoicesRecord
 	payments: PaymentsRecord
-	productSections: ProductSectionsRecord
 	productVariants: ProductVariantsRecord
 	products: ProductsRecord
-	promotedProducts: PromotedProductsRecord
 	queries: QueriesRecord
 	series: SeriesRecord
 	shippingCharges: ShippingChargesRecord
@@ -433,17 +402,14 @@ export type CollectionResponses = {
 	carts: CartsResponse
 	categories: CategoriesResponse
 	comments: CommentsResponse
-	featuredCategories: FeaturedCategoriesResponse
-	featuredSeries: FeaturedSeriesResponse
 	homepageCarousel: HomepageCarouselResponse
+	homepageProducts: HomepageProductsResponse
 	images: ImagesResponse
 	invoiceProducts: InvoiceProductsResponse
 	invoices: InvoicesResponse
 	payments: PaymentsResponse
-	productSections: ProductSectionsResponse
 	productVariants: ProductVariantsResponse
 	products: ProductsResponse
-	promotedProducts: PromotedProductsResponse
 	queries: QueriesResponse
 	series: SeriesResponse
 	shippingCharges: ShippingChargesResponse
@@ -465,17 +431,14 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: 'carts'): RecordService<CartsResponse>
 	collection(idOrName: 'categories'): RecordService<CategoriesResponse>
 	collection(idOrName: 'comments'): RecordService<CommentsResponse>
-	collection(idOrName: 'featuredCategories'): RecordService<FeaturedCategoriesResponse>
-	collection(idOrName: 'featuredSeries'): RecordService<FeaturedSeriesResponse>
 	collection(idOrName: 'homepageCarousel'): RecordService<HomepageCarouselResponse>
+	collection(idOrName: 'homepageProducts'): RecordService<HomepageProductsResponse>
 	collection(idOrName: 'images'): RecordService<ImagesResponse>
 	collection(idOrName: 'invoiceProducts'): RecordService<InvoiceProductsResponse>
 	collection(idOrName: 'invoices'): RecordService<InvoicesResponse>
 	collection(idOrName: 'payments'): RecordService<PaymentsResponse>
-	collection(idOrName: 'productSections'): RecordService<ProductSectionsResponse>
 	collection(idOrName: 'productVariants'): RecordService<ProductVariantsResponse>
 	collection(idOrName: 'products'): RecordService<ProductsResponse>
-	collection(idOrName: 'promotedProducts'): RecordService<PromotedProductsResponse>
 	collection(idOrName: 'queries'): RecordService<QueriesResponse>
 	collection(idOrName: 'series'): RecordService<SeriesResponse>
 	collection(idOrName: 'shippingCharges'): RecordService<ShippingChargesResponse>
