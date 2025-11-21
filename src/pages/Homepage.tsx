@@ -11,7 +11,6 @@ import {
 } from '../types/response';
 import { constants } from '../constants';
 import { useEffect, useMemo, useState } from 'react';
-import HomepageCarouselItem from '../components/HomepageCarouselItem';
 import { api, getImageUrl, maxDivisibleByFour, maxDivisibleByThree, maxDivisibleByTwo } from '../helpers';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { Link } from 'react-router';
@@ -67,9 +66,19 @@ const Homepage = () => {
                 {homepageData && (
                     <Carousel>
                         {homepageData.homepageCarousel.map((data, i) => (
-                            <div className='carousel-item w-full' key={i}>
-                                <HomepageCarouselItem data={data} />
-                            </div>
+                            <Link
+                                to={data.redirectTo}
+                                className="carousel-item w-full aspect-video sm:aspect-[16/7] md:aspect-[16/6] rounded-xl overflow-hidden group relative"
+                                key={i}
+                            >
+                                <img
+                                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                                    src={`${import.meta.env.VITE_API_URL}/api/files/images/${data.imageId}/${data.imageSource}`}
+                                    alt=""
+                                />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                            </Link>
+
                         ))}
                     </Carousel>
                 )}
@@ -125,17 +134,17 @@ const Homepage = () => {
                     </div>
                 ))}
                 {fourInRowProducts.map((section, i) => (
-                        <div key={i}>
-                            <div className='mb-5'>
-                                <SectionLeftHeader title={section.title.toUpperCase()} subtitle={section.subtitle} />
-                            </div>
-                            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10'>
-                                {section.products.slice(0, maxDivisibleByFour(section.products.length)).map((data, i) => (
-                                    <ProductCard data={data} key={i} />
-                                ))}
-                            </div>
+                    <div key={i}>
+                        <div className='mb-5'>
+                            <SectionLeftHeader title={section.title.toUpperCase()} subtitle={section.subtitle} />
                         </div>
-                    ))}
+                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10'>
+                            {section.products.slice(0, maxDivisibleByFour(section.products.length)).map((data, i) => (
+                                <ProductCard data={data} key={i} />
+                            ))}
+                        </div>
+                    </div>
+                ))}
                 {homepageListData && homepageListData.categoryList.length > 0 && (
                     <div>
                         <div className="mb-5">

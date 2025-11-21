@@ -194,10 +194,6 @@ export interface Product {
 }
 
 export interface HomepageCarousel {
-    title1: string;
-    title2: string;
-    subtitle: string;
-    buttonText: string;
     redirectTo: string;
     imageId: string;
     imageSource: string;
