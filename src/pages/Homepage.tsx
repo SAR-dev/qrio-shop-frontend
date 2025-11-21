@@ -64,7 +64,7 @@ const Homepage = () => {
         <NavLayout>
             <div className='max-w-screen-xl mx-auto px-5 py-10 lg:py-12 grid grid-cols-1 gap-10 lg:gap-16'>
                 {homepageData && (
-                    <Carousel>
+                    <Carousel autoScroll={true} autoScrollInterval={3000}>
                         {homepageData.homepageCarousel.map((data, i) => (
                             <Link
                                 to={data.redirectTo}
