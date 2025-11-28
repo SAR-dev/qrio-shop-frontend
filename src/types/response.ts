@@ -197,4 +197,6 @@ export interface HomepageCarousel {
     redirectTo: string;
     imageId: string;
     imageSource: string;
+    title: string;
+    subtitle: string;
 }

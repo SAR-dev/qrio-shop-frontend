@@ -63,10 +63,10 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
     }
 
     return (
-        <div className="card flex-col lg:flex-row justify-between group border border-base-content/25 overflow-hidden">
+        <Link to={`/products/${data.slug}`} className="card flex-col lg:flex-row justify-between group border border-base-content/25 overflow-hidden">
             <div className="w-full lg:w-1/2 relative overflow-hidden">
                 {data.productImageId.length > 0 ? (
-                    <Image
+                    <img
                         className="h-72 w-full object-cover transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3"
                         src={getImageUrl({ id: data.productImageId, filename: data.productImageSource })}
                     />
@@ -85,10 +85,10 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
                 <div className="flex flex-col items-between p-5 h-full">
                     <div className="f-full flex flex-1 flex-col text-left lg:text-right">
                         <div className="text-secondary leading-4 uppercase title font-bold">{data.seriesTitle}</div>
-                        <Link to={`/products/${data.slug}`} className="text-xl font-extrabold uppercase title my-3">{data.title}</Link>
-                        <Link to={`/products/${data.slug}`} className="mx-auto lg:ml-auto lg:mr-0 w-full font-light line-clamp-2 mb-3">
+                        <div className="text-xl font-extrabold uppercase title my-3">{data.title}</div>
+                        <div className="mx-auto lg:ml-auto lg:mr-0 w-full font-light line-clamp-2 mb-3">
                             {data.tagLine}
-                        </Link>
+                        </div>
                         {data.discount > 0 && (
                             <div className="flex items-center lg:ml-auto w-fit bg-secondary text-secondary-content px-2 py-1 text-xs">Save TK {data.discount}</div>
                         )}
@@ -123,7 +123,7 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 
