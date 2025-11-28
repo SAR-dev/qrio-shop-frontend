@@ -77,7 +77,7 @@ const Homepage = () => {
                                     alt=""
                                 />
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
-                                {(data.title.length > 0 || data.subtitle.length > 0) && (
+                                {/* {(data.title.length > 0 || data.subtitle.length > 0) && (
                                     <div className="absolute bottom-0 xl:top-0 glass text-black duration-500 flex flex-col justify-center px-5 py-2 xl:py-3 h-fit w-full xl:w-fit xl:m-5 xl:rounded-lg">
                                         {data.title.length > 0 && (
                                             <div className="xl:text-xl font-semibold">{data.title}</div>
@@ -86,7 +86,7 @@ const Homepage = () => {
                                             <div className="text-sm xl:text-base opacity-75">{data.subtitle}</div>
                                         )}
                                     </div>
-                                )}
+                                )} */}
                             </Link>
 
                         ))}
