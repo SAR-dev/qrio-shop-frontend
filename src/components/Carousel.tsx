@@ -24,12 +24,15 @@ const Carousel = ({
     const [activeIndex, setActiveIndex] = useState(0);
 
     const scrollToIndex = (index: number) => {
-        itemRefs.current[index]?.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'center',
-        });
-        setActiveIndex(index);
+        const container = itemRefs.current[0]?.current?.parentElement; // the carousel container
+        const item = itemRefs.current[index]?.current;
+        if (container && item) {
+            container.scrollTo({
+                left: item.offsetLeft - container.offsetLeft,
+                behavior: 'smooth',
+            });
+            setActiveIndex(index);
+        }
     };
 
     const goNext = () => {
