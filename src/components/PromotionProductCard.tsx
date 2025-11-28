@@ -7,7 +7,6 @@ import { useNotification } from "../contexts/NotificationContext";
 import { BsCartPlus, BsCartCheckFill } from "react-icons/bs";
 import classNames from "classnames";
 import { Link } from "react-router";
-import Image from "./Image";
 import { usePocket } from "../contexts/PocketContext";
 import { FcGoogle } from "react-icons/fc";
 
