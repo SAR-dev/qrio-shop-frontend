@@ -62,8 +62,8 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
     }
 
     return (
-        <Link to={`/products/${data.slug}`} className="card flex-col lg:flex-row justify-between group border border-base-content/25 overflow-hidden">
-            <div className="w-full lg:w-1/2 relative overflow-hidden">
+        <div className="card flex-col lg:flex-row justify-between group border border-base-content/25 overflow-hidden">
+            <Link to={`/products/${data.slug}`} className="w-full lg:w-1/2 relative overflow-hidden">
                 {data.productImageId.length > 0 ? (
                     <img
                         className="h-72 w-full object-cover transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3"
@@ -79,7 +79,7 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
                         </div>
                     </div>
                 )}
-            </div>
+            </Link>
             <div className="w-full lg:w-1/2 h-48 h-72 bg-gradient-to-tr from-primary/25 to-base-100/50">
                 <div className="flex flex-col items-between p-5 h-full">
                     <div className="f-full flex flex-1 flex-col text-left lg:text-right">
@@ -122,7 +122,7 @@ const PromotionProductCard = ({ data }: { data: ProductData }) => {
                     </div>
                 </div>
             </div>
-        </Link>
+        </div>
     )
 }
 

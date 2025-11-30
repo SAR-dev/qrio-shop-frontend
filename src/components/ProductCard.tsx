@@ -99,19 +99,21 @@ const ProductCard = ({ data }: { data: ProductData }) => {
     return (
         <div className="group">
             <div className="card h-64 sm:h-72 w-full relative overflow-hidden">
+                <Link to={`/products/${data.slug}`} className="absolute top-0 left-0 sm:h-72 h-64 w-full">
                 {(data.productImageId.length > 0) ? (
                     <img
                         src={getImageUrl({ id: data.productImageId, filename: data.productImageSource })}
-                        className="absolute top-0 left-0 h-64 w-full object-cover transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3 sm:h-72"
+                        className="h-full w-full object-cover transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3"
                     />
                 ) : (
-                    <div className="absolute top-0 left-0 h-64 w-full transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3 sm:h-72 bg-base-content/50 animate-pulse"></div>
+                    <div className="h-full w-full transition duration-150 ease-in-out group-hover:scale-110 lg:group-hover:rotate-3 bg-base-content/50 animate-pulse"></div>
                 )}
+                </Link>
                 <div className="absolute bottom-0 left-0 m-2 bg-base-100/50 text-base-content text-xs px-2 py-1 -translate-x-40 group-hover:translate-x-0 transition duration-150 ease-in-out">{data.seriesTitle}</div>
                 <button
                     className={classNames({
                         "btn btn-circle btn-sm absolute top-0 right-0 m-2 translate-x-10 group-hover:translate-x-0 transition duration-150 ease-in-out": true,
-                        "bg-transparent border-transparent": !addedToWish,
+                        "bg-white/20 border-transparent": !addedToWish,
                         "bg-pink-500 border-pink-500": addedToWish
                     })}
                     disabled={isLoading}
@@ -131,7 +133,6 @@ const ProductCard = ({ data }: { data: ProductData }) => {
             <div className="pt-4 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                     <Link to={`/products/${data.slug}`} className="title text-xl font-bold line-clamp-1">{data.title}</Link>
-                    {/* <Link to="/products/1" className="title text-2xl font-extrabold line-clamp-1">{data.title}</Link> */}
                 </div>
                 <div className="h-12">
                     <Link to={`/products/${data.slug}`} className="text-base-content/50 font-light line-clamp-2">
