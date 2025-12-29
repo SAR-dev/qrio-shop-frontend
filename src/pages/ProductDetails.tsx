@@ -2,8 +2,8 @@ import NavLayout from '../layouts/NavLayout';
 import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import parse from 'html-react-parser';
-import { useEffect, useMemo, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import { pb, usePocket } from '../contexts/PocketContext';
 import { Collections } from '../types/pocketbase';
 import { ProductSuggestResType, TexpandProductDetailsResType } from '../types/response';
@@ -19,7 +19,7 @@ import classNames from 'classnames';
 import { useWishListStore } from '../stores/wishListStore';
 import { BsCartPlus, BsCartCheckFill } from 'react-icons/bs';
 import Image from '../components/Image';
-import Carousel from '../components/Carousel';
+import Carousel, { CarouselHandle } from '../components/Carousel';
 import { FcGoogle } from 'react-icons/fc';
 import { MdPayment } from 'react-icons/md';
 
@@ -27,6 +27,7 @@ const ProductDetails = () => {
     const { user, oAuthLogin } = usePocket();
     const { slug } = useParams();
     const navigate = useNavigate()
+    const carouselRef = useRef<CarouselHandle>(null);
     const { addToCart, products: cartProducts } = useCartStore();
     const { toogleWish, products: wishedProducts } = useWishListStore();
     const notification = useNotification();
@@ -215,13 +216,25 @@ const ProductDetails = () => {
                 <div className='max-w-screen-xl mx-auto px-5 py-12 grid grid-cols-1 gap-16'>
                     <div className='lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16'>
                         <div className='shrink-0 w-full mx-auto h-fit lg:sticky top-[5rem]'>
-                            <Carousel>
+                            <Carousel ref={carouselRef}>
                                 {productDetails.expand.images.map((image, i) => (
                                     <div id={image.id} className='carousel-item h-[28rem] w-full' key={i}>
                                         <Image className='w-full object-cover' src={getImageUrl({ id: image.id, filename: image.source })} />
                                     </div>
                                 ))}
                             </Carousel>
+                            <div className="flex gap-3 justify-center mt-5">
+                                {productDetails.expand.images.map((image, i) => (
+                                    <div 
+                                        id={image.id} 
+                                        className="h-20 w-20 card overflow-hidden p-1 border border-gray-300 cursor-pointer" 
+                                        onClick={() => carouselRef.current?.goToIndex(i)} 
+                                        key={i}
+                                    >
+                                        <img className='w-full h-full object-cover rounded' src={getImageUrl({ id: image.id, filename: image.source })} />
+                                    </div>
+                                ))}
+                            </div>
                             <div className='my-5 hidden lg:block'>
                                 <div className='card bg-base-200 p-5'>
                                     <label className='form-control'>

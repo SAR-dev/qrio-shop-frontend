@@ -10,16 +10,17 @@ import {
     ProductSectionLayout,
 } from '../types/response';
 import { constants } from '../constants';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { api, getImageUrl, maxDivisibleByFour, maxDivisibleByThree, maxDivisibleByTwo } from '../helpers';
 import SectionLeftHeader from '../components/SectionLeftHeader';
 import { Link } from 'react-router';
 import SocialLinksCarousel from '../components/SocialLinksCarousel';
 import PromotionProductCard from '../components/PromotionProductCard';
-import Carousel from '../components/Carousel';
+import Carousel, { CarouselHandle } from '../components/Carousel';
 
 const Homepage = () => {
     const [step, setStep] = useState(1);
+    const carouselRef = useRef<CarouselHandle>(null);
 
     const [homepageData, setHomepageData] = useLocalStorage<HomepageResType | null>(constants.HOMEPAGE_DATA_STORE_KEY, null);
     const [homepageProductData, setHomepageProductData] = useLocalStorage<ProductSectionData[]>(constants.HOMEPAGE_PRODUCT_DATA_STORE_KEY, []);
@@ -64,7 +65,7 @@ const Homepage = () => {
         <NavLayout>
             <div className='max-w-screen-xl mx-auto px-5 py-10 lg:py-12 grid grid-cols-1 gap-10 lg:gap-16'>
                 {homepageData && (
-                    <Carousel autoScroll={true} autoScrollInterval={5000}>
+                    <Carousel ref={carouselRef} autoScroll={true} autoScrollInterval={5000}>
                         {homepageData.homepageCarousel.map((data, i) => (
                             <Link
                                 to={data.redirectTo}
@@ -77,16 +78,6 @@ const Homepage = () => {
                                     alt=""
                                 />
                                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
-                                {/* {(data.title.length > 0 || data.subtitle.length > 0) && (
-                                    <div className="absolute bottom-0 xl:top-0 glass text-black duration-500 flex flex-col justify-center px-5 py-2 xl:py-3 h-fit w-full xl:w-fit xl:m-5 xl:rounded-lg">
-                                        {data.title.length > 0 && (
-                                            <div className="xl:text-xl font-semibold">{data.title}</div>
-                                        )}
-                                        {data.subtitle.length > 0 && (
-                                            <div className="text-sm xl:text-base opacity-75">{data.subtitle}</div>
-                                        )}
-                                    </div>
-                                )} */}
                             </Link>
 
                         ))}
