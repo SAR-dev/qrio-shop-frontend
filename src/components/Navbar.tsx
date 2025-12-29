@@ -7,12 +7,12 @@ import { LuChevronRight } from "react-icons/lu";
 import { RxExit } from "react-icons/rx";
 import { Link, useNavigate } from "react-router";
 import { usePocket } from "../contexts/PocketContext";
-import LogoSvg from "../assets/logo.svg";
 import { FcGoogle } from "react-icons/fc";
 import { RiChatSmileAiLine } from "react-icons/ri";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { useCartStore } from "../stores/cartStore";
 import { constants } from "../constants";
+import QrioLogo from "../assets/logo.png";
 
 const Navbar = () => {
     const { products } = useCartStore()
@@ -41,7 +41,8 @@ const Navbar = () => {
                         <button onClick={toggleDrawer}>
                             <RiMenu2Fill className="h-5 w-5" />
                         </button>
-                        <Link to="/">
+                        <Link className="flex items-center gap-3 font-extrabold tracking-widest title" to="/">
+                            <img src={QrioLogo} className="size-8" alt="" />
                             QRIO
                         </Link>
                     </div>
@@ -142,7 +143,7 @@ const Navbar = () => {
                     <div>
                         <div className="w-full p-3 bg-base-100">
                             <Link to="/" className="flex items-center gap-3 font-extrabold tracking-widest title p-3">
-                                <img src={LogoSvg} className="size-8" alt="" />
+                                <img src={QrioLogo} className="size-8" alt="" />
                                 QRIO
                             </Link>
                         </div>

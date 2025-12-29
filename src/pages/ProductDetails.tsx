@@ -3,7 +3,7 @@ import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import parse from 'html-react-parser';
 import { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { pb, usePocket } from '../contexts/PocketContext';
 import { Collections } from '../types/pocketbase';
 import { ProductSuggestResType, TexpandProductDetailsResType } from '../types/response';
@@ -21,10 +21,12 @@ import { BsCartPlus, BsCartCheckFill } from 'react-icons/bs';
 import Image from '../components/Image';
 import Carousel from '../components/Carousel';
 import { FcGoogle } from 'react-icons/fc';
+import { MdPayment } from 'react-icons/md';
 
 const ProductDetails = () => {
     const { user, oAuthLogin } = usePocket();
     const { slug } = useParams();
+    const navigate = useNavigate()
     const { addToCart, products: cartProducts } = useCartStore();
     const { toogleWish, products: wishedProducts } = useWishListStore();
     const notification = useNotification();
@@ -63,6 +65,27 @@ const ProductDetails = () => {
         if (!productDetails) return;
         api.get(`/api/suggest-products/${productDetails.id}`).then(res => setSuggestedProductData(res.data));
     }, [productDetails]);
+
+    const handleBuyNow = () => {
+        if (!user) {
+            notification.add({
+                status: NotificationType.INFO,
+                title: 'Sign In',
+                message: 'Please sign in to access this feature.',
+                body: (
+                    <div className='flex w-full justify-center'>
+                        <button className='btn btn-outline border-base-content/25 gap-2' onClick={oAuthLogin}>
+                            <FcGoogle className='size-5' />
+                            <span className='hidden md:flex'>Continue with Google</span>
+                        </button>
+                    </div>
+                ),
+            });
+            return;
+        }
+        if (!productDetails) return;
+        navigate(`/products/${productDetails.id}/checkout`);
+    }
 
     const handleAddToCart = () => {
         if (!user) {
@@ -279,6 +302,10 @@ const ProductDetails = () => {
                                         <BsCartCheckFill className='size-5 swap-on' />
                                     </label>
                                     {addedToCart ? 'Added to cart' : 'Add to cart'}
+                                </button>
+                                <button onClick={handleBuyNow} className='btn btn-info'>
+                                    <MdPayment className='size-5' />
+                                    Buy Now
                                 </button>
                             </div>
                             <hr className='my-6 md:my-8 border-base-content/25' />

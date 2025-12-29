@@ -13,11 +13,13 @@ import ProductList from "./pages/ProductList";
 import BlogList from "./pages/BlogList";
 import OrderList from "./pages/OrderList";
 import OrderDetails from "./pages/OrderDetails";
+import ProductCheckout from "./pages/ProductCheckout";
 
 const router = createBrowserRouter([
   { path: "/", element: <Homepage /> },
   { path: "/carts", element: <ShoppingCart /> },
   { path: "/carts/checkout", element: <CartCheckout /> },
+  { path: "/products/:id/checkout", element: <ProductCheckout /> },
   { path: "/orders", element: <OrderList /> },
   { path: "/orders/:ref", element: <OrderDetails /> },
   { path: "/products", element: <ProductList /> },

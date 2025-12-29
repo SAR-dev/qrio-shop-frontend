@@ -52,7 +52,7 @@ const CartCheckout = () => {
 
     const handleCheckout = () => {
         setIsLoading(true)
-        api.post("/api/checkout", { ...data })
+        api.post("/api/cart-checkout", { ...data })
             .then(() => {
                 notification.add({
                     status: NotificationType.SUCCESS,
