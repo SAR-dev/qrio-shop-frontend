@@ -3,7 +3,7 @@ import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import parse from 'html-react-parser';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { pb, usePocket } from '../contexts/PocketContext';
 import { Collections } from '../types/pocketbase';
 import { ProductSuggestResType, TexpandProductDetailsResType } from '../types/response';
@@ -22,6 +22,7 @@ import Image from '../components/Image';
 import Carousel, { CarouselHandle } from '../components/Carousel';
 import { FcGoogle } from 'react-icons/fc';
 import { MdPayment } from 'react-icons/md';
+import { constants } from '../constants';
 
 const ProductDetails = () => {
     const { user, oAuthLogin } = usePocket();
@@ -337,10 +338,10 @@ const ProductDetails = () => {
                                 </div>
                                 <div className='flex flex-col gap-2'>
                                     <div>
-                                        <b>🏷️ Category : </b> {productDetails.expand.categories.title}
+                                        <b>🏷️ Category : </b> <Link className='text-blue-300 hover:underline' to={`/products?${constants.FILTERS.CATEGORY_ID}=${productDetails.expand.categories.id}`}>{productDetails.expand.categories.title}</Link>
                                     </div>
                                     <div>
-                                        <b>🎬 Series : </b> {productDetails.expand.series.title}
+                                        <b>🎬 Series : </b> <Link className='text-blue-300 hover:underline' to={`/products?${constants.FILTERS.SERIES_ID}=${productDetails.expand.series.id}`}>{productDetails.expand.series.title}</Link>
                                     </div>
                                 </div>
                                 {productDetails.summary.length > 3 && <p className='leading-7'>✍️ {productDetails.summary}</p>}
